@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+function work() {
+	console.log('test work');
+	setTimeout(work, Math.random() * 1000 + 3000);
+}
+
+work();

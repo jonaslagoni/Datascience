@@ -1,0 +1,61 @@
+version: '3.2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - '2181:2181'
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - '9092:9092'
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_CREATE_TOPICS: 'messageA:1:1'
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+    depends_on:
+      - zookeeper
+  data-warehouse:
+    build: ./data-warehouse
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      - '--zookeeper="zookeeper:2181"'
+  visualizer:
+    build: ./Visualizer
+    depends_on:
+      - kafka
+      - zookeeper
+    environment:
+      - '--zookeeper="zookeeper:2181"'
+    ports:
+      - '9090:9090'
+  spark-master:
+    image: bde2020/spark-master:2.4.4-hadoop2.7
+    container_name: spark-master
+    ports:
+      - '8080:8080'
+      - '7077:7077'
+    environment:
+      - INIT_DAEMON_STEP=setup_spark
+  spark-worker-1:
+    image: bde2020/spark-worker:2.4.4-hadoop2.7
+    container_name: spark-worker-1
+    depends_on:
+      - spark-master
+    ports:
+      - '8081:8081'
+    environment:
+      - 'SPARK_MASTER=spark://spark-master:7077'
+  spark-submitter:
+    depends_on:
+      - spark-master
+      - spark-worker-1
+      - kafka
+    build: ./spark-submitter

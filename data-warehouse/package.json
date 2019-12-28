@@ -1,0 +1,14 @@
+{
+	"name": "datawarehouse",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"start": "set DEBUG=* & node ./bin/www",
+		"start-production": "node ./bin/www"
+	},
+	"dependencies": {
+		"command-line-args": "^5.1.1",
+		"kafka-node": "^5.0.0",
+		"node-zookeeper-client": "^1.1.0"
+	}
+}
