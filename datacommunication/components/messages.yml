@@ -1,0 +1,4 @@
+statusMessage:
+  title: new status message
+  payload:
+    $ref: './schemas.yml#/status'

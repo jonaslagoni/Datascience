@@ -19,4 +19,7 @@ public class NewMain {
         System.out.println("OK");
     }
 
+    //Vent på data fra kafka
+    // Submit work til spark
+    //  done - publish data til kafka
 }
