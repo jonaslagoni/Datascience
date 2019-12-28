@@ -1,6 +1,6 @@
 asyncapi: '2.0.0'
 info:
-  title: Spark submitter application
+  title: Data warehouse application
   version: 1.0.0
   license:
     name: Apache 2.0
@@ -8,13 +8,8 @@ info:
 defaultContentType: application/json
 
 channels:
-  datascience/processed/status:
-    description: Publishes when new data is being processed
-    publish:
-      message:
-        $ref: './components/messages.yml#/statusMessage'
   datascience/warehouse/data:
     description: subscribes to event for when new data is being processed
-    subscribe:
+    publish:
       message:
         $ref: './components/messages.yml#/energinetData'

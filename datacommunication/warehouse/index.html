@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Spark submitter application 1.0.0 documentation</title>
+  <title>Data warehouse application 1.0.0 documentation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/atom-one-dark.min.css" />
@@ -23,7 +23,7 @@
 <div class="sidebar-panel fixed pin-t pin-l pin-b w-64 bg-grey-lighter font-sans pt-8 pr-4 pb-4 pl-4">
   <div class="sidebar-panel__content">
     
-    <h1 class="text-2xl font-thin">Spark submitter application 1.0.0</h1>
+    <h1 class="text-2xl font-thin">Data warehouse application 1.0.0</h1>
     
     <ul class="text-sm mt-10 list-reset mt-2">
       <li class="mb-3">
@@ -45,29 +45,9 @@
       <li>
         
         <a class="js-menu-item flex break-words no-underline text-grey-darkest mt-8 sm:mt-8 md:mt-3"
-          href="#operation-publish-datascience/processed/status">
+          href="#operation-publish-datascience/warehouse/data">
           <span class="bg-blue-dark font-bold h-6 no-underline text-white uppercase p-1 mr-2 rounded"
             style="height: 21px;font-size: 11px;" title="Publish">Pub</span>
-          
-          <div style="display:inline-block;">
-            
-<span class="string-chunk" style="padding-top: 2px;">datascience</span><span class="string-chunk" style="padding-top: 2px;">/processed</span><span class="string-chunk" style="padding-top: 2px;">/status</span>
-
-          </div>
-          
-        </a>
-        
-        
-        </a>
-      </li>
-      
-      <li>
-        
-        
-        <a class="js-menu-item flex break-words no-underline text-grey-darkest mt-8 sm:mt-8 md:mt-3"
-          href="#operation-subscribe-datascience/warehouse/data">
-          <span class="bg-green-dark font-bold no-underline text-white uppercase p-1 mr-2 rounded"
-            style="height: 21px;font-size: 11px;" title="Subscribe">Sub</span>
           
           <div style="display:inline-block;">
             
@@ -76,6 +56,7 @@
           </div>
           
         </a>
+        
         
         </a>
       </li>
@@ -89,7 +70,7 @@
     <div class="content-panel flex-1 leading-loose z-10">
       <div class="center-block p-8">
   <a name="introduction"></a>
-  <h1>Spark submitter application 1.0.0</h1>
+  <h1>Data warehouse application 1.0.0</h1>
   <div class="leading-normal mb-4">
     
     
@@ -120,253 +101,13 @@
     
       
 
-<a name="operation-publish-datascience/processed/status"></a>
+<a name="operation-publish-datascience/warehouse/data"></a>
 <div class="center-block p-8">
   <div class="operation pt-8 pb-8">
     <h3 class="font-mono text-base">
       
       <span class="font-mono border border-blue text-blue uppercase p-1 rounded" title="Publish">Pub</span>
       
-      
-      
-<span class="string-chunk" >datascience</span><span class="string-chunk" >/processed</span><span class="string-chunk" >/status</span>
-
-    </h3>
-
-    <div class="mt-4 mb-4 markdown"><p>Publishes when new data is being processed</p>
-</div>
-
-    <p class="text-grey text-sm"></p>
-    <div class="mt-4 mb-4 markdown"></div>
-
-
-
-    
-
-
-    
-    <p>Accepts the following message:</p>
-    
-
-<div class="bg-grey-lighter rounded p-4 mt-2">
-  <div class="text-sm text-grey-darker mb-2">
-    
-    
-      new status message
-      
-    
-  </div>
-  <p class="text-grey-dark text-sm"></p>
-  <div class="mt-4 mb-4 markdown"></div>
-  
-<div>
-  
-
-<div class="bg-grey-lighter  rounded">
-  <div class="is-open">
-    <div class="js-prop cursor-pointer py-2 flex property">
-      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
-        <span class="text-sm " style="word-break: break-word;">Payload</span>
-        
-        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
-          xmlns="http://www.w3.org/2000/svg" y="0">
-          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
-        </svg>
-        
-        
-      </div>
-
-      <div>
-        <div class="capitalize text-sm text-teal font-bold">
-          
-object
-          
-          
-          
-          <div class="inline-block">
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-          </div>
-        </div>
-
-        
-        
-        
-        
-        
-      </div>
-    </div>
-
-    
-      <div class="children bg-grey-lightest py-4 rounded">
-        
-          
-            
-
-<div class="bg-grey-lightest pl-8 pr-8 rounded">
-  <div class="">
-    <div class=" flex property">
-      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
-        <span class="text-sm " style="word-break: break-word;">event</span>
-        
-        
-      </div>
-
-      <div>
-        <div class="capitalize text-sm text-teal font-bold">
-          
-string
-          
-          
-          
-          <div class="inline-block">
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-          </div>
-        </div>
-
-        
-          <div class="text-sm markdown"><p>new status event</p>
-</div>
-        
-        
-        
-        
-          <div class="text-xs">
-            Enum:
-            
-              <span class="border text-orange rounded ml-1 py-0 px-2">"STARTING"</span>
-            
-              <span class="border text-orange rounded ml-1 py-0 px-2">"DONE"</span>
-            
-              <span class="border text-orange rounded ml-1 py-0 px-2">"STOPPED"</span>
-            
-          </div>
-        
-        
-      </div>
-    </div>
-
-    
-  </div>
-</div>
-
-
-          
-        
-
-        
-        
-
-        
-
-        
-          
-            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional properties are allowed.</p>
-          
-        
-
-        
-
-        
-
-        
-      </div>
-    
-  </div>
-</div>
-
-
-</div>
-
-  
-</div>
-
-
-    
-
-    
-<div class="mt-4">
-  
-</div>
-
-
-  </div>
-</div>
-
-<div class="right-block p-8">
-  <h4 class="text-lg text-white mb-4">Examples</h4>
-
-  
-  
-
-<form>
-  <input type="radio" checked id="example-payload-datascience/processed/status-&lt;anonymous-message-1&gt;" name="tab" class="examples-payload-tab hidden" />
-  <label for="example-payload-datascience/processed/status-&lt;anonymous-message-1&gt;" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
-
-  <input type="radio" id="example-headers-datascience/processed/status-&lt;anonymous-message-1&gt;" name="tab" class="examples-headers-tab hidden" disabled />
-  <label for="example-headers-datascience/processed/status-&lt;anonymous-message-1&gt;"
-      class="py-1 px-2 mr-2 mb-4 text-sm border rounded focus:outline-none cursor-pointer text-grey-dark border-grey-dark opacity-25" title="This message does not have headers">Headers</label>
-
-  <div class="payload-examples mt-4">
-    
-    <pre class="hljs mb-4 border border-grey-darkest rounded"><code>{
-  "event": "STARTING"
-}</code></pre>
-    <h6 class="text-xs font-bold text-grey-darker italic">This example has been generated automatically.</h6>
-    
-  </div>
-
-  <div class="headers-examples mt-4">
-    
-  </div>
-</form>
-
-
-  
-</div>
-
-
-
-    
-  </div>
-  <div class="responsive-container">
-    
-  </div>
-
-  <div class="responsive-container">
-    
-  </div>
-  <div class="responsive-container">
-    
-      
-
-<a name="operation-subscribe-datascience/warehouse/data"></a>
-<div class="center-block p-8">
-  <div class="operation pt-8 pb-8">
-    <h3 class="font-mono text-base">
-      
-      
-      <span class="font-mono border border-green-dark text-green-dark uppercase p-1 rounded"
-        title="Subscribe">Sub</span>
       
       
 <span class="string-chunk" >datascience</span><span class="string-chunk" >/warehouse</span><span class="string-chunk" >/data</span>
@@ -559,11 +300,11 @@ string
   
 
 <form>
-  <input type="radio" checked id="example-payload-datascience/warehouse/data-&lt;anonymous-message-2&gt;" name="tab" class="examples-payload-tab hidden" />
-  <label for="example-payload-datascience/warehouse/data-&lt;anonymous-message-2&gt;" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
+  <input type="radio" checked id="example-payload-datascience/warehouse/data-&lt;anonymous-message-1&gt;" name="tab" class="examples-payload-tab hidden" />
+  <label for="example-payload-datascience/warehouse/data-&lt;anonymous-message-1&gt;" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
 
-  <input type="radio" id="example-headers-datascience/warehouse/data-&lt;anonymous-message-2&gt;" name="tab" class="examples-headers-tab hidden" disabled />
-  <label for="example-headers-datascience/warehouse/data-&lt;anonymous-message-2&gt;"
+  <input type="radio" id="example-headers-datascience/warehouse/data-&lt;anonymous-message-1&gt;" name="tab" class="examples-headers-tab hidden" disabled />
+  <label for="example-headers-datascience/warehouse/data-&lt;anonymous-message-1&gt;"
       class="py-1 px-2 mr-2 mb-4 text-sm border rounded focus:outline-none cursor-pointer text-grey-dark border-grey-dark opacity-25" title="This message does not have headers">Headers</label>
 
   <div class="payload-examples mt-4">
@@ -586,6 +327,9 @@ string
 
 
 
+    
+  </div>
+  <div class="responsive-container">
     
   </div>
 

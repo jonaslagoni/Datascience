@@ -8,3 +8,13 @@ status:
         - DONE
         - STOPPED
       description: new status event
+energinetData:
+  type: object
+  properties:
+    event:
+      type: string
+      enum:
+        - STARTING
+        - DONE
+        - STOPPED
+      description: new status event
