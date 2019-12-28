@@ -42,20 +42,23 @@ class Kafka {
 			this.client = new kafka.KafkaClient({
 				kafkaHost: this.kafkaHost
 			});
-			this.client.on('close', () => {
+			this.client.on('close', e => {
 				console.error('kafka connection closed');
+				console.error(e);
 				this.isConnected = false;
 			});
 			this.client.on('ready', () => {
 				console.error('Kafka connection ready');
 				this.isConnected = true;
 			});
-			this.client.on('error', () => {
+			this.client.on('error', e => {
 				console.error('Error in kafka connection');
+				console.error(e);
 				this.isConnected = false;
 			});
-			this.client.on('socket_error', () => {
+			this.client.on('socket_error', e => {
 				console.error('socket_error in kafka connection');
+				console.error(e);
 				this.isConnected = false;
 			});
 		} catch (e) {

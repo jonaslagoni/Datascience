@@ -9,7 +9,7 @@ services:
     ports:
       - '9092:9092'
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ADVERTISED_HOST_NAME: '${DOCKER_MACHINE_IP}'
       KAFKA_CREATE_TOPICS: 'messageA:1:1'
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
@@ -25,15 +25,13 @@ services:
     depends_on:
       - kafka
       - zookeeper
-    environment:
-      - '--zookeeper="zookeeper:2181"'
+    command: node bin/www --zookeeper="zookeeper:2181"
   visualizer:
     build: ./Visualizer
     depends_on:
       - kafka
       - zookeeper
-    environment:
-      - '--zookeeper="zookeeper:2181"'
+    command: node bin/www --zookeeper="zookeeper:2181"
     ports:
       - '9090:9090'
   spark-master:

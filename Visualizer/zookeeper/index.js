@@ -8,15 +8,15 @@ class Zookeeper {
 			var that = this;
 			that.client = zookeeper.createClient(options.zookeeper);
 			that.client.once('connected', function() {
-				console.log('Connected to ZooKeeper.');
+				console.log('Zookeeper connected to ZooKeeper.');
 				that.isConnected = true;
 			});
 			that.client.once('authenticationFailed', function() {
-				console.log('Failed authentication');
+				console.log('Zookeeper failed authentication');
 				process.exit(1);
 			});
 			that.client.once('disconnected', function() {
-				console.log('Disconnected');
+				console.log('Zookeeper disconnected');
 				that.isConnected = false;
 				that.connect();
 			});
@@ -28,7 +28,7 @@ class Zookeeper {
 				if (this.isConnected) {
 					resolve();
 				} else {
-					console.log('Not connected, waiting');
+					console.log('Zookeeper not connected, waiting');
 					setTimeout(() => {
 						this.ensureConnected()
 							.catch(e => {
@@ -46,7 +46,7 @@ class Zookeeper {
 		let that = this;
 		if (!watcher)
 			watcher = event => {
-				console.log('Got watcher event: %s', event);
+				console.log('Zookeeper got watcher event: %s', event);
 				//Dynamically add and remove brokers here
 			};
 		return new Promise(async (resolve, reject) => {
@@ -56,7 +56,7 @@ class Zookeeper {
 				reject('Could not connect to zookeeper..');
 				return;
 			}
-			console.log('Getting kafka brokers');
+			console.log('Zookeeper getting kafka brokers');
 			that.client.getChildren(that.brokerPath, watcher, function(
 				error,
 				children,
@@ -70,7 +70,11 @@ class Zookeeper {
 					return;
 				}
 
-				console.log('Children of %s are: %j.', that.brokerPath, children);
+				console.log(
+					'Zookeeper Children of %s are: %j.',
+					that.brokerPath,
+					children
+				);
 				let hosts = [];
 				children.forEach(element => {
 					that.client.getData(
@@ -82,6 +86,7 @@ class Zookeeper {
 								return;
 							}
 							data = JSON.parse(data.toString('utf8'));
+							console.log(`recieved data: ${JSON.stringify(data)}`);
 							let host = data.host;
 							let port = data.port;
 							hosts.push(`${host}:${port}`);
