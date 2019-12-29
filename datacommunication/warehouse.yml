@@ -12,4 +12,10 @@ channels:
     description: subscribes to event for when new data is being processed
     publish:
       message:
-        $ref: './components/messages.yml#/energinetData'
+        $ref: './components/messages.yml#/energinetReceivedData'
+        description: Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b
+    publish:
+      message:
+        $ref: './components/messages.yml#/warehouseSentData'
+        description: Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b
+    
