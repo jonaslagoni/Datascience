@@ -2,7 +2,11 @@ statusMessage:
   title: new status message
   payload:
     $ref: './schemas.yml#/status'
-energinetData:
+energinetReceivedData:
   title: Energinet data
   payload:
-    $ref: './schemas.yml#/energinetData'
+    $ref: './schemas.yml#/energinetReceivedData'
+warehouseSentData:
+  title: Energinet data
+  payload:
+    $ref: './schemas.yml#/warehouseSentData'
