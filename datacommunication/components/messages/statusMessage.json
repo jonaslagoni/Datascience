@@ -1,0 +1,7 @@
+{
+	"title": "new status message",
+	"name": "statusMessage",
+	"payload": {
+		"$ref": "../schemas/status.json"
+	}
+}

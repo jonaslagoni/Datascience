@@ -1,5 +1,6 @@
 #!/bin/bash
 
-ag --output ./visualizer visualizer.yml html
-ag --output ./spark-submitter spark-submitter.yml html
-ag --output ./warehouse warehouse.yml html
+ag --output ./visualizer-docs visualizer.json html
+ag --output ../spark-submitter --templates ./templates spark-submitter.json java-class-template
+ag --output ./spark-submitter-docs spark-submitter.json html
+ag --output ./warehouse-docs warehouse.json html

@@ -1,0 +1,34 @@
+{
+	"type": "object",
+	"$id": "rawEnergyData",
+	"properties": {
+		"month": {
+			"type": "string",
+			"description": "Timestamp for the year and month of the recording - \"yyyy-mm\""
+		},
+		"municipality": {
+			"type": "int",
+			"description": "Each of the 98 municipalityes has a unique number, ranging from 101 Copenhagen to 860 Hjoerring."
+		},
+		"onShoreWind": {
+			"type": "number",
+			"description": "Electricity production from onshore wind power in MWh"
+		},
+		"offShoreWind": {
+			"type": "number",
+			"description": "wind power generated on water in MWh"
+		},
+		"solarPower": {
+			"type": "number",
+			"description": "solar power generated in MWh"
+		},
+		"centralPowerPlant": {
+			"type": "number",
+			"description": "Electricity production from central power plants in MWh"
+		},
+		"decentralPowerPlant": {
+			"type": "number",
+			"description": "Electricity production from decentral power plants in MWh"
+		}
+	}
+}

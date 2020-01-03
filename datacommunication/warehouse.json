@@ -1,0 +1,23 @@
+{
+	"asyncapi": "2.0.0",
+	"info": {
+		"title": "Data warehouse application",
+		"version": "1.0.0",
+		"license": {
+			"name": "Apache 2.0",
+			"url": "https://www.apache.org/licenses/LICENSE-2.0"
+		}
+	},
+	"defaultContentType": "application/json",
+	"channels": {
+		"datascience/warehouse/data": {
+			"description": "subscribes to event for when new data is being processed",
+			"publish": {
+				"message": {
+					"$ref": "./components/messages/rawEnergyDataMessage.json",
+					"description": "Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b"
+				}
+			}
+		}
+	}
+}

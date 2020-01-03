@@ -133,12 +133,15 @@
   <div class="text-sm text-grey-darker mb-2">
     
     
-      Energinet data
+      Energinet data in raw format
+      
+        <span class="border text-orange rounded text-xs ml-3 py-0 px-2">rawEnergyDataMessage</span>
       
     
   </div>
   <p class="text-grey-dark text-sm"></p>
-  <div class="mt-4 mb-4 markdown"></div>
+  <div class="mt-4 mb-4 markdown"><p>Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b</p>
+</div>
   
 <div>
   
@@ -197,7 +200,7 @@ object
   <div class="">
     <div class=" flex property">
       <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
-        <span class="text-sm " style="word-break: break-word;">event</span>
+        <span class="text-sm " style="word-break: break-word;">month</span>
         
         
       </div>
@@ -225,22 +228,311 @@ string
         </div>
 
         
-          <div class="text-sm markdown"><p>new status event</p>
+          <div class="text-sm markdown"><p>Timestamp for the year and month of the recording - &quot;yyyy-mm&quot;</p>
 </div>
         
         
         
         
-          <div class="text-xs">
-            Enum:
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
             
-              <span class="border text-orange rounded ml-1 py-0 px-2">"STARTING"</span>
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">municipality</span>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+int
+          
+          
+          
+          <div class="inline-block">
             
-              <span class="border text-orange rounded ml-1 py-0 px-2">"DONE"</span>
             
-              <span class="border text-orange rounded ml-1 py-0 px-2">"STOPPED"</span>
+            
+            
+            
+            
+            
+            
+            
+            
             
           </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>Each of the 98 municipalityes has a unique number, ranging from 101 Copenhagen to 860 Hjoerring.</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">onShoreWind</span>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>Electricity production from onshore wind power in MWh</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">offShoreWind</span>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>wind power generated on water in MWh</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">solarPower</span>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>solar power generated in MWh</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">centralPowerPlant</span>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>Electricity production from central power plants in MWh</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">decentralPowerPlant</span>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>Electricity production from decentral power plants in MWh</p>
+</div>
+        
+        
+        
         
         
       </div>
@@ -300,17 +592,23 @@ string
   
 
 <form>
-  <input type="radio" checked id="example-payload-datascience/warehouse/data-&lt;anonymous-message-1&gt;" name="tab" class="examples-payload-tab hidden" />
-  <label for="example-payload-datascience/warehouse/data-&lt;anonymous-message-1&gt;" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
+  <input type="radio" checked id="example-payload-datascience/warehouse/data-rawEnergyDataMessage" name="tab" class="examples-payload-tab hidden" />
+  <label for="example-payload-datascience/warehouse/data-rawEnergyDataMessage" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
 
-  <input type="radio" id="example-headers-datascience/warehouse/data-&lt;anonymous-message-1&gt;" name="tab" class="examples-headers-tab hidden" disabled />
-  <label for="example-headers-datascience/warehouse/data-&lt;anonymous-message-1&gt;"
+  <input type="radio" id="example-headers-datascience/warehouse/data-rawEnergyDataMessage" name="tab" class="examples-headers-tab hidden" disabled />
+  <label for="example-headers-datascience/warehouse/data-rawEnergyDataMessage"
       class="py-1 px-2 mr-2 mb-4 text-sm border rounded focus:outline-none cursor-pointer text-grey-dark border-grey-dark opacity-25" title="This message does not have headers">Headers</label>
 
   <div class="payload-examples mt-4">
     
     <pre class="hljs mb-4 border border-grey-darkest rounded"><code>{
-  "event": "STARTING"
+  "month": "string",
+  "municipality": null,
+  "onShoreWind": 0,
+  "offShoreWind": 0,
+  "solarPower": 0,
+  "centralPowerPlant": 0,
+  "decentralPowerPlant": 0
 }</code></pre>
     <h6 class="text-xs font-bold text-grey-darker italic">This example has been generated automatically.</h6>
     
