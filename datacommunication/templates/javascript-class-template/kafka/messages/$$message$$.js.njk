@@ -1,0 +1,62 @@
+
+{%- macro initProperties(schema) %}
+{%- if schema.allOf() | length > 0 %}
+	{%- for allOfSchema in schema.allOf() %}
+	{{initGetSet(allOfSchema.uid())}}
+	{%- endfor %}
+{%- endif %}
+
+{%- if schema.oneOf() | length > 0 %}
+	{%- for oneOfSchemas in schema.oneOf() %}
+	{{initGetSet(oneOfSchemas.uid())}}
+	{%- endfor %}
+{%- endif %}
+
+
+{%- if schema.anyOf() | length > 0 %}
+	{%- for anyOfSchema in schema.anyOf() %}
+	{{initGetSet(anyOfSchema.uid())}}
+	{%- endfor %}
+{%- endif %}
+
+
+{%- if schema.uid() | length %}
+	{{initGetSet(schema.uid())}}
+{%- endif %}
+{% endmacro %}
+
+{%- macro initGetSet(propertyName) %}
+
+    private {{propertyName | upperFirst}} {{propertyName}};
+
+    /**
+     * @return {{propertyName | upperFirst}}
+     */
+    public {{propertyName | upperFirst}} get{{propertyName | upperFirst}}() {
+        return {{propertyName}};
+    }
+
+    /**
+     * @param {{propertyName | upperFirst}} to set
+     */
+    public void set{{propertyName | upperFirst}}({{propertyName | upperFirst}} {{propertyName}}) {
+        this.{{propertyName}} = {{propertyName}};
+    }
+{% endmacro %}
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dk.sdu.datascience.spark.submitter.structure.messages;
+
+import dk.sdu.datascience.spark.submitter.structure.schemas.*;
+/**
+ *
+ * @author Async api generated
+ */
+public class {{message.name() | upperFirst}} {
+	{{ initProperties(message.payload())}}
+}
+

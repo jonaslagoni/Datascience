@@ -1,0 +1,64 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dk.sdu.datascience.spark.submitter.structure.schemas;
+
+import com.google.gson.annotations.SerializedName;
+
+/**
+ *
+ * @author Async api generated
+ */
+public class {{schema.uid() | upperFirst}} {
+    
+{%- for propertyName, property in schema.properties() %}
+{%- if property.enum() | length %}
+	public enum {{propertyName}}Enum {
+	{%- set enumCounter = 0 %}
+	{%- for enum in property.enum() %}
+		@SerializedName("{{enum}}")
+		{%- if enumCounter == property.enum().length %}
+			{{enum}}
+		{%- else %}
+			{{enum}},
+		{%- endif %}
+		{%- set enumCounter = enumCounter + 1 %}
+	{%- endfor %}
+	}
+	
+    private {{propertyName}}Enum {{propertyName}};
+
+    /**
+     * @return {{propertyName}}Enum
+     */
+    public {{propertyName}}Enum get{{propertyName | upperFirst}}() {
+        return {{propertyName}};
+    }
+
+    /**
+     * @param {{propertyName}} to set
+     */
+    public void set{{propertyName | upperFirst}}({{propertyName}}Enum {{propertyName}}) {
+        this.{{propertyName}} = {{propertyName}};
+    }
+{%- else %}
+    private {{property | toJavaType}} {{propertyName}};
+
+    /**
+     * @return {{propertyName}}
+     */
+    public {{property | toJavaType}} get{{propertyName | upperFirst}}() {
+        return {{propertyName}};
+    }
+
+    /**
+     * @param {{propertyName}} to set
+     */
+    public void set{{propertyName | upperFirst}}({{property | toJavaType}} {{propertyName}}) {
+        this.{{propertyName}} = {{propertyName}};
+    }
+{%- endif %}
+{%- endfor %}
+}
