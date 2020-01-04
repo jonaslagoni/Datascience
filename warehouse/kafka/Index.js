@@ -67,7 +67,7 @@ class Kafka {
 			this.connect();
 		}
 	}
-	consumedatascienceProcessedStatus(messageCallback, errorCallback) {
+	publishdatascienceWarehouseData(payload) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				await this.ensureConnected();
@@ -75,9 +75,39 @@ class Kafka {
 				reject('Could not connect to kafka..');
 				return;
 			}
+
+			const producer = new Producer(client);
+			const kafka_topic = 'datascienceWarehouseData';
+			console.log(kafka_topic);
+			let payloads = [
+				{
+				topic: kafka_topic,
+				messages: payload
+				}
+			];
+
+			producer.on('ready', async function() {
+				let push_status = producer.send(payloads, (err, data) => {
+				if (err) {
+					console.log('[kafka-producer -> '+kafka_topic+']: broker update failed');
+					reject('[kafka-producer -> '+kafka_topic+']: broker update failed');
+				} else {
+					console.log('[kafka-producer -> '+kafka_topic+']: broker update success');
+					resolve();
+				}
+				});
+			});
+
+			producer.on('error', function(err) {
+				console.log(err);
+				console.log('[kafka-producer -> '+kafka_topic+']: connection errored');
+				reject(err);
+			});
+
+
 			var consumer = new Consumer(
 				this.client,
-				[{ topic: 'datascienceProcessedStatus', partition: 0 }],
+				[{ topic: 'datascienceWarehouseData', partition: 0 }],
 				{
 					autoCommit: true,
 					fetchMaxWaitMs: 1000,

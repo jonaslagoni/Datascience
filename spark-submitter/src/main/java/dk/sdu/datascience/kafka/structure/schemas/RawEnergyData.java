@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.datascience.spark.submitter.structure.schemas;
+package dk.sdu.datascience.kafka.structure.schemas;
 
 import com.google.gson.annotations.SerializedName;
 

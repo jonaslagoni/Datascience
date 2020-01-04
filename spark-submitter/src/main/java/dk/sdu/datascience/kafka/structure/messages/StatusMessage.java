@@ -5,9 +5,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.datascience.spark.submitter.structure.messages;
+package dk.sdu.datascience.kafka.structure.messages;
 
-import dk.sdu.datascience.spark.submitter.structure.schemas.*;
+import dk.sdu.datascience.kafka.structure.schemas.*;
 /**
  *
  * @author Async api generated

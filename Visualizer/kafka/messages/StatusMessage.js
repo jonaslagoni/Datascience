@@ -1,37 +1,16 @@
 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package dk.sdu.datascience.spark.submitter.structure.messages;
-
-import dk.sdu.datascience.spark.submitter.structure.schemas.*;
-/**
- *
- * @author Async api generated
- */
-public class StatusMessage {
+export class StatusMessage {
+    
+    constructor();
 	
-	
+    constructor(
+        status
+    ){
+        
+    this.status = status;
 
-    private Status status;
-
-    /**
-     * @return Status
-     */
-    public Status getStatus() {
-        return status;
-    }
-
-    /**
-     * @param Status to set
-     */
-    public void setStatus(Status status) {
-        this.status = status;
     }
 
 
 }
-

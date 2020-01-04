@@ -1,37 +1,16 @@
 
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package dk.sdu.datascience.spark.submitter.structure.messages;
-
-import dk.sdu.datascience.spark.submitter.structure.schemas.*;
-/**
- *
- * @author Async api generated
- */
-public class RawEnergyDataMessage {
+export class RawEnergyDataMessage {
+    
+    constructor();
 	
-	
+    constructor(
+        rawEnergyData
+    ){
+        
+    this.rawEnergyData = rawEnergyData;
 
-    private RawEnergyData rawEnergyData;
-
-    /**
-     * @return RawEnergyData
-     */
-    public RawEnergyData getRawEnergyData() {
-        return rawEnergyData;
-    }
-
-    /**
-     * @param RawEnergyData to set
-     */
-    public void setRawEnergyData(RawEnergyData rawEnergyData) {
-        this.rawEnergyData = rawEnergyData;
     }
 
 
 }
-

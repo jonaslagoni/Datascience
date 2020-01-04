@@ -3,23 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dk.sdu.datascience.spark.submitter;
+package dk.sdu.datascience.kafka;
 
 /**
  *
  * @author Lagoni
  */
-public class NewMain {
+public class Main {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("OK");
     }
 
-    //Vent på data fra kafka
-    // Submit work til spark
-    //  done - publish data til kafka
 }
