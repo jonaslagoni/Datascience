@@ -1,0 +1,7 @@
+{
+	"title": "Energinet data in raw format",
+	"name": "processedEmissions",
+	"payload": {
+		"$ref": "../schemas/processedEmissionsSchema.json"
+	}
+}

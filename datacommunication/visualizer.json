@@ -17,6 +17,24 @@
 					"$ref": "./components/messages/statusMessage.json"
 				}
 			}
+		},
+		"processed/produced": {
+			"description": "subscribes to event for when new data is being processed",
+			"subscribe": {
+				"message": {
+					"$ref": "./components/messages/processedProduced.json",
+					"description": "Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b"
+				}
+			}
+		},
+		"processed/emissions": {
+			"description": "subscribes to event for when new data is being processed",
+			"subscribe": {
+				"message": {
+					"$ref": "./components/messages/processedEmissions.json",
+					"description": "Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b"
+				}
+			}
 		}
 	}
 }

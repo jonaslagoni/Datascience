@@ -1,0 +1,7 @@
+{
+	"title": "Energinet data in raw format",
+	"name": "energinetCO2Emission",
+	"payload": {
+		"$ref": "../schemas/energinetCO2EmissionSchema.json"
+	}
+}

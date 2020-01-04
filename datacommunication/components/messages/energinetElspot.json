@@ -1,0 +1,7 @@
+{
+	"title": "Energinet data in raw format",
+	"name": "energinetElspot",
+	"payload": {
+		"$ref": "../schemas/energinetElspotSchema.json"
+	}
+}

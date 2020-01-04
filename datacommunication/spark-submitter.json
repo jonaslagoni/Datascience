@@ -18,11 +18,48 @@
 				}
 			}
 		},
-		"datascience/warehouse/data": {
+		"energidata/elspot": {
 			"description": "subscribes to event for when new data is being processed",
 			"subscribe": {
 				"message": {
-					"$ref": "./components/messages/rawEnergyDataMessage.json"
+					"$ref": "./components/messages/energinetElspot.json",
+					"description": "Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b"
+				}
+			}
+		},
+		"energidata/CO2Emission": {
+			"description": "subscribes to event for when new data is being processed",
+			"subscribe": {
+				"message": {
+					"$ref": "./components/messages/energinetCO2Emission.json",
+					"description": "Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b"
+				}
+			}
+		},
+		"energidata/ProductionAndExchange": {
+			"description": "subscribes to event for when new data is being processed",
+			"subscribe": {
+				"message": {
+					"$ref": "./components/messages/energinetProductionAndExchange.json",
+					"description": "Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b"
+				}
+			}
+		},
+		"processed/produced": {
+			"description": "subscribes to event for when new data is being processed",
+			"publish": {
+				"message": {
+					"$ref": "./components/messages/processedProduced.json",
+					"description": "Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b"
+				}
+			}
+		},
+		"processed/emissions": {
+			"description": "subscribes to event for when new data is being processed",
+			"publish": {
+				"message": {
+					"$ref": "./components/messages/processedEmissions.json",
+					"description": "Dataset, production per municipal as consumption is not updated. https://www.energidataservice.dk/dataset/communityproduction/resource_extract/1ed52ea0-6f73-4067-a89e-43dd41fee45b"
 				}
 			}
 		}

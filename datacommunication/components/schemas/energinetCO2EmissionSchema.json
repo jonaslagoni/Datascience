@@ -1,0 +1,18 @@
+{
+	"type": "object",
+	"$id": "energinetCO2EmissionSchema",
+	"properties": {
+		"MINUTES5_DK": {
+			"type": "string",
+			"description": "Timestamp for the year and month of the recording - \"yyyy-mm\""
+		},
+		"PRICE_AREA": {
+			"type": "string",
+			"description": "DK1 or DK2."
+		},
+		"CO2_EMISSION": {
+			"type": "number",
+			"description": "production less then 100 MW"
+		}
+	}
+}

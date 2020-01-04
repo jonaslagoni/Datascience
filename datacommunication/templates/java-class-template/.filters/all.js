@@ -6,6 +6,7 @@ module.exports = ({ Nunjucks, _ }) => {
 	Nunjucks.addFilter('upperFirst', str => {
 		return _.upperFirst(str);
 	});
+
 	Nunjucks.addFilter('toJavaType', property => {
 		switch (property.type()) {
 			case 'string':

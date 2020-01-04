@@ -1,7 +1,0 @@
-{
-	"title": "Energinet data in raw format",
-	"name": "rawEnergyDataMessage",
-	"payload": {
-		"$ref": "../schemas/rawEnergyData.json"
-	}
-}

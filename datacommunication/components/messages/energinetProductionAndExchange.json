@@ -1,0 +1,7 @@
+{
+	"title": "Energinet data in raw format",
+	"name": "energinetProductionAndExchange",
+	"payload": {
+		"$ref": "../schemas/energinetProductionAndExchangeSchema.json"
+	}
+}

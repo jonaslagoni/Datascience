@@ -2,7 +2,7 @@ const zookeeper = require('../zookeeper/index');
 const options = require('../bin/options');
 const kafka = require('kafka-node');
 const Consumer = kafka.Consumer;
-const Producer = kafka.Producer,
+const Producer = kafka.Producer;
 class Kafka {
 	constructor() {
 		this.isConnected = false;
@@ -78,6 +78,58 @@ class Kafka {
 			var consumer = new Consumer(
 				this.client,
 				[{ topic: 'datascienceProcessedStatus', partition: 0 }],
+				{
+					autoCommit: true,
+					fetchMaxWaitMs: 1000,
+					fetchMaxBytes: 1024 * 1024,
+					encoding: 'utf8',
+      				fromOffset: false,
+					groupId: options.kafkaGroup
+				}
+			);
+			consumer.on('message', messageCallback);
+			consumer.on('error', errorCallback);
+			consumer.on('offsetOutOfRange', errorCallback);
+			resolve(consumer);
+		});
+	}
+	consumeprocessedProduced(messageCallback, errorCallback) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				await this.ensureConnected();
+			} catch (e) {
+				reject('Could not connect to kafka..');
+				return;
+			}
+			var consumer = new Consumer(
+				this.client,
+				[{ topic: 'processedProduced', partition: 0 }],
+				{
+					autoCommit: true,
+					fetchMaxWaitMs: 1000,
+					fetchMaxBytes: 1024 * 1024,
+					encoding: 'utf8',
+      				fromOffset: false,
+					groupId: options.kafkaGroup
+				}
+			);
+			consumer.on('message', messageCallback);
+			consumer.on('error', errorCallback);
+			consumer.on('offsetOutOfRange', errorCallback);
+			resolve(consumer);
+		});
+	}
+	consumeprocessedEmissions(messageCallback, errorCallback) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				await this.ensureConnected();
+			} catch (e) {
+				reject('Could not connect to kafka..');
+				return;
+			}
+			var consumer = new Consumer(
+				this.client,
+				[{ topic: 'processedEmissions', partition: 0 }],
 				{
 					autoCommit: true,
 					fetchMaxWaitMs: 1000,
