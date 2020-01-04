@@ -25,7 +25,7 @@ public class KafkaClient{
     }
 {%- for channelName, channel in asyncapi.channels() %}
 	{%- if channel.hasPublish() %}
-	static void produce{{channelName | camelCase}}({{channel.publish().message().name() | upperFirst}} {{channel.publish().message().name()}}) throws Exception {
+	public static void produce{{channelName | camelCase}}({{channel.publish().message().name() | upperFirst}} {{channel.publish().message().name()}}) throws Exception {
 		final Producer<Long, String> producer = createProducer();
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
@@ -48,11 +48,11 @@ public class KafkaClient{
 		}
 	}
 	{%- elif  channel.hasSubscribe() %}
-	interface {{channelName | camelCase}}Callback { 
+	public interface {{channelName | camelCase}}Callback { 
 		// this can be any type of method 
 		void messageConsumed({{channel.subscribe().message().name() | upperFirst}} callback); 
 	} 
-    static void consumer{{channel.subscribe().message().name() | upperFirst}}({{channelName | camelCase}}Callback callback) {
+    public static void consumer{{channel.subscribe().message().name() | upperFirst}}({{channelName | camelCase}}Callback callback) {
         Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
 
         consumer.subscribe(Collections.singletonList("{{channelName | camelCase}}"));
