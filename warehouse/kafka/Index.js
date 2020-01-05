@@ -67,7 +67,12 @@ class Kafka {
 			this.connect();
 		}
 	}
-	publishenergidataElspot(payload) {
+	/**
+	 * subscribes to event for when new data is being processed
+	 * @param {*} payload to send.
+	 * @returns {Promise} Promise object resolves when the data is sent successfully.
+	 */
+	publishEnergidataElspot(payload) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				await this.ensureConnected();
@@ -123,7 +128,12 @@ class Kafka {
 			resolve(consumer);
 		});
 	}
-	publishenergidataCo2Emission(payload) {
+	/**
+	 * subscribes to event for when new data is being processed
+	 * @param {*} payload to send.
+	 * @returns {Promise} Promise object resolves when the data is sent successfully.
+	 */
+	publishEnergidataCo2Emission(payload) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				await this.ensureConnected();
@@ -179,7 +189,12 @@ class Kafka {
 			resolve(consumer);
 		});
 	}
-	publishenergidataProductionAndExchange(payload) {
+	/**
+	 * subscribes to event for when new data is being processed
+	 * @param {*} payload to send.
+	 * @returns {Promise} Promise object resolves when the data is sent successfully.
+	 */
+	publishEnergidataProductionAndExchange(payload) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				await this.ensureConnected();

@@ -25,7 +25,11 @@ public class KafkaClient{
     }
 {%- for channelName, channel in asyncapi.channels() %}
 	{%- if channel.hasPublish() %}
-	public static void produce{{channelName | camelCase}}({{channel.publish().message().name() | upperFirst}} {{channel.publish().message().name()}}) throws Exception {
+    /**
+     * {{channel.description()}}
+     * @param {{channel.publish().message().name()}} to send as payload
+     */
+	public static void produce{{channelName | camelCase}}({{channel.publish().message().name() | upperFirst}} {{channel.publish().message().name()}}) {
 		final Producer<Long, String> producer = createProducer();
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
@@ -42,7 +46,9 @@ public class KafkaClient{
 							"meta(partition=%d, offset=%d) time=%d\n",
 					record.key(), record.value(), metadata.partition(),
 					metadata.offset(), elapsedTime);
-		} finally {
+		} catch (ExecutionException ex) {
+            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
 			producer.flush();
 			producer.close();
 		}
@@ -52,6 +58,11 @@ public class KafkaClient{
 		// this can be any type of method 
 		void messageConsumed({{channel.subscribe().message().name() | upperFirst}} callback); 
 	} 
+
+    /**
+    * {{channel.description()}}
+    * @param callback which should be called when data is consumed
+    */
     public static void consumer{{channel.subscribe().message().name() | upperFirst}}({{channelName | camelCase}}Callback callback) {
         Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
 

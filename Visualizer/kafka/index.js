@@ -67,7 +67,14 @@ class Kafka {
 			this.connect();
 		}
 	}
-	consumedatascienceProcessedStatus(messageCallback, errorCallback) {
+	
+	/**
+	 * subscribes to event for when new data is being processed
+	 * @param {*} messageCallback used when messages are consumed. 
+	 * @param {*} errorCallback used when an error occured.
+	 * @returns {Promise} Promise object resolves the kafka consumer created.
+	 */
+	consumeDatascienceProcessedStatus(messageCallback, errorCallback) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				await this.ensureConnected();
@@ -93,7 +100,14 @@ class Kafka {
 			resolve(consumer);
 		});
 	}
-	consumeprocessedProduced(messageCallback, errorCallback) {
+	
+	/**
+	 * subscribes to event for when new data is being processed
+	 * @param {*} messageCallback used when messages are consumed. 
+	 * @param {*} errorCallback used when an error occured.
+	 * @returns {Promise} Promise object resolves the kafka consumer created.
+	 */
+	consumeProcessedProduced(messageCallback, errorCallback) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				await this.ensureConnected();
@@ -119,7 +133,14 @@ class Kafka {
 			resolve(consumer);
 		});
 	}
-	consumeprocessedEmissions(messageCallback, errorCallback) {
+	
+	/**
+	 * subscribes to event for when new data is being processed
+	 * @param {*} messageCallback used when messages are consumed. 
+	 * @param {*} errorCallback used when an error occured.
+	 * @returns {Promise} Promise object resolves the kafka consumer created.
+	 */
+	consumeProcessedEmissions(messageCallback, errorCallback) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				await this.ensureConnected();

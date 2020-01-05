@@ -23,7 +23,11 @@ public class KafkaClient{
                                     StringSerializer.class.getName());
         return new KafkaProducer<>(props);
     }
-	public static void producedatascienceProcessedStatus(StatusMessage statusMessage) throws Exception {
+    /**
+     * Publishes when new data is being processed
+     * @param statusMessage to send as payload
+     */
+	public static void producedatascienceProcessedStatus(StatusMessage statusMessage) {
 		final Producer<Long, String> producer = createProducer();
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
@@ -40,7 +44,9 @@ public class KafkaClient{
 							"meta(partition=%d, offset=%d) time=%d\n",
 					record.key(), record.value(), metadata.partition(),
 					metadata.offset(), elapsedTime);
-		} finally {
+		} catch (ExecutionException ex) {
+            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
 			producer.flush();
 			producer.close();
 		}
@@ -49,6 +55,11 @@ public class KafkaClient{
 		// this can be any type of method 
 		void messageConsumed(EnerginetElspot callback); 
 	} 
+
+    /**
+    * subscribes to event for when new data is being processed
+    * @param callback which should be called when data is consumed
+    */
     public static void consumerEnerginetElspot(energidataElspotCallback callback) {
         Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
 
@@ -81,6 +92,11 @@ public class KafkaClient{
 		// this can be any type of method 
 		void messageConsumed(EnerginetCO2Emission callback); 
 	} 
+
+    /**
+    * subscribes to event for when new data is being processed
+    * @param callback which should be called when data is consumed
+    */
     public static void consumerEnerginetCO2Emission(energidataCo2EmissionCallback callback) {
         Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
 
@@ -113,6 +129,11 @@ public class KafkaClient{
 		// this can be any type of method 
 		void messageConsumed(EnerginetProductionAndExchange callback); 
 	} 
+
+    /**
+    * subscribes to event for when new data is being processed
+    * @param callback which should be called when data is consumed
+    */
     public static void consumerEnerginetProductionAndExchange(energidataProductionAndExchangeCallback callback) {
         Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
 
@@ -141,7 +162,11 @@ public class KafkaClient{
         consumer.commitAsync();
         consumer.close();
     }
-	public static void produceprocessedProduced(ProcessedProduced processedProduced) throws Exception {
+    /**
+     * subscribes to event for when new data is being processed
+     * @param processedProduced to send as payload
+     */
+	public static void produceprocessedProduced(ProcessedProduced processedProduced) {
 		final Producer<Long, String> producer = createProducer();
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
@@ -158,12 +183,18 @@ public class KafkaClient{
 							"meta(partition=%d, offset=%d) time=%d\n",
 					record.key(), record.value(), metadata.partition(),
 					metadata.offset(), elapsedTime);
-		} finally {
+		} catch (ExecutionException ex) {
+            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
 			producer.flush();
 			producer.close();
 		}
 	}
-	public static void produceprocessedEmissions(ProcessedEmissions processedEmissions) throws Exception {
+    /**
+     * subscribes to event for when new data is being processed
+     * @param processedEmissions to send as payload
+     */
+	public static void produceprocessedEmissions(ProcessedEmissions processedEmissions) {
 		final Producer<Long, String> producer = createProducer();
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
@@ -180,7 +211,9 @@ public class KafkaClient{
 							"meta(partition=%d, offset=%d) time=%d\n",
 					record.key(), record.value(), metadata.partition(),
 					metadata.offset(), elapsedTime);
-		} finally {
+		} catch (ExecutionException ex) {
+            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
 			producer.flush();
 			producer.close();
 		}
