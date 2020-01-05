@@ -100,6 +100,7 @@ class Kafka {
 
 			producer.on('ready', async function() {
 				let push_status = producer.send(payloads, (err, data) => {
+				producer.close();
 				if (err) {
 					console.log('[kafka-producer -> '+kafka_topic+']: broker update failed');
 					reject('[kafka-producer -> '+kafka_topic+']: broker update failed');
@@ -115,6 +116,7 @@ class Kafka {
 				console.log('[kafka-producer -> '+kafka_topic+']: connection errored');
 				reject(err);
 			});
+			producer.connect();
 		});
 	}
 	/**
@@ -143,6 +145,7 @@ class Kafka {
 
 			producer.on('ready', async function() {
 				let push_status = producer.send(payloads, (err, data) => {
+				producer.close();
 				if (err) {
 					console.log('[kafka-producer -> '+kafka_topic+']: broker update failed');
 					reject('[kafka-producer -> '+kafka_topic+']: broker update failed');
@@ -158,6 +161,7 @@ class Kafka {
 				console.log('[kafka-producer -> '+kafka_topic+']: connection errored');
 				reject(err);
 			});
+			producer.connect();
 		});
 	}
 	/**
@@ -186,6 +190,7 @@ class Kafka {
 
 			producer.on('ready', async function() {
 				let push_status = producer.send(payloads, (err, data) => {
+				producer.close();
 				if (err) {
 					console.log('[kafka-producer -> '+kafka_topic+']: broker update failed');
 					reject('[kafka-producer -> '+kafka_topic+']: broker update failed');
@@ -201,6 +206,7 @@ class Kafka {
 				console.log('[kafka-producer -> '+kafka_topic+']: connection errored');
 				reject(err);
 			});
+			producer.connect();
 		});
 	}
 }
