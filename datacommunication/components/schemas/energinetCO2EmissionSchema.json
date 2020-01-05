@@ -4,7 +4,7 @@
 	"properties": {
 		"MINUTES5_DK": {
 			"type": "string",
-			"description": "Timestamp for the year and month of the recording - \"yyyy-mm\""
+			"description": "Timestamp for the year and month of the recording - \"yyyy-mm-dd hh-mm\""
 		},
 		"PRICE_AREA": {
 			"type": "string",
@@ -12,7 +12,7 @@
 		},
 		"CO2_EMISSION": {
 			"type": "number",
-			"description": "production less then 100 MW"
+			"description": "The estimated value for the emission in g/kWh for the relevant 5 minutes period"
 		}
 	}
 }
