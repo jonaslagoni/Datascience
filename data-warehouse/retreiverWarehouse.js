@@ -13,8 +13,14 @@ ajax({
     url,
     data: data,
     dataType: 'jsonp',
-    success: function(data) {
-        alert('Total results found: ' + data.result.total)
+    
+}, function(err, res, body) {
+    if(err){
+        
+    }else if(res){
+        
+    }else{
+
     }
-});
+})
 
