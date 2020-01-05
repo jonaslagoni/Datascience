@@ -11,6 +11,8 @@ module.exports = ({ Nunjucks, _ }) => {
 		switch (property.type()) {
 			case 'string':
 				return 'String';
+			case 'array':
+				return `List<${property.items()}>`;
 			case 'number':
 				if (property.required()) {
 					return 'double';

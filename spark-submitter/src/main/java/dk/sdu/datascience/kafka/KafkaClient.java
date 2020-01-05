@@ -8,6 +8,9 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 import com.google.gson.Gson;
 import java.util.Collections;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -46,7 +49,9 @@ public class KafkaClient{
 					metadata.offset(), elapsedTime);
 		} catch (ExecutionException ex) {
             Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        } catch (InterruptedException ex) {
+            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+        }  finally {
 			producer.flush();
 			producer.close();
 		}
@@ -185,7 +190,9 @@ public class KafkaClient{
 					metadata.offset(), elapsedTime);
 		} catch (ExecutionException ex) {
             Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        } catch (InterruptedException ex) {
+            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+        }  finally {
 			producer.flush();
 			producer.close();
 		}
@@ -213,7 +220,9 @@ public class KafkaClient{
 					metadata.offset(), elapsedTime);
 		} catch (ExecutionException ex) {
             Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        } catch (InterruptedException ex) {
+            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+        }  finally {
 			producer.flush();
 			producer.close();
 		}

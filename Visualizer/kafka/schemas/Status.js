@@ -8,6 +8,11 @@ exports.Enum = Enum;
 exports = class Status {
     constructor();
     
+
+    /**
+    *
+    * @param { string } event
+    */
     constructor(
         event
     ){
@@ -16,4 +21,13 @@ exports = class Status {
 
 
     
+    /**
+    * Copy a js object into this.
+    * @param {*} jsonObject the js object 
+    */
+    copyInto(jsonObject){
+        if(jsonObject.event){
+            this.event=jsonObject.event;
+        }
+    }
 }

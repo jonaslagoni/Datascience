@@ -1,4 +1,11 @@
 {%- macro constructor(schema) %}
+
+    /**
+    * 
+    {%- for propertyName, property in schema.properties() %}
+    * @param { {{property.type()}} } {{propertyName}} 
+    {%- endfor %}
+    */
     constructor(
         {{schema.properties() | schemaConstructor}}
     ){ 
@@ -33,4 +40,19 @@ exports = class {{schema.uid() | upperFirst}} {
     {{constructor(schema)}}
 
     
+    /**
+    * Copy a js object into this.
+    * @param {*} jsonObject the js object 
+    */
+    copyInto(jsonObject){
+        {%- for propertyName, property in schema.properties() %}
+        {%- if property.required() %}
+        this.{{ propertyName }}=jsonObject.{{ propertyName }};
+        {%- else %}
+        if(jsonObject.{{ propertyName }}){
+            this.{{ propertyName }}=jsonObject.{{ propertyName }};
+        }
+        {%- endif %}
+        {%- endfor %}
+    }
 }
