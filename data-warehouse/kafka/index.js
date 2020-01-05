@@ -44,7 +44,7 @@ class Kafka {
 			});
 			this.client.on('close', e => {
 				console.error('kafka connection closed');
-				console.error(e);
+				console.error(e.error);
 				this.isConnected = false;
 			});
 			this.client.on('ready', () => {
@@ -60,16 +60,16 @@ class Kafka {
 			});
 			this.client.on('error', e => {
 				console.error('Error in kafka connection');
-				console.error(e);
+				console.error(e.error);
 				this.isConnected = false;
 			});
 			this.client.on('socket_error', e => {
 				console.error('socket_error in kafka connection');
-				console.error(e);
+				console.error(e.error);
 				this.isConnected = false;
 			});
 		} catch (e) {
-			console.log(e);
+			console.log(e.error);
 			this.isConnected = false;
 			this.connect();
 		}

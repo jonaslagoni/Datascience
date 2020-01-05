@@ -1,5 +1,5 @@
 
-exports = class EnerginetCO2EmissionSchema {
+module.exports = class EnerginetCO2EmissionSchema {
     constructor(){
 
     }

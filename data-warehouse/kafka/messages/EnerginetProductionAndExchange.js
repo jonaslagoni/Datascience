@@ -1,6 +1,6 @@
 
 
-export class EnerginetProductionAndExchange {
+module.exports = class EnerginetProductionAndExchange {
     constructor(){
 
     }

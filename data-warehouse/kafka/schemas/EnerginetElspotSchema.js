@@ -1,5 +1,5 @@
 
-exports = class EnerginetElspotSchema {
+module.exports = class EnerginetElspotSchema {
     constructor(){
 
     }

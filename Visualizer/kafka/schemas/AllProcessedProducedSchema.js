@@ -1,5 +1,5 @@
 
-exports = class AllProcessedProducedSchema {
+module.exports = class AllProcessedProducedSchema {
     constructor(){
 
     }

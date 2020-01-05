@@ -1,6 +1,6 @@
 
 
-export class EnerginetElspot {
+module.exports = class EnerginetElspot {
     constructor(){
 
     }

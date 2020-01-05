@@ -1,5 +1,5 @@
 
-exports = class AllProcessedEmissionsSchema {
+module.exports = class AllProcessedEmissionsSchema {
     constructor(){
 
     }

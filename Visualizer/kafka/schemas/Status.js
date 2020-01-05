@@ -4,8 +4,8 @@ const eventEnum = Object.freeze({
 			"DONE": "DONE",
 			"STOPPED": "STOPPED",
     })
-exports.eventEnum = eventEnum;
-exports = class Status {
+module.exports.eventEnum = eventEnum;
+module.exports = class Status {
     constructor(){
 
     }

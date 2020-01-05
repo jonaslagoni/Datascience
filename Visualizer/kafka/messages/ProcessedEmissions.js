@@ -1,6 +1,6 @@
 
 
-export class ProcessedEmissions {
+module.exports = class ProcessedEmissions {
     constructor(){
 
     }

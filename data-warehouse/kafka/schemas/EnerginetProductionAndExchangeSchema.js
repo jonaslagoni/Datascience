@@ -1,5 +1,5 @@
 
-exports = class EnerginetProductionAndExchangeSchema {
+module.exports = class EnerginetProductionAndExchangeSchema {
     constructor(){
 
     }

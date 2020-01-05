@@ -61,7 +61,7 @@ public class KafkaClient{
 	{%- elif  channel.hasSubscribe() %}
 	public interface {{channelName | camelCase}}Callback { 
 		// this can be any type of method 
-		void messageConsumed({{channel.subscribe().message().name() | upperFirst}} callback); 
+		void messageConsumed({{channel.subscribe().message().name() | upperFirst}} payload); 
 	} 
 
     /**
