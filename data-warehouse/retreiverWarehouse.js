@@ -1,4 +1,4 @@
-const ajax = require('ajax-request');
+const axios = require('axios');
 
 let url = 'https://api.energidataservice.dk/datastore_search'
 let elementsStored = 0;
@@ -16,10 +16,10 @@ ajax({
     
 }, function(err, res, body) {
     if(err){
-        
+
     }else if(res){
         
-    }else{
+    }else if(body){
 
     }
 })
