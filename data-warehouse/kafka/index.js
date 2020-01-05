@@ -88,7 +88,7 @@ class Kafka {
 				return;
 			}
 
-			const producer = new Producer(client);
+			const producer = new Producer(this.client);
 			const kafka_topic = 'energidataElspot';
 			console.log(kafka_topic);
 			let payloads = [
@@ -149,7 +149,7 @@ class Kafka {
 				return;
 			}
 
-			const producer = new Producer(client);
+			const producer = new Producer(this.client);
 			const kafka_topic = 'energidataCo2Emission';
 			console.log(kafka_topic);
 			let payloads = [
@@ -210,7 +210,7 @@ class Kafka {
 				return;
 			}
 
-			const producer = new Producer(client);
+			const producer = new Producer(this.client);
 			const kafka_topic = 'energidataProductionAndExchange';
 			console.log(kafka_topic);
 			let payloads = [

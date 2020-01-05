@@ -90,7 +90,7 @@ class Kafka {
 				return;
 			}
 
-			const producer = new Producer(client);
+			const producer = new Producer(this.client);
 			const kafka_topic = '{{channelName | camelCase}}';
 			console.log(kafka_topic);
 			let payloads = [
