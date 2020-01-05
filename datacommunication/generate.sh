@@ -10,4 +10,4 @@ ag --output ../spark-submitter --templates ./templates spark-submitter.json java
 
 # Warehouse
 ag --output ./warehouse-docs warehouse.json html
-ag --output ../warehouse --templates ./templates warehouse.json javascript-class-template
+ag --output ../data-warehouse --templates ./templates warehouse.json javascript-class-template
