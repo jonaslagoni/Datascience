@@ -32,10 +32,10 @@ const {{propertyName}}Enum = Object.freeze({
 		{%- set enumCounter = enumCounter + 1 %}
 	{%- endfor %}
     })
-exports.{{propertyName}}Enum = {{propertyName}}Enum;
+module.exports.{{propertyName}}Enum = {{propertyName}}Enum;
 {%- endif %}
 {%- endfor %}
-exports = class {{schema.uid() | upperFirst}} {
+module.exports = class {{schema.uid() | upperFirst}} {
     constructor(){
 
     }

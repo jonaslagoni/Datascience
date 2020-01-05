@@ -1,6 +1,6 @@
 
 
-export class ProcessedProduced {
+module.exports = class ProcessedProduced {
     constructor(){
 
     }

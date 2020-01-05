@@ -1,6 +1,6 @@
 
 
-export class StatusMessage {
+module.exports = class StatusMessage {
     constructor(){
 
     }
