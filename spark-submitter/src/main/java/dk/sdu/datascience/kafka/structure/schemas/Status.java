@@ -6,34 +6,34 @@
 package dk.sdu.datascience.kafka.structure.schemas;
 
 import com.google.gson.annotations.SerializedName;
-
+import java.util.List;
 /**
  *
  * @author Async api generated
  */
 public class Status {
-	public enum eventEnum {
-		@SerializedName("STARTING")
-			STARTING,
-		@SerializedName("DONE")
-			DONE,
-		@SerializedName("STOPPED")
-			STOPPED,
-	}
-	
-    private eventEnum event;
+        public enum eventEnum {
+            @SerializedName("STARTING")
+                STARTING,
+            @SerializedName("DONE")
+                DONE,
+            @SerializedName("STOPPED")
+                STOPPED,
+        }
+        
+        private eventEnum event;
 
-    /**
-     * @return eventEnum
-     */
-    public eventEnum getEvent() {
-        return event;
-    }
+        /**
+        * @return eventEnum
+        */
+        public eventEnum getEvent() {
+            return event;
+        }
 
-    /**
-     * @param event to set
-     */
-    public void setEvent(eventEnum event) {
-        this.event = event;
-    }
+        /**
+        * @param event to set
+        */
+        public void setEvent(eventEnum event) {
+            this.event = event;
+        }
 }

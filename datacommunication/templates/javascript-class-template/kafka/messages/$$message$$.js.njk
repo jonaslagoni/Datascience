@@ -1,5 +1,5 @@
-{%- macro constructor(schema) %}
-    constructor(
+{%- macro setData(schema) %}
+    setData(
         {{schema | constructor}}
     ){
     {%- if schema.allOf() | length > 0 %}
@@ -28,8 +28,35 @@
 {% endmacro %}
 
 export class {{message.name() | upperFirst}} {
-    
-    constructor();
-	{{ constructor(message.payload())}}
+    constructor(){
 
+    }
+
+	{{ setData(message.payload())}}
+
+    
+    /**
+    * Copy a js object into this.
+    * @param {*} jsonObject the js object 
+    */
+    copyInto(jsonObject){        
+        {%- if message.payload().allOf() | length > 0 %}
+            {%- for allOfSchema in message.payload().allOf() %}
+        {{initGetSet(allOfSchema.uid())}}
+            {%- endfor %}
+        {%- endif %}
+        {%- if message.payload().oneOf() | length > 0 %}
+            {%- for oneOfSchemas in message.payload().oneOf() %}
+        {{initGetSet(oneOfSchemas.uid())}}
+            {%- endfor %}
+        {%- endif %}
+        {%- if message.payload().anyOf() | length > 0 %}
+            {%- for anyOfSchema in message.payload().anyOf() %}
+        {{initGetSet(anyOfSchema.uid())}}
+            {%- endfor %}
+        {%- endif %}
+        {%- if message.payload().uid() | length %}
+        {{initGetSet(message.payload().uid())}}
+        {%- endif %}
+    }
 }

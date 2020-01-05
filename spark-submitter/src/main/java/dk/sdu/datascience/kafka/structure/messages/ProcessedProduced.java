@@ -16,20 +16,20 @@ public class ProcessedProduced {
 	
 	
 
-    private ProcessedProducedSchema processedProducedSchema;
+    private AllProcessedProducedSchema allProcessedProducedSchema;
 
     /**
-     * @return ProcessedProducedSchema
+     * @return AllProcessedProducedSchema
      */
-    public ProcessedProducedSchema getProcessedProducedSchema() {
-        return processedProducedSchema;
+    public AllProcessedProducedSchema getAllProcessedProducedSchema() {
+        return allProcessedProducedSchema;
     }
 
     /**
-     * @param ProcessedProducedSchema to set
+     * @param AllProcessedProducedSchema to set
      */
-    public void setProcessedProducedSchema(ProcessedProducedSchema processedProducedSchema) {
-        this.processedProducedSchema = processedProducedSchema;
+    public void setAllProcessedProducedSchema(AllProcessedProducedSchema allProcessedProducedSchema) {
+        this.allProcessedProducedSchema = allProcessedProducedSchema;
     }
 
 

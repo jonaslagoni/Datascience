@@ -1,16 +1,28 @@
 
 
 export class ProcessedProduced {
-    
-    constructor();
+    constructor(){
+
+    }
+
 	
-    constructor(
-        processedProducedSchema
+    setData(
+        allProcessedProducedSchema
     ){
         
-    this.processedProducedSchema = processedProducedSchema;
+    this.allProcessedProducedSchema = allProcessedProducedSchema;
 
     }
 
 
+    
+    /**
+    * Copy a js object into this.
+    * @param {*} jsonObject the js object 
+    */
+    copyInto(jsonObject){
+        
+    this.allProcessedProducedSchema = allProcessedProducedSchema;
+
+    }
 }

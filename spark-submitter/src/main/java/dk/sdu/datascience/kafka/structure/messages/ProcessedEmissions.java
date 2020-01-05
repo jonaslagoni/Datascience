@@ -16,20 +16,20 @@ public class ProcessedEmissions {
 	
 	
 
-    private ProcessedEmissionsSchema processedEmissionsSchema;
+    private AllProcessedEmissionsSchema allProcessedEmissionsSchema;
 
     /**
-     * @return ProcessedEmissionsSchema
+     * @return AllProcessedEmissionsSchema
      */
-    public ProcessedEmissionsSchema getProcessedEmissionsSchema() {
-        return processedEmissionsSchema;
+    public AllProcessedEmissionsSchema getAllProcessedEmissionsSchema() {
+        return allProcessedEmissionsSchema;
     }
 
     /**
-     * @param ProcessedEmissionsSchema to set
+     * @param AllProcessedEmissionsSchema to set
      */
-    public void setProcessedEmissionsSchema(ProcessedEmissionsSchema processedEmissionsSchema) {
-        this.processedEmissionsSchema = processedEmissionsSchema;
+    public void setAllProcessedEmissionsSchema(AllProcessedEmissionsSchema allProcessedEmissionsSchema) {
+        this.allProcessedEmissionsSchema = allProcessedEmissionsSchema;
     }
 
 

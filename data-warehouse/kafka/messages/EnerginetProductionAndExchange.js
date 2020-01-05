@@ -1,10 +1,12 @@
 
 
 export class EnerginetProductionAndExchange {
-    
-    constructor();
+    constructor(){
+
+    }
+
 	
-    constructor(
+    setData(
         energinetProductionAndExchangeSchema
     ){
         
@@ -13,4 +15,14 @@ export class EnerginetProductionAndExchange {
     }
 
 
+    
+    /**
+    * Copy a js object into this.
+    * @param {*} jsonObject the js object 
+    */
+    copyInto(jsonObject){
+        
+    this.energinetProductionAndExchangeSchema = energinetProductionAndExchangeSchema;
+
+    }
 }

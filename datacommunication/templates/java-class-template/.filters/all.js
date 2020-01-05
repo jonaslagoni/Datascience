@@ -12,7 +12,17 @@ module.exports = ({ Nunjucks, _ }) => {
 			case 'string':
 				return 'String';
 			case 'array':
-				return `List<${property.items()}>`;
+				let type =
+					property
+						.items()
+						.uid()
+						.charAt(0)
+						.toUpperCase() +
+					property
+						.items()
+						.uid()
+						.slice(1);
+				return `List<${type}>`;
 			case 'number':
 				if (property.required()) {
 					return 'double';
