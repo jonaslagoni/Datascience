@@ -6,6 +6,7 @@
 package dk.sdu.datascience;
 
 import dk.sdu.datascience.kafka.structure.messages.EnerginetCO2Emission;
+import dk.sdu.datascience.kafka.structure.schemas.AllProcessedEmissionsSchema;
 
 /**
  *
@@ -13,7 +14,10 @@ import dk.sdu.datascience.kafka.structure.messages.EnerginetCO2Emission;
  */
 public class EmissionProcessor {
 
-    public void process(EnerginetCO2Emission newData) {
+    public AllProcessedEmissionsSchema process(EnerginetCO2Emission newData) {
+        -
 
+
+....
     }
 }
