@@ -115,24 +115,6 @@ class Kafka {
 				console.log('[kafka-producer -> '+kafka_topic+']: connection errored');
 				reject(err);
 			});
-
-
-			var consumer = new Consumer(
-				this.client,
-				[{ topic: 'energidataElspot', partition: 0 }],
-				{
-					autoCommit: true,
-					fetchMaxWaitMs: 1000,
-					fetchMaxBytes: 1024 * 1024,
-					encoding: 'utf8',
-      				fromOffset: false,
-					groupId: options.kafkaGroup
-				}
-			);
-			consumer.on('message', messageCallback);
-			consumer.on('error', errorCallback);
-			consumer.on('offsetOutOfRange', errorCallback);
-			resolve(consumer);
 		});
 	}
 	/**
@@ -176,24 +158,6 @@ class Kafka {
 				console.log('[kafka-producer -> '+kafka_topic+']: connection errored');
 				reject(err);
 			});
-
-
-			var consumer = new Consumer(
-				this.client,
-				[{ topic: 'energidataCo2Emission', partition: 0 }],
-				{
-					autoCommit: true,
-					fetchMaxWaitMs: 1000,
-					fetchMaxBytes: 1024 * 1024,
-					encoding: 'utf8',
-      				fromOffset: false,
-					groupId: options.kafkaGroup
-				}
-			);
-			consumer.on('message', messageCallback);
-			consumer.on('error', errorCallback);
-			consumer.on('offsetOutOfRange', errorCallback);
-			resolve(consumer);
 		});
 	}
 	/**
@@ -237,24 +201,6 @@ class Kafka {
 				console.log('[kafka-producer -> '+kafka_topic+']: connection errored');
 				reject(err);
 			});
-
-
-			var consumer = new Consumer(
-				this.client,
-				[{ topic: 'energidataProductionAndExchange', partition: 0 }],
-				{
-					autoCommit: true,
-					fetchMaxWaitMs: 1000,
-					fetchMaxBytes: 1024 * 1024,
-					encoding: 'utf8',
-      				fromOffset: false,
-					groupId: options.kafkaGroup
-				}
-			);
-			consumer.on('message', messageCallback);
-			consumer.on('error', errorCallback);
-			consumer.on('offsetOutOfRange', errorCallback);
-			resolve(consumer);
 		});
 	}
 }
