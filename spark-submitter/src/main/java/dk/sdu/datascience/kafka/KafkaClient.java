@@ -58,7 +58,7 @@ public class KafkaClient{
 	}
 	public interface energidataElspotCallback { 
 		// this can be any type of method 
-		void messageConsumed(EnerginetElspot callback); 
+		void messageConsumed(EnerginetElspot payload); 
 	} 
 
     /**
@@ -95,7 +95,7 @@ public class KafkaClient{
     }
 	public interface energidataCo2EmissionCallback { 
 		// this can be any type of method 
-		void messageConsumed(EnerginetCO2Emission callback); 
+		void messageConsumed(EnerginetCO2Emission payload); 
 	} 
 
     /**
@@ -132,7 +132,7 @@ public class KafkaClient{
     }
 	public interface energidataProductionAndExchangeCallback { 
 		// this can be any type of method 
-		void messageConsumed(EnerginetProductionAndExchange callback); 
+		void messageConsumed(EnerginetProductionAndExchange payload); 
 	} 
 
     /**
