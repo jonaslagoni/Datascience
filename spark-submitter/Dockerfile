@@ -1,26 +1,5 @@
-FROM bde2020/spark-submit:2.4.4-hadoop2.7
+FROM bde2020/spark-java-template:2.4.0-hadoop2.7
 
-LABEL maintainer="Gezim Sejdiu <g.sejdiu@gmail.com>, Giannis Mouchakis <gmouchakis@gmail.com>"
 
-ENV SPARK_APPLICATION_JAR_NAME spark-submitter-1.0.0.jar
+ENV SPARK_APPLICATION_JAR_NAME spark-submitter-1.0.0-with-dependencies
 ENV SPARK_APPLICATION_MAIN_CLASS dk.sdu.datascience.Main
-COPY template.sh /
-
-RUN apk add --no-cache openjdk8 maven\
-	&& chmod +x /template.sh \
-	&& mkdir -p /app \
-	&& mkdir -p /usr/src/app
-
-# Copy the POM-file first, for separate dependency resolving and downloading
-# Copy the source code and build the application
-COPY . /usr/src/app
-COPY pom.xml /usr/src/app
-RUN cd /usr/src/app \
-	&& mvn dependency:resolve
-RUN cd /usr/src/app \
-	&& mvn verify
-
-# Copy the source code and build the application
-RUN cd /usr/src/app \
-	&& mvn clean package
-CMD ["/bin/bash", "/template.sh"]

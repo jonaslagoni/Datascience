@@ -5,9 +5,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var kafka = require('./kafka/index');
+var kafka = require('./kafka/Index');
 kafka
-	.listenForMessageA(
+	.consumeDatascienceProcessedStatus(
 		message => {
 			console.log(message);
 		},

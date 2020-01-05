@@ -49,6 +49,13 @@ class Kafka {
 			});
 			this.client.on('ready', () => {
 				console.error('Kafka connection ready');
+				let topics=[];
+				{%- for channelName, channel in asyncapi.channels() %}
+				topics.push('{{channelName | camelCase}}');
+				{%- endfor %}
+				this.client.loadMetadataForTopics(topics, (err, resp) => {
+					console.log(`${resp}`);
+				});
 				this.isConnected = true;
 			});
 			this.client.on('error', e => {

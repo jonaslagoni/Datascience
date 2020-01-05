@@ -49,6 +49,13 @@ class Kafka {
 			});
 			this.client.on('ready', () => {
 				console.error('Kafka connection ready');
+				let topics=[];
+				topics.push('energidataElspot');
+				topics.push('energidataCo2Emission');
+				topics.push('energidataProductionAndExchange');
+				this.client.loadMetadataForTopics(topics, (err, resp) => {
+					console.log(`${resp}`);
+				});
 				this.isConnected = true;
 			});
 			this.client.on('error', e => {
