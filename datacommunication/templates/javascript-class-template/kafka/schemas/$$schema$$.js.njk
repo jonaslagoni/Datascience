@@ -32,12 +32,23 @@ const {{propertyName}}Enum = Object.freeze({
 		{%- set enumCounter = enumCounter + 1 %}
 	{%- endfor %}
     })
+exports.{{propertyName}}Enum = {{propertyName}}Enum;
 {%- endif %}
 {%- endfor %}
-exports.{{propertyName}}Enum = {{propertyName}}Enum;
 exports = class {{schema.uid() | upperFirst}} {
     constructor();
+    
+    {%- if schema.properties() | length %}
     {{constructor(schema)}}
+    {%- else %}
+    /**
+    * 
+    * @param { {{schema.items().uid() | upperFirst}}[] } {{schema.items().uid()}} 
+    */
+    constructor({{schema.items().uid()}}){ 
+        this.{{schema.items().uid()}} = {{schema.items().uid()}}
+    }
+    {%- endif %}
 
     
     /**
@@ -45,6 +56,7 @@ exports = class {{schema.uid() | upperFirst}} {
     * @param {*} jsonObject the js object 
     */
     copyInto(jsonObject){
+        {%- if schema.properties() | length %}
         {%- for propertyName, property in schema.properties() %}
         {%- if property.required() %}
         this.{{ propertyName }}=jsonObject.{{ propertyName }};
@@ -54,5 +66,8 @@ exports = class {{schema.uid() | upperFirst}} {
         }
         {%- endif %}
         {%- endfor %}
+        {%- else %}
+        this.{{ schema.items().uid() }}=jsonObject.{{ schema.items().uid() }};
+        {%- endif %}
     }
 }

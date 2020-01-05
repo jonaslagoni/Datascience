@@ -1,18 +1,22 @@
 {
-	"type": "object",
-	"$id": "processedProducedSchema",
-	"properties": {
-		"HOUR_DK": {
-			"type": "string",
-			"description": "Timestamp for the year and month of the recording - \"yyyy-mm\""
-		},
-		"PRICE_AREA": {
-			"type": "string",
-			"description": "DK1 or DK2."
-		},
-		"TOTAL_MWH_PRODUCED": {
-			"type": "string",
-			"description": "."
+	"type": "array",
+	"$id": "allProcessedProducedSchema",
+	"items": {
+		"type": "object",
+		"$id": "processedProducedSchema",
+		"properties": {
+			"HOUR_DK": {
+				"type": "string",
+				"description": "Timestamp for the year and month of the recording - \"yyyy-mm\""
+			},
+			"PRICE_AREA": {
+				"type": "string",
+				"description": "DK1 or DK2."
+			},
+			"TOTAL_MWH_PRODUCED": {
+				"type": "string",
+				"description": "."
+			}
 		}
 	}
 }

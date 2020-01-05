@@ -4,7 +4,7 @@ const eventEnum = Object.freeze({
 			"DONE": "DONE",
 			"STOPPED": "STOPPED",
     })
-exports.Enum = Enum;
+exports.eventEnum = eventEnum;
 exports = class Status {
     constructor();
     

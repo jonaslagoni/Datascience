@@ -1,5 +1,4 @@
 
-exports.Enum = Enum;
 exports = class EnerginetProductionAndExchangeSchema {
     constructor();
     

@@ -5,10 +5,10 @@ export class ProcessedEmissions {
     constructor();
 	
     constructor(
-        processedEmissionsSchema
+        allProcessedEmissionsSchema
     ){
         
-    this.processedEmissionsSchema = processedEmissionsSchema;
+    this.allProcessedEmissionsSchema = allProcessedEmissionsSchema;
 
     }
 

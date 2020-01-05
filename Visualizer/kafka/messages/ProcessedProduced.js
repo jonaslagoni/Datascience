@@ -5,10 +5,10 @@ export class ProcessedProduced {
     constructor();
 	
     constructor(
-        processedProducedSchema
+        allProcessedProducedSchema
     ){
         
-    this.processedProducedSchema = processedProducedSchema;
+    this.allProcessedProducedSchema = allProcessedProducedSchema;
 
     }
 
