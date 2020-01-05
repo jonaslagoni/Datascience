@@ -1,10 +1,12 @@
 
 
 export class ProcessedProduced {
-    
-    constructor();
+    constructor(){
+
+    }
+
 	
-    constructor(
+    setData(
         allProcessedProducedSchema
     ){
         
@@ -13,4 +15,14 @@ export class ProcessedProduced {
     }
 
 
+    
+    /**
+    * Copy a js object into this.
+    * @param {*} jsonObject the js object 
+    */
+    copyInto(jsonObject){
+        
+    this.allProcessedProducedSchema = allProcessedProducedSchema;
+
+    }
 }

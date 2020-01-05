@@ -6,14 +6,16 @@ const eventEnum = Object.freeze({
     })
 exports.eventEnum = eventEnum;
 exports = class Status {
-    constructor();
+    constructor(){
+
+    }
     
 
     /**
     *
     * @param { string } event
     */
-    constructor(
+    setData(
         event
     ){
         this.event=event;

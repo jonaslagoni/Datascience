@@ -1,10 +1,12 @@
 
 
 export class EnerginetCO2Emission {
-    
-    constructor();
+    constructor(){
+
+    }
+
 	
-    constructor(
+    setData(
         energinetCO2EmissionSchema
     ){
         
@@ -13,4 +15,14 @@ export class EnerginetCO2Emission {
     }
 
 
+    
+    /**
+    * Copy a js object into this.
+    * @param {*} jsonObject the js object 
+    */
+    copyInto(jsonObject){
+        
+    this.energinetCO2EmissionSchema = energinetCO2EmissionSchema;
+
+    }
 }

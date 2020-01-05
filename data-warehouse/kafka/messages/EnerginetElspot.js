@@ -1,10 +1,12 @@
 
 
 export class EnerginetElspot {
-    
-    constructor();
+    constructor(){
+
+    }
+
 	
-    constructor(
+    setData(
         energinetElspotSchema
     ){
         
@@ -13,4 +15,14 @@ export class EnerginetElspot {
     }
 
 
+    
+    /**
+    * Copy a js object into this.
+    * @param {*} jsonObject the js object 
+    */
+    copyInto(jsonObject){
+        
+    this.energinetElspotSchema = energinetElspotSchema;
+
+    }
 }

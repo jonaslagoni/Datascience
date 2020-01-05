@@ -1,11 +1,13 @@
 
 exports = class AllProcessedProducedSchema {
-    constructor();
+    constructor(){
+
+    }
     /**
     * 
     * @param { ProcessedProducedSchema[] } processedProducedSchema 
     */
-    constructor(processedProducedSchema){ 
+    setData(processedProducedSchema){ 
         this.processedProducedSchema = processedProducedSchema
     }
 

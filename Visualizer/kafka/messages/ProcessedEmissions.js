@@ -1,10 +1,12 @@
 
 
 export class ProcessedEmissions {
-    
-    constructor();
+    constructor(){
+
+    }
+
 	
-    constructor(
+    setData(
         allProcessedEmissionsSchema
     ){
         
@@ -13,4 +15,14 @@ export class ProcessedEmissions {
     }
 
 
+    
+    /**
+    * Copy a js object into this.
+    * @param {*} jsonObject the js object 
+    */
+    copyInto(jsonObject){
+        
+    this.allProcessedEmissionsSchema = allProcessedEmissionsSchema;
+
+    }
 }

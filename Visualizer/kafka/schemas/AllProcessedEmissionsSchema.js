@@ -1,11 +1,13 @@
 
 exports = class AllProcessedEmissionsSchema {
-    constructor();
+    constructor(){
+
+    }
     /**
     * 
     * @param { ProcessedEmissionsSchema[] } processedEmissionsSchema 
     */
-    constructor(processedEmissionsSchema){ 
+    setData(processedEmissionsSchema){ 
         this.processedEmissionsSchema = processedEmissionsSchema
     }
 

@@ -1,6 +1,8 @@
 
 exports = class EnerginetElspotSchema {
-    constructor();
+    constructor(){
+
+    }
     
 
     /**
@@ -9,7 +11,7 @@ exports = class EnerginetElspotSchema {
     * @param { string } PRICE_AREA
     * @param { number } SPOT_PRICE_EUR
     */
-    constructor(
+    setData(
         HOUR_DK,PRICE_AREA,SPOT_PRICE_EUR
     ){
         this.HOUR_DK=HOUR_DK;

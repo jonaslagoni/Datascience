@@ -1,4 +1,4 @@
-{%- macro constructor(schema) %}
+{%- macro setData(schema) %}
 
     /**
     * 
@@ -6,7 +6,7 @@
     * @param { {{property.type()}} } {{propertyName}} 
     {%- endfor %}
     */
-    constructor(
+    setData(
         {{schema.properties() | schemaConstructor}}
     ){ 
     {%- for propertyName, property in schema.properties() %}
@@ -36,16 +36,18 @@ exports.{{propertyName}}Enum = {{propertyName}}Enum;
 {%- endif %}
 {%- endfor %}
 exports = class {{schema.uid() | upperFirst}} {
-    constructor();
+    constructor(){
+
+    }
     
     {%- if schema.properties() | length %}
-    {{constructor(schema)}}
+    {{setData(schema)}}
     {%- else %}
     /**
     * 
     * @param { {{schema.items().uid() | upperFirst}}[] } {{schema.items().uid()}} 
     */
-    constructor({{schema.items().uid()}}){ 
+    setData({{schema.items().uid()}}){ 
         this.{{schema.items().uid()}} = {{schema.items().uid()}}
     }
     {%- endif %}

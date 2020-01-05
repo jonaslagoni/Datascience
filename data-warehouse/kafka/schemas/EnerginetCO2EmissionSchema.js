@@ -1,6 +1,8 @@
 
 exports = class EnerginetCO2EmissionSchema {
-    constructor();
+    constructor(){
+
+    }
     
 
     /**
@@ -9,7 +11,7 @@ exports = class EnerginetCO2EmissionSchema {
     * @param { string } PRICE_AREA
     * @param { number } CO2_EMISSION
     */
-    constructor(
+    setData(
         MINUTES5_DK,PRICE_AREA,CO2_EMISSION
     ){
         this.MINUTES5_DK=MINUTES5_DK;

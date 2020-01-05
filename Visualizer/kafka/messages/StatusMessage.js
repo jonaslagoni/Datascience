@@ -1,10 +1,12 @@
 
 
 export class StatusMessage {
-    
-    constructor();
+    constructor(){
+
+    }
+
 	
-    constructor(
+    setData(
         status
     ){
         
@@ -13,4 +15,14 @@ export class StatusMessage {
     }
 
 
+    
+    /**
+    * Copy a js object into this.
+    * @param {*} jsonObject the js object 
+    */
+    copyInto(jsonObject){
+        
+    this.status = status;
+
+    }
 }

@@ -1,6 +1,8 @@
 
 exports = class EnerginetProductionAndExchangeSchema {
-    constructor();
+    constructor(){
+
+    }
     
 
     /**
@@ -10,7 +12,7 @@ exports = class EnerginetProductionAndExchangeSchema {
     * @param { number } PRODUCTION_LT_100
     * @param { number } PRODUCTION_GE_100
     */
-    constructor(
+    setData(
         MINUTES5_DK,PRICE_AREA,PRODUCTION_LT_100,PRODUCTION_GE_100
     ){
         this.MINUTES5_DK=MINUTES5_DK;
