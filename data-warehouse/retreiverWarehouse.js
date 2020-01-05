@@ -17,8 +17,10 @@ axios.get('https://api.energidataservice.dk/datastore_search', {
 .then(function(response) {
     console.log(response.data.result.records);
     response.data.result.records.forEach(element => {
-        const energiSchema = new energiProductionSchema(element.Minutes5DK, element.PriceAream, element.ProductionLt100MW, element.ProductionGe100MW)
+        const energiSchema = new energiProductionSchema();
+        energiSchema.setData(element.Minutes5DK, element.PriceAream, element.ProductionLt100MW, element.ProductionGe100MW)
         kafka.publishEnergidataProductionAndExchange(energiSchema);
         console.log(energiSchema);
     });
-});
+})
+.catch();
