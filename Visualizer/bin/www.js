@@ -20,7 +20,73 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server);
+var kafka = require('../kafka/Index');
+io.on('connection', function(socket){
+	console.log('a user connected');
+	let tempProducedElectricity = [
+		{
+			DAY_DATE_DK: "2019-01-07",
+			PRICE_AREA: "DK1",
+			TOTAL_MWH_PRODUCED: "123"
+		}
+	]
+	socket.emit('ProducedElectricity', tempProducedElectricity);
 
+	
+	let tempSpotPrices = [
+		{
+
+		}
+	]
+	socket.emit('SpotPrices', tempSpotPrices);
+	
+	let tempEmissions = [
+		{
+
+		}
+	]
+	socket.emit('Emissions', tempEmissions);
+});
+kafka
+	.consumeProcessedProduced(
+		message => {
+			console.log('Recieved consumeProcessedProduced: ' + JSON.stringify(message))
+			io.emit('ProducedElectricity', message);
+		},
+		e => {
+			console.log(e);
+		}
+	)
+	.catch(() => {
+		console.log('error');
+	});
+kafka
+	.consumeProcessedSpotPrices(
+		message => {
+			console.log('Recieved consumeProcessedSpotPrices: ' + JSON.stringify(message))
+			io.emit('SpotPrices', message);
+		},
+		e => {
+			console.log(e);
+		}
+	)
+	.catch(() => {
+		console.log('error');
+	});
+kafka
+	.consumeProcessedEmissions(
+		message => {
+			console.log('Recieved consumeProcessedEmissions: ' + JSON.stringify(message))
+			io.emit('Emissions', message);
+		},
+		e => {
+			console.log(e);
+		}
+	)
+	.catch(() => {
+		console.log('error');
+	});
 /**
  * Listen on provided port, on all network interfaces.
  */

@@ -1,6 +1,6 @@
 
 const d3testData = require('./d3testData');
-
+console.log(DK1)
 let lineArray = [];
 let DK1Line = d3testData.getArrays[0];
 let DK2Line = d3testData.getArrays[1];

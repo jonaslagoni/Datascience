@@ -2,6 +2,6 @@
 	"title": "Energinet data in raw format",
 	"name": "processedSpotPrices",
 	"payload": {
-		"$ref": "../schemas/processedSpotPrices.json"
+		"$ref": "../schemas/processedSpotPricesSchema.json"
 	}
 }
