@@ -4,7 +4,6 @@ module.exports = class EnerginetProductionAndExchangeSchema {
 
     }
     
-
     /**
     *
     * @param { string } MINUTES5_DK

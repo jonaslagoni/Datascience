@@ -15,6 +15,7 @@ import dk.sdu.datascience.kafka.structure.schemas.*;
 public class StatusMessage {
 	
 	
+	
 
     private Status status;
 

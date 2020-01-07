@@ -57,6 +57,7 @@ import dk.sdu.datascience.kafka.structure.schemas.*;
  * @author Async api generated
  */
 public class {{message.name() | upperFirst}} {
+	{{ message.payload().items() | print}}
 	{{ initProperties(message.payload())}}
 }
 

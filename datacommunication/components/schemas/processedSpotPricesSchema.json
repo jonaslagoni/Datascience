@@ -1,6 +1,6 @@
 {
 	"type": "array",
-	"$id": "allprocessedSpotPricesSchema",
+	"$id": "allProcessedSpotPricesSchema",
 	"items": {
 		"type": "object",
 		"$id": "processedSpotPricesSchema",

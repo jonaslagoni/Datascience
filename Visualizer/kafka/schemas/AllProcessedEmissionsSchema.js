@@ -5,7 +5,10 @@ module.exports = class AllProcessedEmissionsSchema {
     }
     /**
     * 
-    * @param { ProcessedEmissionsSchema[] } processedEmissionsSchema 
+    * @param { ProcessedEmissionsSchema[] } processedEmissionsSchema
+    * @param { string } ProcessedEmissionsSchema[].HOUR_DK
+    * @param { string } ProcessedEmissionsSchema[].PRICE_AREA
+    * @param { string } ProcessedEmissionsSchema[].ACTUAL_EMISSIONS
     */
     setData(processedEmissionsSchema){ 
         this.processedEmissionsSchema = processedEmissionsSchema
