@@ -7,10 +7,10 @@ module.exports = class ProcessedSpotPrices {
 
 	
     setData(
-        allprocessedSpotPricesSchema
+        allProcessedSpotPricesSchema
     ){
         
-    this.allprocessedSpotPricesSchema = allprocessedSpotPricesSchema;
+    this.allProcessedSpotPricesSchema = allProcessedSpotPricesSchema;
 
     }
 
@@ -22,7 +22,7 @@ module.exports = class ProcessedSpotPrices {
     */
     copyInto(jsonObject){
         
-    this.allprocessedSpotPricesSchema = allprocessedSpotPricesSchema;
+    this.allProcessedSpotPricesSchema = allProcessedSpotPricesSchema;
 
     }
 }

@@ -15,21 +15,22 @@ import dk.sdu.datascience.kafka.structure.schemas.*;
 public class ProcessedSpotPrices {
 	
 	
+	
 
-    private AllprocessedSpotPricesSchema allprocessedSpotPricesSchema;
+    private AllProcessedSpotPricesSchema allProcessedSpotPricesSchema;
 
     /**
-     * @return AllprocessedSpotPricesSchema
+     * @return AllProcessedSpotPricesSchema
      */
-    public AllprocessedSpotPricesSchema getAllprocessedSpotPricesSchema() {
-        return allprocessedSpotPricesSchema;
+    public AllProcessedSpotPricesSchema getAllProcessedSpotPricesSchema() {
+        return allProcessedSpotPricesSchema;
     }
 
     /**
-     * @param AllprocessedSpotPricesSchema to set
+     * @param AllProcessedSpotPricesSchema to set
      */
-    public void setAllprocessedSpotPricesSchema(AllprocessedSpotPricesSchema allprocessedSpotPricesSchema) {
-        this.allprocessedSpotPricesSchema = allprocessedSpotPricesSchema;
+    public void setAllProcessedSpotPricesSchema(AllProcessedSpotPricesSchema allProcessedSpotPricesSchema) {
+        this.allProcessedSpotPricesSchema = allProcessedSpotPricesSchema;
     }
 
 

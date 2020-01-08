@@ -10,7 +10,6 @@ module.exports = class Status {
 
     }
     
-
     /**
     *
     * @param { string } event

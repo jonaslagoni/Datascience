@@ -1,18 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package dk.sdu.datascience.kafka.structure.schemas;
+{%- macro addProperty(property, propertyName) %}
+    private {{property | toJavaType}} {{propertyName}};
 
-import com.google.gson.annotations.SerializedName;
-import java.util.List;
-/**
- *
- * @author Async api generated
- */
-public class {{schema.uid() | upperFirst}} {
+    /**
+    * @return {{propertyName}}
+    */
+    public {{property | toJavaType}} get{{propertyName | upperFirst}}() {
+        return {{propertyName}};
+    }
 
+    /**
+    * @param {{propertyName}} to set
+    */
+    public void set{{propertyName | upperFirst}}({{property | toJavaType}} {{propertyName}}) {
+        this.{{propertyName}} = {{propertyName}};
+    }
+{% endmacro %}
+{%- macro addSchema(schema) %}
 {%- if schema.type() == "array" %}
     private {{schema | toJavaType | safe }} {{schema.uid()}};
 
@@ -28,6 +31,10 @@ public class {{schema.uid() | upperFirst}} {
     */
     public void set{{schema.uid() | upperFirst}}({{schema | toJavaType | safe }} {{schema.uid()}}) {
         this.{{schema.uid()}} = {{schema.uid()}};
+    }
+
+    public class {{schema.items().uid() | upperFirst}}{
+        {{addSchema(schema.items())}}
     }
 {%- else %}
     {%- for propertyName, property in schema.properties() %}
@@ -61,22 +68,24 @@ public class {{schema.uid() | upperFirst}} {
             this.{{propertyName}} = {{propertyName}};
         }
     {%- else %}
-        private {{property | toJavaType}} {{propertyName}};
-
-        /**
-        * @return {{propertyName}}
-        */
-        public {{property | toJavaType}} get{{propertyName | upperFirst}}() {
-            return {{propertyName}};
-        }
-
-        /**
-        * @param {{propertyName}} to set
-        */
-        public void set{{propertyName | upperFirst}}({{property | toJavaType}} {{propertyName}}) {
-            this.{{propertyName}} = {{propertyName}};
-        }
+        {{addProperty(property, propertyName)}}
     {%- endif %}
     {%- endfor %}
 {%- endif %}
+{% endmacro %}
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dk.sdu.datascience.kafka.structure.schemas;
+
+import com.google.gson.annotations.SerializedName;
+import java.util.List;
+/**
+ *
+ * @author Async api generated
+ */
+public class {{schema.uid() | upperFirst}} {
+    {{addSchema(schema)}}
 }

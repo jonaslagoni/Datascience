@@ -1,5 +1,4 @@
 {%- macro setData(schema) %}
-
     /**
     * 
     {%- for propertyName, property in schema.properties() %}
@@ -46,6 +45,9 @@ module.exports = class {{schema.uid() | upperFirst}} {
     /**
     * 
     * @param { {{schema.items().uid() | upperFirst}}[] } {{schema.items().uid()}} 
+    {%- for propertyName, property in schema.items().properties() %}
+    * @param { {{property.type()}} } {{schema.items().uid() | upperFirst}}[].{{propertyName}} 
+    {%- endfor %}
     */
     setData({{schema.items().uid()}}){ 
         this.{{schema.items().uid()}} = {{schema.items().uid()}}

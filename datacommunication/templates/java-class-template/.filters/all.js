@@ -3,6 +3,9 @@ module.exports = ({ Nunjucks, _ }) => {
 		return _.camelCase(str);
 	});
 
+	Nunjucks.addFilter('print', str => {
+		console.log(str);
+	});
 	Nunjucks.addFilter('upperFirst', str => {
 		return _.upperFirst(str);
 	});

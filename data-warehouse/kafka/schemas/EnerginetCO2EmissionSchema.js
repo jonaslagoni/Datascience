@@ -4,7 +4,6 @@ module.exports = class EnerginetCO2EmissionSchema {
 
     }
     
-
     /**
     *
     * @param { string } MINUTES5_DK

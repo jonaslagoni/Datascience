@@ -15,6 +15,7 @@ import dk.sdu.datascience.kafka.structure.schemas.*;
 public class EnerginetCO2Emission {
 	
 	
+	
 
     private EnerginetCO2EmissionSchema energinetCO2EmissionSchema;
 
