@@ -124,7 +124,7 @@ function redrawEmissions(array){
       svg.append("circle").attr("cx",200).attr("cy",130).attr("r", 6).style("fill", "blue")
       svg.append("circle").attr("cx",200).attr("cy",160).attr("r", 6).style("fill", "red")
       svg.append("text").attr("x", 220).attr("y", 130).text("Price Area: DK1").style("font-size", "15px").attr("alignment-baseline","middle")
-      svg.append("text").attr("x", 220).attr("y", 160).text("Price Area: DK1").style("font-size", "15px").attr("alignment-baseline","middle")
+      svg.append("text").attr("x", 220).attr("y", 160).text("Price Area: DK2").style("font-size", "15px").attr("alignment-baseline","middle")
 
 
 

@@ -36,16 +36,22 @@ function redrawProducedElectricity(ArrayOfProducedElectricity){
           "translate(" + margin.left + "," + margin.top + ")");
 
 
+
     var formattedDate = d3.timeParse("%Y-%m-%d");
 
+
     DK1.forEach(function(d) {
+        console.log(d.DAY_DATE_DK);
         d.DAY_DATE_DK = formattedDate(d.DAY_DATE_DK);
         d.TOTAL_MWH_PRODUCED = +d.TOTAL_MWH_PRODUCED;
+        console.log("DK1, MWH: " + d.TOTAL_MWH_PRODUCED);
     });
 
     DK2.forEach(function(d){
+        console.log(d.DAY_DATE_DK);
         d.DAY_DATE_DK = formattedDate(d.DAY_DATE_DK);
         d.TOTAL_MWH_PRODUCED = +d.TOTAL_MWH_PRODUCED;
+        console.log("DK2, MWH: " + d.TOTAL_MWH_PRODUCED);
     });
 
     
@@ -118,7 +124,7 @@ function redrawProducedElectricity(ArrayOfProducedElectricity){
       svg.append("circle").attr("cx",200).attr("cy",130).attr("r", 6).style("fill", "blue")
       svg.append("circle").attr("cx",200).attr("cy",160).attr("r", 6).style("fill", "red")
       svg.append("text").attr("x", 220).attr("y", 130).text("Price Area: DK1").style("font-size", "15px").attr("alignment-baseline","middle")
-      svg.append("text").attr("x", 220).attr("y", 160).text("Price Area: DK1").style("font-size", "15px").attr("alignment-baseline","middle")
+      svg.append("text").attr("x", 220).attr("y", 160).text("Price Area: DK2").style("font-size", "15px").attr("alignment-baseline","middle")
 
 
       console.log(DK1);
