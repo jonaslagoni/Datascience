@@ -7,15 +7,15 @@
 		"properties": {
 			"HOUR_DK": {
 				"type": "string",
-				"description": "Timestamp for the year and month of the recording - \"yyyy-mm\""
+				"description": "Each hour, format \"yyyy-MM-dd HH\""
 			},
 			"PRICE_AREA": {
 				"type": "string",
 				"description": "DK1 or DK2."
 			},
-			"AVERAGE_EMISSIONS": {
+			"ACTUAL_EMISSIONS": {
 				"type": "string",
-				"description": "per hour."
+				"description": "Actual emission CO2/ton per hour."
 			}
 		}
 	}

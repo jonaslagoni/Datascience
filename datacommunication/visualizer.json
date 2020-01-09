@@ -27,6 +27,15 @@
 				}
 			}
 		},
+		"processed/spotPrices": {
+			"description": "subscribes to event for when new data is being processed",
+			"subscribe": {
+				"message": {
+					"$ref": "./components/messages/processedSpotPrices.json",
+					"description": "Dataset"
+				}
+			}
+		},
 		"processed/emissions": {
 			"description": "subscribes to event for when new data is being processed",
 			"subscribe": {

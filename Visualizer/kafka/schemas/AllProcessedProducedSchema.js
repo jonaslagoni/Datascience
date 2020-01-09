@@ -5,7 +5,10 @@ module.exports = class AllProcessedProducedSchema {
     }
     /**
     * 
-    * @param { ProcessedProducedSchema[] } processedProducedSchema 
+    * @param { ProcessedProducedSchema[] } processedProducedSchema
+    * @param { string } ProcessedProducedSchema[].DAY_DATE_DK
+    * @param { string } ProcessedProducedSchema[].PRICE_AREA
+    * @param { string } ProcessedProducedSchema[].TOTAL_MWH_PRODUCED
     */
     setData(processedProducedSchema){ 
         this.processedProducedSchema = processedProducedSchema

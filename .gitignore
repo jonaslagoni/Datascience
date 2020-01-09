@@ -3,3 +3,4 @@
 /spark-submitter/build/
 /spark-submitter/target/
 *.env
+*.vs

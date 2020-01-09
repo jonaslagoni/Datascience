@@ -199,6 +199,36 @@ public class KafkaClient{
 	}
     /**
      * subscribes to event for when new data is being processed
+     * @param processedSpotPrices to send as payload
+     */
+	public static void produceprocessedSpotPrices(ProcessedSpotPrices processedSpotPrices) {
+		final Producer<Long, String> producer = createProducer();
+		long time = System.currentTimeMillis();
+		Gson gson = new Gson();
+		String payload = gson.toJson(processedSpotPrices);
+		try {
+			final ProducerRecord<Long, String> record =
+					new ProducerRecord<>("processedSpotPrices",
+								payload);
+
+			RecordMetadata metadata = producer.send(record).get();
+
+			long elapsedTime = System.currentTimeMillis() - time;
+			System.out.printf("sent record(key=%s value=%s) " +
+							"meta(partition=%d, offset=%d) time=%d\n",
+					record.key(), record.value(), metadata.partition(),
+					metadata.offset(), elapsedTime);
+		} catch (ExecutionException ex) {
+            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+        }  finally {
+			producer.flush();
+			producer.close();
+		}
+	}
+    /**
+     * subscribes to event for when new data is being processed
      * @param processedEmissions to send as payload
      */
 	public static void produceprocessedEmissions(ProcessedEmissions processedEmissions) {
