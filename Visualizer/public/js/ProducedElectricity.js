@@ -44,14 +44,12 @@ function redrawProducedElectricity(ArrayOfProducedElectricity){
         console.log(d.DAY_DATE_DK);
         d.DAY_DATE_DK = formattedDate(d.DAY_DATE_DK);
         d.TOTAL_MWH_PRODUCED = +d.TOTAL_MWH_PRODUCED;
-        console.log("DK1, MWH: " + d.TOTAL_MWH_PRODUCED);
     });
 
     DK2.forEach(function(d){
         console.log(d.DAY_DATE_DK);
         d.DAY_DATE_DK = formattedDate(d.DAY_DATE_DK);
         d.TOTAL_MWH_PRODUCED = +d.TOTAL_MWH_PRODUCED;
-        console.log("DK2, MWH: " + d.TOTAL_MWH_PRODUCED);
     });
 
     
@@ -79,7 +77,6 @@ function redrawProducedElectricity(ArrayOfProducedElectricity){
     });
     maxY = Math.max.apply(Math, tempArray);
     
-    console.log("this is maxY: " + maxY)
 
 
     //Set range for X axis and Y axis.
@@ -127,8 +124,6 @@ function redrawProducedElectricity(ArrayOfProducedElectricity){
       svg.append("text").attr("x", 220).attr("y", 160).text("Price Area: DK2").style("font-size", "15px").attr("alignment-baseline","middle")
 
 
-      console.log(DK1);
-      console.log(DK2);
 
     function splitArray(array){
         DK1 = []

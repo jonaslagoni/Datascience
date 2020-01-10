@@ -82,8 +82,66 @@ io.on('connection', function(socket){
 	
 	let tempSpotPrices = [
 		{
-
+			HOUR_DK: "2020-01",
+			PRICE_AREA: "DK2",
+			SPOT_PRICE_EUR: "24"
+		},
+		{
+			HOUR_DK: "2020-01",
+			PRICE_AREA: "DK1",
+			SPOT_PRICE_EUR: "23"
+		},
+		{
+			HOUR_DK: "2020-02",
+			PRICE_AREA: "DK2",
+			SPOT_PRICE_EUR: "30"
+		},
+		{
+			HOUR_DK: "2020-02",
+			PRICE_AREA: "DK1",
+			SPOT_PRICE_EUR: "35"
+		},
+		{
+			HOUR_DK: "2020-03",
+			PRICE_AREA: "DK2",
+			SPOT_PRICE_EUR: "32"
+		},
+		{
+			HOUR_DK: "2020-03",
+			PRICE_AREA: "DK1",
+			SPOT_PRICE_EUR: "24"
+		},
+		{
+			HOUR_DK: "2020-04",
+			PRICE_AREA: "DK2",
+			SPOT_PRICE_EUR: "18"
+		},
+		{
+			HOUR_DK: "2020-04",
+			PRICE_AREA: "DK1",
+			SPOT_PRICE_EUR: "28"
+		},
+		{
+			HOUR_DK: "2020-05",
+			PRICE_AREA: "DK2",
+			SPOT_PRICE_EUR: "28"
+		},
+		{
+			HOUR_DK: "2020-05",
+			PRICE_AREA: "DK1",
+			SPOT_PRICE_EUR: "28"
+		},
+		{
+			HOUR_DK: "2020-06",
+			PRICE_AREA: "DK2",
+			SPOT_PRICE_EUR: "28"
+		},
+		{
+			HOUR_DK: "2020-06",
+			PRICE_AREA: "DK1",
+			SPOT_PRICE_EUR: "28"
 		}
+	
 	]
 	socket.emit('SpotPrices', tempSpotPrices);
 	
