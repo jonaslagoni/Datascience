@@ -21,8 +21,8 @@ public class ProducerCreator {
     private static Producer<Long, String> createProducer() {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                "127.0.0.1");
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer");
+                IKafkaConstants.KAFKA_BROKERS);
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, IKafkaConstants.CLIENT_ID);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 LongSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,

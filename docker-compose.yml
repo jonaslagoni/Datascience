@@ -12,10 +12,6 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: '${DOCKER_MACHINE_IP}'
       KAFKA_CREATE_TOPICS: 'datascienceProcessedStatus:1:1'
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
     depends_on:
       - zookeeper
   data-warehouse:
