@@ -227,7 +227,7 @@ kafka
 	.consumeProcessedEmissions(
 		message => {
 			console.log('Recieved consumeProcessedEmissions: ' + JSON.stringify(message))
-			io.emit('Emissions', message);
+			io.emit('Emissions', message.allProcessedEmissionsSchema);
 		},
 		e => {
 			console.log(e);

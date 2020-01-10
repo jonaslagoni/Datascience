@@ -150,7 +150,7 @@ class Kafka {
 				return;
 			}
 			var consumer = new Consumer(
-				await this.getClient()),
+				await this.getClient(),
 				[{ topic: '{{channelName | camelCase}}', partition: 0 }],
 				{
 					autoCommit: true,

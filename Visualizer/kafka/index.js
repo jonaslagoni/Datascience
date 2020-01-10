@@ -103,7 +103,7 @@ class Kafka {
 				return;
 			}
 			var consumer = new Consumer(
-				await this.getClient()),
+				await this.getClient(),
 				[{ topic: 'datascienceProcessedStatus', partition: 0 }],
 				{
 					autoCommit: true,
@@ -136,7 +136,7 @@ class Kafka {
 				return;
 			}
 			var consumer = new Consumer(
-				await this.getClient()),
+				await this.getClient(),
 				[{ topic: 'processedProduced', partition: 0 }],
 				{
 					autoCommit: true,
@@ -169,7 +169,7 @@ class Kafka {
 				return;
 			}
 			var consumer = new Consumer(
-				await this.getClient()),
+				await this.getClient(),
 				[{ topic: 'processedSpotPrices', partition: 0 }],
 				{
 					autoCommit: true,
@@ -202,7 +202,7 @@ class Kafka {
 				return;
 			}
 			var consumer = new Consumer(
-				await this.getClient()),
+				await this.getClient(),
 				[{ topic: 'processedEmissions', partition: 0 }],
 				{
 					autoCommit: true,
