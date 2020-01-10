@@ -18,13 +18,12 @@ function waitForKafka() {
 	if (kafka.isConnected) {
 		setInterval(function() {
 			axios
-				.get('https://api.energidataservice.dk/datastore_search', {
-					params: {
-						resource_id: 'electricityprodex5minrealtime',
-						limit: 5,
-						offset: productionElementsStored
-					}
-				})
+				.get(
+					`https://api.energidataservice.dk/datastore_search_sql?sql=${`SELECT * from "electricityprodex5minrealtime" LIMIT 5 OFFSET ${productionElementsStored}`.replace(
+						' ',
+						'%20'
+					)}`
+				)
 				.then(response => {
 					response.data.result.records.forEach(element => {
 						const payload = new energiProduction();
@@ -54,13 +53,12 @@ function waitForKafka() {
 
 		setInterval(function() {
 			axios
-				.get('https://api.energidataservice.dk/datastore_search', {
-					params: {
-						resource_id: 'elspotprices',
-						limit: 5,
-						offset: elspotElementsStored
-					}
-				})
+				.get(
+					`https://api.energidataservice.dk/datastore_search_sql?sql=${`SELECT * from "elspotprices" LIMIT 5 OFFSET ${elspotElementsStored}`.replace(
+						' ',
+						'%20'
+					)}`
+				)
 				.then(response => {
 					response.data.result.records.forEach(element => {
 						const payload = new energiSpotPrices();
@@ -88,13 +86,12 @@ function waitForKafka() {
 		}, elspotpricesTimeout);
 		setInterval(function() {
 			axios
-				.get('https://api.energidataservice.dk/datastore_search', {
-					params: {
-						resource_id: 'co2emis',
-						limit: 5,
-						offset: emissionElementsStored
-					}
-				})
+				.get(
+					`https://api.energidataservice.dk/datastore_search_sql?sql=${`SELECT * from "co2emis" LIMIT 5 OFFSET ${emissionElementsStored}`.replace(
+						' ',
+						'%20'
+					)}`
+				)
 				.then(response => {
 					response.data.result.records.forEach(element => {
 						const payload = new energiEmission();

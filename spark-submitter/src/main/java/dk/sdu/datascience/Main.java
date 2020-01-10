@@ -8,10 +8,9 @@ package dk.sdu.datascience;
 import dk.sdu.datascience.kafka.KafkaClient;
 import dk.sdu.datascience.kafka.structure.messages.EnerginetCO2Emission;
 import dk.sdu.datascience.kafka.structure.messages.ProcessedEmissions;
-import dk.sdu.datascience.kafka.structure.messages.StatusMessage;
 import dk.sdu.datascience.kafka.structure.schemas.AllProcessedEmissionsSchema;
-import dk.sdu.datascience.kafka.structure.schemas.EnerginetCO2EmissionSchema;
-import dk.sdu.datascience.kafka.structure.schemas.Status;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 /**
  *
@@ -24,23 +23,30 @@ public class Main {
      */
     public static void main(String[] args) {
         //new KafkaConsumerThread("Fiji").start();
-        
+
+        ClassLoader cl = ClassLoader.getSystemClassLoader();
+
+        URL[] urls = ((URLClassLoader) cl).getURLs();
+
+        for (URL url : urls) {
+            System.out.println(url.getFile());
+        }
         EmissionProcessor emisProc = new EmissionProcessor();
         System.out.println("start");
-        
+
         KafkaClient.consumerEnerginetCO2Emission(new KafkaClient.energidataCo2EmissionCallback() {
             @Override
             public void messageConsumed(EnerginetCO2Emission payload) {
                 System.out.println("messageConsumed");
                 AllProcessedEmissionsSchema newData = emisProc.process(payload);
-                if(newData != null){
+                if (newData != null) {
                     ProcessedEmissions message = new ProcessedEmissions();
                     message.setAllProcessedEmissionsSchema(newData);
                     KafkaClient.produceprocessedEmissions(message);
                 }
             }
         });
-        
+
 //        EnerginetCO2Emission test = new EnerginetCO2Emission();
 //        EnerginetCO2EmissionSchema testScheme = new EnerginetCO2EmissionSchema();
 //        testScheme.setCO2_EMISSION(25.1515);
@@ -56,5 +62,4 @@ public class Main {
 //        KafkaClient.producedatascienceProcessedStatus(statusMessage);
     }
 
-    
 }
