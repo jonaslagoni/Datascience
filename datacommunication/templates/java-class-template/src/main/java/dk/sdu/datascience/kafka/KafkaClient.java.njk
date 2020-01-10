@@ -58,8 +58,6 @@ public class KafkaClient{
     * @param callback which should be called when data is consumed
     */
     public static void consumer{{channel.subscribe().message().name() | upperFirst}}({{channelName | camelCase}}Callback callback) {
-        Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
-
         Thread thread = new Thread(() -> {
             Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
             consumer.subscribe(Collections.singletonList("energidataCo2Emission"));

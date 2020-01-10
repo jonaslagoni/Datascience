@@ -7,7 +7,6 @@ import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 import com.google.gson.Gson;
-import java.time.Duration;
 import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -56,8 +55,6 @@ public class KafkaClient{
     * @param callback which should be called when data is consumed
     */
     public static void consumerEnerginetElspot(energidataElspotCallback callback) {
-        Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
-
         Thread thread = new Thread(() -> {
             Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
             consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
@@ -103,8 +100,6 @@ public class KafkaClient{
     * @param callback which should be called when data is consumed
     */
     public static void consumerEnerginetCO2Emission(energidataCo2EmissionCallback callback) {
-        Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
-
         Thread thread = new Thread(() -> {
             Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
             consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
@@ -150,8 +145,6 @@ public class KafkaClient{
     * @param callback which should be called when data is consumed
     */
     public static void consumerEnerginetProductionAndExchange(energidataProductionAndExchangeCallback callback) {
-        Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
-
         Thread thread = new Thread(() -> {
             Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
             consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
