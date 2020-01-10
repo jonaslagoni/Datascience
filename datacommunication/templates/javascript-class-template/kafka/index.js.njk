@@ -48,7 +48,7 @@ class Kafka {
 				topics.push('{{channelName | camelCase}}');
 				{%- endfor %}
 				client.loadMetadataForTopics(topics, (err, resp) => {
-					console.log(`${resp}`);
+					console.log(`${JSON.stringify(resp)}`);
 					this.isConnected = true;
 				});
 			}
