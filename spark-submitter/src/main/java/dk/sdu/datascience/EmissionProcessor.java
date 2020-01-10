@@ -5,7 +5,6 @@
  */
 package dk.sdu.datascience;
 
-import com.google.gson.Gson;
 import dk.sdu.datascience.kafka.structure.messages.EnerginetCO2Emission;
 import dk.sdu.datascience.kafka.structure.schemas.AllProcessedEmissionsSchema;
 import dk.sdu.datascience.kafka.structure.schemas.AllProcessedEmissionsSchema.ProcessedEmissionsSchema;
@@ -26,7 +25,9 @@ import static org.apache.spark.sql.functions.sum;
  * @author Lagoni
  */
 public class EmissionProcessor {
+
     private Logger logger = Logger.getLogger("EmissionProcessor");
+
     public AllProcessedEmissionsSchema process(EnerginetCO2Emission newData) {
         SparkSession spark = SparkSession
                 .builder()
@@ -36,7 +37,7 @@ public class EmissionProcessor {
         if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("55:00")) {
             logger.log(Level.INFO, "Procces emission data");
 
-            Dataset<Row> tempDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
+            Dataset<Row> tempDS = spark.read().json("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
             String timeStamp = tempDS.select("MINUTES5_DK").first().getString(0);
             String hourAverageAreaDK = tempDS.select(sum("CO2_EMISSION").cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
             Dataset<Row> fullProcessedDataset = spark.emptyDataFrame();
