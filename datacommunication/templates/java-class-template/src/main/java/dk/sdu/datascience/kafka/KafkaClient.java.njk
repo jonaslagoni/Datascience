@@ -62,7 +62,7 @@ public class KafkaClient{
             Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
             consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
             while(true){
-                consumerEnerginetCO2Emission(consumer, callback);
+                consumer{{channel.subscribe().message().name() | upperFirst}}(consumer, callback);
             }
         });
         thread.start();

@@ -59,7 +59,7 @@ public class KafkaClient{
             Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
             consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
             while(true){
-                consumerEnerginetCO2Emission(consumer, callback);
+                consumerEnerginetElspot(consumer, callback);
             }
         });
         thread.start();
@@ -149,7 +149,7 @@ public class KafkaClient{
             Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
             consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
             while(true){
-                consumerEnerginetCO2Emission(consumer, callback);
+                consumerEnerginetProductionAndExchange(consumer, callback);
             }
         });
         thread.start();
