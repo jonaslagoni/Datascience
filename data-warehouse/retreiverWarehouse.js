@@ -30,16 +30,11 @@ function waitForKafka() {
                     counter = productionElementsStored;
                 }
                 response.data.result.records.forEach(element => {
-                    if (counter != 0) {
-                        const energiSchema = new energiProductionSchema();
-                        energiSchema.setData(element.Minutes5DK, element.PriceArea, element.ProductionLt100MW, element.ProductionGe100MW)
-                        kafka.publishEnergidataProductionAndExchange(JSON.stringify(energiSchema)).then(() => {
-                            console.log("Done: " + energiSchema);
-                        }).catch(e => {
-                            console.log(e);
-                        });
-                        counter--;
-                    }
+                    kafka.publishEnergidataProductionAndExchange(JSON.stringify(element)).then(() => {
+                        console.log("Done: " + energiSchema);
+                    }).catch(e => {
+                        console.log(e);
+                    });
                 });
                 productionElementsStored = response.data.result.records.length;
             })
@@ -65,16 +60,13 @@ function waitForKafka() {
                 }
                 console.log(response.data.result.records);
                 response.data.result.records.forEach(element => {
-                    if (counter != 0) {
-                        const spotPriceSchema = new energiSpotPricesSchema();
-                        spotPriceSchema.setData(element.HourDK, element.PriceArea, element.SpotPriceEUR)
-                        kafka.publishEnergidataElspot(JSON.stringify(spotPriceSchema)).then(() => {
-                            console.log("Done: " + spotPriceSchema);
-                        }).catch(e => {
-                            console.log(e);
-                        });
-                        counter--;
-                    }
+                    const spotPriceSchema = new energiSpotPricesSchema();
+                    spotPriceSchema.setData(element.HourDK, element.PriceArea, element.SpotPriceEUR)
+                    kafka.publishEnergidataElspot(JSON.stringify(spotPriceSchema)).then(() => {
+                        console.log("Done: " + spotPriceSchema);
+                    }).catch(e => {
+                        console.log(e);
+                    });
                 });
                 elspotElementsStored = response.data.result.records.length;
             })
@@ -99,16 +91,13 @@ function waitForKafka() {
                 }
                 console.log(response.data.result.records);
                 response.data.result.records.forEach(element => {
-                    if (counter != 0) {
-                        const emisSchema = new energiEmissionSchema();
-                        emisSchema.setData(element.Minutes5DK, element.PriceArea, element.CO2Emission)
-                        kafka.publishEnergidataCo2Emission(JSON.stringify(emisSchema)).then(() => {
-                            console.log("Done: " + emisSchema);
-                        }).catch(e => {
-                            console.log(e);
-                        });
-                        counter--;
-                    }
+                    const emisSchema = new energiEmissionSchema();
+                    emisSchema.setData(element.Minutes5DK, element.PriceArea, element.CO2Emission)
+                    kafka.publishEnergidataCo2Emission(JSON.stringify(emisSchema)).then(() => {
+                        console.log("Done: " + emisSchema);
+                    }).catch(e => {
+                        console.log(e);
+                    });
                 });
                 emissionElementsStored = response.data.result.records.length;
             })
