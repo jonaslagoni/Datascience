@@ -30,7 +30,7 @@ public class AllProcessedEmissionsSchema {
         this.allProcessedEmissionsSchema = allProcessedEmissionsSchema;
     }
 
-    public class ProcessedEmissionsSchema{
+    public static class ProcessedEmissionsSchema{
         
         
     private String HOUR_DK;

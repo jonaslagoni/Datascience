@@ -30,7 +30,7 @@ public class AllProcessedProducedSchema {
         this.allProcessedProducedSchema = allProcessedProducedSchema;
     }
 
-    public class ProcessedProducedSchema{
+    public static class ProcessedProducedSchema{
         
         
     private String DAY_DATE_DK;

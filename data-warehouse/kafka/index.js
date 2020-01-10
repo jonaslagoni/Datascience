@@ -27,6 +27,7 @@ class Kafka {
 		this.connect();
 	}
 
+
 	async connect() {
 		try {
 			let kafkaZookeeperHosts = await zookeeper.listKafkaBrokers(() => {
@@ -41,34 +42,14 @@ class Kafka {
 					}
 				}, '');
 				console.log('Using kafka hosts: ' + this.kafkaHost);
-				this.client = new kafka.KafkaClient({
-					kafkaHost: this.kafkaHost
-				});
-				this.client.on('close', e => {
-					console.error('kafka connection closed');
-					console.error(e.error);
-					this.isConnected = false;
-				});
-				this.client.on('ready', () => {
-					console.error('Kafka connection ready');
-					let topics = [];
-					topics.push('energidataElspot');
-					topics.push('energidataCo2Emission');
-					topics.push('energidataProductionAndExchange');
-					this.client.loadMetadataForTopics(topics, (err, resp) => {
-						console.log(`${resp}`);
-					});
+				let client = await this.getClient();
+				let topics=[];
+				topics.push('energidataElspot');
+				topics.push('energidataCo2Emission');
+				topics.push('energidataProductionAndExchange');
+				client.loadMetadataForTopics(topics, (err, resp) => {
+					console.log(`${resp}`);
 					this.isConnected = true;
-				});
-				this.client.on('error', e => {
-					console.error('Error in kafka connection');
-					console.error(e.error);
-					this.isConnected = false;
-				});
-				this.client.on('socket_error', e => {
-					console.error('socket_error in kafka connection');
-					console.error(e.error);
-					this.isConnected = false;
 				});
 			}
 			
@@ -78,6 +59,32 @@ class Kafka {
 			this.isConnected = false;
 			setTimeout(this.connect.bind(this), 5000)
 		}
+	}
+	getClient() {
+		return new Promise((resolve, reject) => {
+			let client = new kafka.KafkaClient({
+				kafkaHost: this.kafkaHost
+			});
+			client.on('close', e => {
+				console.error('kafka connection closed');
+				console.error(e.error);
+				reject(e);
+			});
+			client.on('ready', () => {
+				console.error('Kafka connection ready');
+				resolve(client);
+			});
+			client.on('error', e => {
+				console.error('Error in kafka connection');
+				console.error(e.error);
+				reject(e);
+			});
+			client.on('socket_error', e => {
+				console.error('socket_error in kafka connection');
+				console.error(e.error);
+				reject(e);
+			});
+		});
 	}
 	/**
 	 * subscribes to event for when new data is being processed
@@ -93,7 +100,7 @@ class Kafka {
 				return;
 			}
 
-			const producer = new Producer(this.client);
+			const producer = new Producer(await this.getClient());
 			const kafka_topic = 'energidataElspot';
 			console.log(kafka_topic);
 			let payloads = [
@@ -138,7 +145,7 @@ class Kafka {
 				return;
 			}
 
-			const producer = new Producer(this.client);
+			const producer = new Producer(await this.getClient());
 			const kafka_topic = 'energidataCo2Emission';
 			console.log(kafka_topic);
 			let payloads = [
@@ -183,7 +190,7 @@ class Kafka {
 				return;
 			}
 
-			const producer = new Producer(this.client);
+			const producer = new Producer(await this.getClient());
 			const kafka_topic = 'energidataProductionAndExchange';
 			console.log(kafka_topic);
 			let payloads = [
@@ -216,3 +223,5 @@ class Kafka {
 	}
 }
 module.exports = new Kafka();
+
+

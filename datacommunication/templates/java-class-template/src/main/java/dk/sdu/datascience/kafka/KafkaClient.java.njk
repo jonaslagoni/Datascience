@@ -60,31 +60,43 @@ public class KafkaClient{
     public static void consumer{{channel.subscribe().message().name() | upperFirst}}({{channelName | camelCase}}Callback callback) {
         Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
 
-        consumer.subscribe(Collections.singletonList("{{channelName | camelCase}}"));
-        ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000);
-        // 1000 is the time in milliseconds consumer will wait if no record is found at broker.
-        if (consumerRecords.count() == 0) {
-            System.out.println("No records found");
-            return;
-        }
-        Gson gson = new Gson();
-        //print each record.
-        ConsumerRecord consumerRecord = null;
-        while (consumerRecords.iterator().hasNext()) {
-            consumerRecord = consumerRecords.iterator().next();
-            System.out.println("Record Key " + consumerRecord.key());
-            System.out.println("Record value " + consumerRecord.value());
-            System.out.println("Record partition " + consumerRecord.partition());
-            System.out.println("Record offset " + consumerRecord.offset());
-        }
-        if (consumerRecord != null) {
-            {{channel.subscribe().message().name() | upperFirst}} data = gson.fromJson("" + consumerRecord.value(), {{channel.subscribe().message().name() | upperFirst}}.class);
-            callback.messageConsumed(data);
-        }
-        // commits the offset of record to broker.
-        consumer.commitAsync();
-        consumer.close();
+        Thread thread = new Thread(() -> {
+            Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
+            consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
+            while(true){
+                consumerEnerginetCO2Emission(consumer, callback);
+            }
+        });
+        thread.start();
     }
+
+    private static void consumer{{channel.subscribe().message().name() | upperFirst}}(Consumer<Long, String> consumer,{{channelName | camelCase}}Callback callback) {
+            consumer.subscribe(Collections.singletonList("{{channelName | camelCase}}"));
+            ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000);
+            // 1000 is the time in milliseconds consumer will wait if no record is found at broker.
+            if (consumerRecords.count() == 0) {
+                System.out.println("No records found");
+                return;
+            }
+            Gson gson = new Gson();
+            //print each record.
+            ConsumerRecord consumerRecord = null;
+            while (consumerRecords.iterator().hasNext()) {
+                consumerRecord = consumerRecords.iterator().next();
+                System.out.println("Record Key " + consumerRecord.key());
+                System.out.println("Record value " + consumerRecord.value());
+                System.out.println("Record partition " + consumerRecord.partition());
+                System.out.println("Record offset " + consumerRecord.offset());
+            }
+            if (consumerRecord != null) {
+                {{channel.subscribe().message().name() | upperFirst}} data = gson.fromJson("" + consumerRecord.value(), {{channel.subscribe().message().name() | upperFirst}}.class);
+                callback.messageConsumed(data);
+            }
+            // commits the offset of record to broker.
+            consumer.commitAsync();
+        }
 	{%- endif %}
 {%- endfor %}
 }
+
+
