@@ -27,53 +27,65 @@ class Kafka {
 		this.connect();
 	}
 
+
 	async connect() {
 		try {
-			let kafkaZookeeperHosts = await zookeeper.listKafkaBrokers();
-
-			this.kafkaHost = kafkaZookeeperHosts.reduce((acc, host) => {
-				if (!acc || acc === '') {
-					return `${host}`;
-				} else {
-					return `${acc},${host}`;
-				}
-			}, '');
-			console.log('Using kafka hosts: ' + this.kafkaHost);
-			this.client = new kafka.KafkaClient({
-				kafkaHost: this.kafkaHost
+			let kafkaZookeeperHosts = await zookeeper.listKafkaBrokers(() => {
+				this.connect();
 			});
-			this.client.on('close', e => {
-				console.error('kafka connection closed');
-				console.error(e.error);
-				this.isConnected = false;
-			});
-			this.client.on('ready', () => {
-				console.error('Kafka connection ready');
+			if (kafkaZookeeperHosts.length > 0) {
+				this.kafkaHost = kafkaZookeeperHosts.reduce((acc, host) => {
+					if (!acc || acc === '') {
+						return `${host}`;
+					} else {
+						return `${acc},${host}`;
+					}
+				}, '');
+				console.log('Using kafka hosts: ' + this.kafkaHost);
+				let client = await this.getClient();
 				let topics=[];
 				topics.push('datascienceProcessedStatus');
 				topics.push('processedProduced');
 				topics.push('processedSpotPrices');
 				topics.push('processedEmissions');
-				this.client.loadMetadataForTopics(topics, (err, resp) => {
+				client.loadMetadataForTopics(topics, (err, resp) => {
 					console.log(`${resp}`);
+					this.isConnected = true;
 				});
-				this.isConnected = true;
-			});
-			this.client.on('error', e => {
-				console.error('Error in kafka connection');
-				console.error(e.error);
-				this.isConnected = false;
-			});
-			this.client.on('socket_error', e => {
-				console.error('socket_error in kafka connection');
-				console.error(e.error);
-				this.isConnected = false;
-			});
+			}
+			
 		} catch (e) {
+			console.log("Catched an exception while connecting to kafka");
 			console.log(e.error);
 			this.isConnected = false;
-			this.connect();
+			setTimeout(this.connect.bind(this), 5000)
 		}
+	}
+	getClient() {
+		return new Promise((resolve, reject) => {
+			let client = new kafka.KafkaClient({
+				kafkaHost: this.kafkaHost
+			});
+			client.on('close', e => {
+				console.error('kafka connection closed');
+				console.error(e.error);
+				reject(e);
+			});
+			client.on('ready', () => {
+				console.error('Kafka connection ready');
+				resolve(client);
+			});
+			client.on('error', e => {
+				console.error('Error in kafka connection');
+				console.error(e.error);
+				reject(e);
+			});
+			client.on('socket_error', e => {
+				console.error('socket_error in kafka connection');
+				console.error(e.error);
+				reject(e);
+			});
+		});
 	}
 	
 	/**
@@ -91,7 +103,7 @@ class Kafka {
 				return;
 			}
 			var consumer = new Consumer(
-				this.client,
+				await this.getClient()),
 				[{ topic: 'datascienceProcessedStatus', partition: 0 }],
 				{
 					autoCommit: true,
@@ -124,7 +136,7 @@ class Kafka {
 				return;
 			}
 			var consumer = new Consumer(
-				this.client,
+				await this.getClient()),
 				[{ topic: 'processedProduced', partition: 0 }],
 				{
 					autoCommit: true,
@@ -157,7 +169,7 @@ class Kafka {
 				return;
 			}
 			var consumer = new Consumer(
-				this.client,
+				await this.getClient()),
 				[{ topic: 'processedSpotPrices', partition: 0 }],
 				{
 					autoCommit: true,
@@ -190,7 +202,7 @@ class Kafka {
 				return;
 			}
 			var consumer = new Consumer(
-				this.client,
+				await this.getClient()),
 				[{ topic: 'processedEmissions', partition: 0 }],
 				{
 					autoCommit: true,
@@ -209,3 +221,5 @@ class Kafka {
 	}
 }
 module.exports = new Kafka();
+
+

@@ -33,7 +33,7 @@
         this.{{schema.uid()}} = {{schema.uid()}};
     }
 
-    public class {{schema.items().uid() | upperFirst}}{
+    public static class {{schema.items().uid() | upperFirst}}{
         {{addSchema(schema.items())}}
     }
 {%- else %}

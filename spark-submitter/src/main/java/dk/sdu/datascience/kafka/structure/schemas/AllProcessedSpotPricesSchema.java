@@ -30,7 +30,7 @@ public class AllProcessedSpotPricesSchema {
         this.allProcessedSpotPricesSchema = allProcessedSpotPricesSchema;
     }
 
-    public class ProcessedSpotPricesSchema{
+    public static class ProcessedSpotPricesSchema{
         
         
     private String MONTH_DATE_DK;
