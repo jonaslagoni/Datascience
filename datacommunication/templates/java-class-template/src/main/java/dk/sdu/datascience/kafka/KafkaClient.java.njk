@@ -15,17 +15,6 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 public class KafkaClient{
-    private static Producer<Long, String> createProducer() {
-        Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                                            "kafka:9092");
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer");
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
-                                        LongSerializer.class.getName());
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                                    StringSerializer.class.getName());
-        return new KafkaProducer<>(props);
-    }
 {%- for channelName, channel in asyncapi.channels() %}
 	{%- if channel.hasPublish() %}
     /**
@@ -33,7 +22,7 @@ public class KafkaClient{
      * @param {{channel.publish().message().name()}} to send as payload
      */
 	public static void produce{{channelName | camelCase}}({{channel.publish().message().name() | upperFirst}} {{channel.publish().message().name()}}) {
-		final Producer<Long, String> producer = createProducer();
+		final Producer<Long, String> producer = ProducerCreator.createProducer();
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
 		String payload = gson.toJson({{channel.publish().message().name()}});

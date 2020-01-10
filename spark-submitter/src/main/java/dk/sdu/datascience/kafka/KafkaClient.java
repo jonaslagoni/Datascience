@@ -16,23 +16,12 @@ import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 public class KafkaClient{
-    private static Producer<Long, String> createProducer() {
-        Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                                            "kafka:9092");
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer");
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
-                                        LongSerializer.class.getName());
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                                    StringSerializer.class.getName());
-        return new KafkaProducer<>(props);
-    }
     /**
      * Publishes when new data is being processed
      * @param statusMessage to send as payload
      */
 	public static void producedatascienceProcessedStatus(StatusMessage statusMessage) {
-		final Producer<Long, String> producer = createProducer();
+		final Producer<Long, String> producer = ProducerCreator.createProducer();
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
 		String payload = gson.toJson(statusMessage);
@@ -183,7 +172,7 @@ public class KafkaClient{
      * @param processedProduced to send as payload
      */
 	public static void produceprocessedProduced(ProcessedProduced processedProduced) {
-		final Producer<Long, String> producer = createProducer();
+		final Producer<Long, String> producer = ProducerCreator.createProducer();
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
 		String payload = gson.toJson(processedProduced);
@@ -213,7 +202,7 @@ public class KafkaClient{
      * @param processedSpotPrices to send as payload
      */
 	public static void produceprocessedSpotPrices(ProcessedSpotPrices processedSpotPrices) {
-		final Producer<Long, String> producer = createProducer();
+		final Producer<Long, String> producer = ProducerCreator.createProducer();
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
 		String payload = gson.toJson(processedSpotPrices);
@@ -243,7 +232,7 @@ public class KafkaClient{
      * @param processedEmissions to send as payload
      */
 	public static void produceprocessedEmissions(ProcessedEmissions processedEmissions) {
-		final Producer<Long, String> producer = createProducer();
+		final Producer<Long, String> producer = ProducerCreator.createProducer();
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
 		String payload = gson.toJson(processedEmissions);

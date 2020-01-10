@@ -33,31 +33,29 @@ public class EmissionProcessor {
             Dataset<Row> tempDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
             AllProcessedEmissionsSchema procScheme = new AllProcessedEmissionsSchema();
             List<AllProcessedEmissionsSchema.ProcessedEmissionsSchema> list = new ArrayList();
-            
+
             if (newData.getEnerginetCO2EmissionSchema().getPRICE_AREA().equalsIgnoreCase("DK1")) {
                 String timeStamp = tempDS.select("MINUTES5_DK").where("max").first().getString(0); // TODO get hours and the right hour
                 String hourAverageAreaDK1 = tempDS.select(sum("CO2_EMISSION").cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
-                
+
                 Dataset<Row> addToFullProcessedDataset = spark.emptyDataFrame();
-                
                 addToFullProcessedDataset = addToFullProcessedDataset.withColumn("HOUR_DK", functions.lit(timeStamp));
                 addToFullProcessedDataset = addToFullProcessedDataset.withColumn("PRICE_AREA", functions.lit(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA()));
                 addToFullProcessedDataset = addToFullProcessedDataset.withColumn("ACTUAL_EMISSIONS", functions.lit(hourAverageAreaDK1));
-                
                 addToFullProcessedDataset.write().mode(SaveMode.Append).json("spark-submitter/src/main/resources/datasets/processedEmissionDataset.json");
-                
+
                 Dataset<Row> fullDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/processedEmissionDataset.json");
-                
+
                 List<Row> rowList = fullDS.collectAsList();
-                
+
                 AllProcessedEmissionsSchema.ProcessedEmissionsSchema result = null; // TODO not sure dis is allright
-                
+
                 result.setHOUR_DK(timeStamp);
                 result.setPRICE_AREA(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA());
                 result.setACTUAL_EMISSIONS(hourAverageAreaDK1);
-                
+
                 list.add(result);
-                
+
                 procScheme.setAllProcessedEmissionsSchema(list);
             }
             // TODO might just do it in same if() ^^^
@@ -65,7 +63,7 @@ public class EmissionProcessor {
                 double hourAverageAreaDK2 = tempDS.select(sum("CO2_EMISSION").cast("double")).where("PRICE_AREA = 'DK2'").first().getDouble(0);
             }*/
              return procScheme;
-        } else if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("00:00+00:00")) {
+        } else if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("00")) {
             Dataset<Row> tempDS = spark.emptyDataFrame();
 
             tempDS = tempDS.withColumn("MINUTES5_DK", functions.lit(newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK()));

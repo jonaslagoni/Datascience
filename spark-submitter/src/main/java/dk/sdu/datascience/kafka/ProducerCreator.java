@@ -18,7 +18,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
  */
 public class ProducerCreator {
 
-    private static Producer<Long, String> createProducer() {
+    public static Producer<Long, String> createProducer() {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
                 IKafkaConstants.KAFKA_BROKERS);
