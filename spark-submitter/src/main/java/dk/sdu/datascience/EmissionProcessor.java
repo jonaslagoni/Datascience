@@ -19,6 +19,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.functions;
+import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.sum;
 
 /**
@@ -37,9 +38,15 @@ public class EmissionProcessor {
             logger.log(Level.INFO, "Procces emission data");
 
             Dataset<Row> tempDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
-            String timeStamp = tempDS.select("MINUTES5_DK").first().getString(0);
-            String hourAverageAreaDK = tempDS.select(sum("CO2_EMISSION").cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
+            String timeStamp = tempDS.select(col("MINUTES5_DK")).first().getString(0);
+            String hourAverageAreaDK;
+            if(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA().equals("DK1")){
+                hourAverageAreaDK = tempDS.select(sum("CO2_EMISSION").cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
+            } else {
+                hourAverageAreaDK = tempDS.select(sum("CO2_EMISSION").cast("double")).where("PRICE_AREA = 'DK2'").first().getString(0);
+            }
             Dataset<Row> fullProcessedDataset = spark.emptyDataFrame();
+            
             fullProcessedDataset = fullProcessedDataset.withColumn("HOUR_DK", functions.lit(timeStamp));
             fullProcessedDataset = fullProcessedDataset.withColumn("PRICE_AREA", functions.lit(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA()));
             fullProcessedDataset = fullProcessedDataset.withColumn("ACTUAL_EMISSIONS", functions.lit(hourAverageAreaDK));
@@ -56,7 +63,7 @@ public class EmissionProcessor {
 
             tempDS.write().mode(SaveMode.Overwrite).json("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
 
-            return null;
+            return getProcessedList(spark);
         } else {
             logger.log(Level.INFO, "Append to temp dataframe");
             Dataset<Row> tempDS = spark.emptyDataFrame();
@@ -66,7 +73,7 @@ public class EmissionProcessor {
             tempDS = tempDS.withColumn("CO2_EMISSION", functions.lit(newData.getEnerginetCO2EmissionSchema().getCO2_EMISSION()));
 
             tempDS.write().mode(SaveMode.Append).json("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
-            return null;
+            return getProcessedList(spark);
         }
     }
 
