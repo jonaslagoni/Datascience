@@ -5,12 +5,15 @@
  */
 package dk.sdu.datascience;
 
+import com.google.gson.Gson;
 import dk.sdu.datascience.kafka.structure.messages.EnerginetCO2Emission;
 import dk.sdu.datascience.kafka.structure.schemas.AllProcessedEmissionsSchema;
 import dk.sdu.datascience.kafka.structure.schemas.AllProcessedEmissionsSchema.ProcessedEmissionsSchema;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
@@ -23,17 +26,17 @@ import static org.apache.spark.sql.functions.sum;
  * @author Lagoni
  */
 public class EmissionProcessor {
-
+    private Logger logger = Logger.getLogger("EmissionProcessor");
     public AllProcessedEmissionsSchema process(EnerginetCO2Emission newData) {
         SparkSession spark = SparkSession
                 .builder()
                 .appName("datascience")
-                .master("local[2]")
                 .getOrCreate();
 
-        if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("55:00+00:00")) {
-            Dataset<Row> tempDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
+        if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("55:00")) {
+            logger.log(Level.INFO, "Procces emission data");
 
+            Dataset<Row> tempDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
             String timeStamp = tempDS.select("MINUTES5_DK").first().getString(0);
             String hourAverageAreaDK = tempDS.select(sum("CO2_EMISSION").cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
             Dataset<Row> fullProcessedDataset = spark.emptyDataFrame();
@@ -43,7 +46,8 @@ public class EmissionProcessor {
             fullProcessedDataset.write().mode(SaveMode.Append).json("spark-submitter/src/main/resources/datasets/processedEmissionDataset.json");
 
             return getProcessedList(spark);
-        } else if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("00:00+00:00")) {
+        } else if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("00:00")) {
+            logger.log(Level.INFO, "New/overwrite temp dataframe");
             Dataset<Row> tempDS = spark.emptyDataFrame();
 
             tempDS = tempDS.withColumn("MINUTES5_DK", functions.lit(newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK()));
@@ -54,6 +58,7 @@ public class EmissionProcessor {
 
             return null;
         } else {
+            logger.log(Level.INFO, "Append to temp dataframe");
             Dataset<Row> tempDS = spark.emptyDataFrame();
 
             tempDS = tempDS.withColumn("MINUTES5_DK", functions.lit(newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK()));
@@ -61,11 +66,12 @@ public class EmissionProcessor {
             tempDS = tempDS.withColumn("CO2_EMISSION", functions.lit(newData.getEnerginetCO2EmissionSchema().getCO2_EMISSION()));
 
             tempDS.write().mode(SaveMode.Append).json("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
-            return getProcessedList(spark);
+            return null;
         }
     }
 
     public AllProcessedEmissionsSchema getProcessedList(SparkSession spark) {
+        logger.log(Level.INFO, "New/overwrite temp dataframe");
         File tmpDir = new File("spark-submitter/src/main/resources/datasets/processedEmissionDataset.json");
         boolean exists = tmpDir.exists();
         if (exists) {

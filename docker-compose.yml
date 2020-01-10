@@ -52,6 +52,8 @@ services:
       - spark-master
       - spark-worker-1
       - kafka
+    ports:
+      - '5005:5005'
     environment:
       - 'ENABLE_INIT_DAEMON=false'
     build: ./spark-submitter

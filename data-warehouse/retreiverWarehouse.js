@@ -26,14 +26,6 @@ function waitForKafka() {
 					}
 				})
 				.then(response => {
-					let counter;
-					console.log(response.data.result.records);
-					if (productionElementsStored != 0) {
-						counter =
-							response.data.result.records.length - productionElementsStored;
-					} else {
-						counter = productionElementsStored;
-					}
 					response.data.result.records.forEach(element => {
 						const payload = new energiProduction();
 						const energiSchema = new energiProductionSchema();
@@ -53,7 +45,7 @@ function waitForKafka() {
 								console.log(e);
 							});
 					});
-					productionElementsStored = response.data.result.records.length;
+					productionElementsStored += response.data.result.records.length;
 				})
 				.catch(e => {
 					console.log(e);
@@ -70,14 +62,6 @@ function waitForKafka() {
 					}
 				})
 				.then(response => {
-					let counter;
-					if (elspotElementsStored != 0) {
-						counter =
-							response.data.result.records.length - elspotElementsStored;
-					} else {
-						counter = elspotElementsStored;
-					}
-					console.log(response.data.result.records);
 					response.data.result.records.forEach(element => {
 						const payload = new energiSpotPrices();
 						const spotPriceSchema = new energiSpotPricesSchema();
@@ -96,7 +80,7 @@ function waitForKafka() {
 								console.log(e);
 							});
 					});
-					elspotElementsStored = response.data.result.records.length;
+					elspotElementsStored += response.data.result.records.length;
 				})
 				.catch(e => {
 					console.log(e);
@@ -112,14 +96,6 @@ function waitForKafka() {
 					}
 				})
 				.then(response => {
-					let counter;
-					if (emissionElementsStored != 0) {
-						counter =
-							response.data.result.records.length - emissionElementsStored;
-					} else {
-						counter = emissionElementsStored;
-					}
-					console.log(response.data.result.records);
 					response.data.result.records.forEach(element => {
 						const payload = new energiEmission();
 						const emisSchema = new energiEmissionSchema();
@@ -139,7 +115,7 @@ function waitForKafka() {
 								console.log(e);
 							});
 					});
-					emissionElementsStored = response.data.result.records.length;
+					emissionElementsStored += response.data.result.records.length;
 				})
 				.catch(e => {
 					console.log(e);
