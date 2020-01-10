@@ -23,18 +23,17 @@ public class Main {
      */
     public static void main(String[] args) {
         EmissionProcessor emisProc = new EmissionProcessor();
-        System.out.println("heeeeer");
+        System.out.println("start");
         KafkaClient.consumerEnerginetCO2Emission(new KafkaClient.energidataCo2EmissionCallback() {
             @Override
             public void messageConsumed(EnerginetCO2Emission payload) {
-                System.out.println("heyho");
+                System.out.println("messageConsumed");
                 AllProcessedEmissionsSchema newData = emisProc.process(payload);
                 ProcessedEmissions message = new ProcessedEmissions();
                 message.setAllProcessedEmissionsSchema(newData);
                 KafkaClient.produceprocessedEmissions(message);
             }
         });
-
         // TODO code application logic here
         StatusMessage statusMessage = new StatusMessage();
         Status status = new Status();

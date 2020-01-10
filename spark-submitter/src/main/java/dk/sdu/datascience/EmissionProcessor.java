@@ -31,7 +31,6 @@ public class EmissionProcessor {
 
         if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("55")) {
             Dataset<Row> tempDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
-            Dataset<Row> fullDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/processedEmissionDataset.json");
             AllProcessedEmissionsSchema procScheme = new AllProcessedEmissionsSchema();
             List<AllProcessedEmissionsSchema.ProcessedEmissionsSchema> list = new ArrayList();
             
@@ -47,12 +46,17 @@ public class EmissionProcessor {
                 
                 addToFullProcessedDataset.write().mode(SaveMode.Append).json("spark-submitter/src/main/resources/datasets/processedEmissionDataset.json");
                 
-                AllProcessedEmissionsSchema.ProcessedEmissionsSchema test = null; // TODO not sure dis is allright
-                test.setHOUR_DK(timeStamp);
-                test.setPRICE_AREA(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA());
-                test.setACTUAL_EMISSIONS(hourAverageAreaDK1);
+                Dataset<Row> fullDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/processedEmissionDataset.json");
                 
-                list.add(test);
+                List<Row> rowList = fullDS.collectAsList();
+                
+                AllProcessedEmissionsSchema.ProcessedEmissionsSchema result = null; // TODO not sure dis is allright
+                
+                result.setHOUR_DK(timeStamp);
+                result.setPRICE_AREA(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA());
+                result.setACTUAL_EMISSIONS(hourAverageAreaDK1);
+                
+                list.add(result);
                 
                 procScheme.setAllProcessedEmissionsSchema(list);
             }
