@@ -33,9 +33,11 @@ public class Main {
             public void messageConsumed(EnerginetCO2Emission payload) {
                 System.out.println("messageConsumed");
                 AllProcessedEmissionsSchema newData = emisProc.process(payload);
-                ProcessedEmissions message = new ProcessedEmissions();
-                message.setAllProcessedEmissionsSchema(newData);
-                KafkaClient.produceprocessedEmissions(message);
+                if(newData != null){
+                    ProcessedEmissions message = new ProcessedEmissions();
+                    message.setAllProcessedEmissionsSchema(newData);
+                    KafkaClient.produceprocessedEmissions(message);
+                }
             }
         });
         

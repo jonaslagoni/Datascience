@@ -21,7 +21,7 @@ app.set('port', port);
 
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-var kafka = require('../kafka/Index');
+var kafka = require('../kafka/index');
 io.on('connection', function(socket){
 	console.log('a user connected');
 	let tempProducedElectricity = [
