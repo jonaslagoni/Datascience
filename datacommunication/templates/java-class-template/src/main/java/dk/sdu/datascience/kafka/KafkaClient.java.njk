@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
+import java.time.Duration;
+import java.util.Iterator;
 public class KafkaClient{
 {%- for channelName, channel in asyncapi.channels() %}
 	{%- if channel.hasPublish() %}
@@ -23,9 +25,12 @@ public class KafkaClient{
      */
 	public static void produce{{channelName | camelCase}}({{channel.publish().message().name() | upperFirst}} {{channel.publish().message().name()}}) {
 		final Producer<Long, String> producer = ProducerCreator.createProducer();
+        // Create a Logger 
+        Logger logger = Logger.getLogger("produce{{channelName | camelCase}}"); 
 		long time = System.currentTimeMillis();
 		Gson gson = new Gson();
 		String payload = gson.toJson({{channel.publish().message().name()}});
+        logger.log(Level.INFO, "Sending record with values: {0}", payload);
 		try {
 			final ProducerRecord<Long, String> record =
 					new ProducerRecord<>("{{channelName | camelCase}}",
@@ -34,14 +39,11 @@ public class KafkaClient{
 			RecordMetadata metadata = producer.send(record).get();
 
 			long elapsedTime = System.currentTimeMillis() - time;
-			System.out.printf("sent record(key=%s value=%s) " +
-							"meta(partition=%d, offset=%d) time=%d\n",
-					record.key(), record.value(), metadata.partition(),
-					metadata.offset(), elapsedTime);
+            logger.log(Level.INFO, "Sent record with value: {0}, with elapsed time: {1}", new Object[] { record.value() , elapsedTime });
 		} catch (ExecutionException ex) {
-            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
-            Logger.getLogger(KafkaClient.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, null, ex);
         }  finally {
 			producer.flush();
 			producer.close();
@@ -59,40 +61,43 @@ public class KafkaClient{
     */
     public static void consumer{{channel.subscribe().message().name() | upperFirst}}({{channelName | camelCase}}Callback callback) {
         Thread thread = new Thread(() -> {
+            Logger logger = Logger.getLogger("consumer{{channel.subscribe().message().name() | upperFirst}} | Thread"); 
+            logger.log(Level.INFO, "Start consuming on subject");
             Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
             consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
             while(true){
+                logger.log(Level.INFO, "Consuming data");
                 consumer{{channel.subscribe().message().name() | upperFirst}}(consumer, callback);
+                logger.log(Level.INFO, "Consumed data, waiting 5 sec to continue.");
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {}
             }
         });
         thread.start();
     }
 
     private static void consumer{{channel.subscribe().message().name() | upperFirst}}(Consumer<Long, String> consumer,{{channelName | camelCase}}Callback callback) {
-            consumer.subscribe(Collections.singletonList("{{channelName | camelCase}}"));
-            ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000);
-            // 1000 is the time in milliseconds consumer will wait if no record is found at broker.
-            if (consumerRecords.count() == 0) {
-                System.out.println("No records found");
-                return;
-            }
-            Gson gson = new Gson();
-            //print each record.
-            ConsumerRecord consumerRecord = null;
-            while (consumerRecords.iterator().hasNext()) {
-                consumerRecord = consumerRecords.iterator().next();
-                System.out.println("Record Key " + consumerRecord.key());
-                System.out.println("Record value " + consumerRecord.value());
-                System.out.println("Record partition " + consumerRecord.partition());
-                System.out.println("Record offset " + consumerRecord.offset());
-            }
-            if (consumerRecord != null) {
-                {{channel.subscribe().message().name() | upperFirst}} data = gson.fromJson("" + consumerRecord.value(), {{channel.subscribe().message().name() | upperFirst}}.class);
-                callback.messageConsumed(data);
-            }
-            // commits the offset of record to broker.
-            consumer.commitAsync();
+        Logger logger = Logger.getLogger("consumer{{channel.subscribe().message().name() | upperFirst}}"); 
+        ConsumerRecords<Long, String> consumerRecords = consumer.poll(Duration.ofMillis(1000));
+        // 1000 is the time in milliseconds consumer will wait if no record is found at broker.
+        if (consumerRecords.count() == 0) {
+            logger.log(Level.FINE, "No records found");
+            return;
         }
+        Gson gson = new Gson();
+        //print each record.
+        Iterator<ConsumerRecord<Long, String>> iterator = consumerRecords.iterator();
+        while (iterator.hasNext()) {
+            ConsumerRecord consumerRecord = iterator.next();
+            logger.log(Level.INFO, "Record consumed, with key: {0}, value: {1}, partition: {2}, offset: {3}", new Object[] { consumerRecord.key(), consumerRecord.value(), consumerRecord.partition(), consumerRecord.offset()});
+            {{channel.subscribe().message().name() | upperFirst}} data = gson.fromJson("" + consumerRecord.value(), {{channel.subscribe().message().name() | upperFirst}}.class);
+            callback.messageConsumed(data);
+        }
+        // commits the offset of record to broker.
+        logger.log(Level.FINE, "Comitting offset");
+        consumer.commitAsync();
+    }
 	{%- endif %}
 {%- endfor %}
 }
