@@ -40,12 +40,12 @@ function redrawSpotPrices(ArrayOfSpotPrices){
 
     DK1.forEach(function(d) {
         d.HOUR_DK = formattedDate(d.HOUR_DK);
-        d.SPOT_PRICE_EUR = +d.SPOT_PRICE_EUR;
+        d.SPOT_PRICE_EUR = +d.AVERAGE_SPOT_PRICE_EUR;
     });
 
     DK2.forEach(function(d){
         d.HOUR_DK = formattedDate(d.HOUR_DK);
-        d.SPOT_PRICE_EUR = +d.SPOT_PRICE_EUR;
+        d.SPOT_PRICE_EUR = +d.AVERAGE_SPOT_PRICE_EUR;
     });
 
 
@@ -56,12 +56,12 @@ function redrawSpotPrices(ArrayOfSpotPrices){
    //Create Lines for the graph
    var dk1Line = d3.line()
    .x(function(d) {return x(d.HOUR_DK); })
-   .y(function(d) {return y(+d.SPOT_PRICE_EUR) })
+   .y(function(d) {return y(+d.AVERAGE_SPOT_PRICE_EUR) })
    .curve(d3.curveMonotoneX);
 
    var dk2Line = d3.line()
    .x(function(d) {return x(d.HOUR_DK); })
-   .y(function(d) {return y(+d.SPOT_PRICE_EUR); })
+   .y(function(d) {return y(+d.AVERAGE_SPOT_PRICE_EUR); })
    .curve(d3.curveMonotoneX);
 
 
@@ -70,7 +70,7 @@ function redrawSpotPrices(ArrayOfSpotPrices){
     var tempArray = [];
     console.log(CollectedArray);
     CollectedArray.forEach(function(d){
-        tempArray.push(+d.SPOT_PRICE_EUR);
+        tempArray.push(+d.AVERAGE_SPOT_PRICE_EUR);
     });
     maxY = Math.max.apply(Math, tempArray);
     console.log(tempArray);
