@@ -10,6 +10,7 @@ import dk.sdu.datascience.kafka.structure.messages.EnerginetCO2Emission;
 import dk.sdu.datascience.kafka.structure.messages.ProcessedEmissions;
 import dk.sdu.datascience.kafka.structure.messages.StatusMessage;
 import dk.sdu.datascience.kafka.structure.schemas.AllProcessedEmissionsSchema;
+import dk.sdu.datascience.kafka.structure.schemas.EnerginetCO2EmissionSchema;
 import dk.sdu.datascience.kafka.structure.schemas.Status;
 
 /**
@@ -22,8 +23,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //new KafkaConsumerThread("Fiji").start();
+        
         EmissionProcessor emisProc = new EmissionProcessor();
         System.out.println("start");
+        
         KafkaClient.consumerEnerginetCO2Emission(new KafkaClient.energidataCo2EmissionCallback() {
             @Override
             public void messageConsumed(EnerginetCO2Emission payload) {
@@ -34,12 +38,21 @@ public class Main {
                 KafkaClient.produceprocessedEmissions(message);
             }
         });
-        // TODO code application logic here
-        StatusMessage statusMessage = new StatusMessage();
-        Status status = new Status();
-        status.setEvent(Status.eventEnum.DONE);
-        statusMessage.setStatus(status);
-        KafkaClient.producedatascienceProcessedStatus(statusMessage);
+        
+//        EnerginetCO2Emission test = new EnerginetCO2Emission();
+//        EnerginetCO2EmissionSchema testScheme = new EnerginetCO2EmissionSchema();
+//        testScheme.setCO2_EMISSION(25.1515);
+//        testScheme.setMINUTES5_DK("00-00-00");
+//        testScheme.setPRICE_AREA("DK1TEST");
+//        test.setEnerginetCO2EmissionSchema(testScheme);
+//        emisProc.process(test);
+//        // TODO code application logic here
+//        StatusMessage statusMessage = new StatusMessage();
+//        Status status = new Status();
+//        status.setEvent(Status.eventEnum.DONE);
+//        statusMessage.setStatus(status);
+//        KafkaClient.producedatascienceProcessedStatus(statusMessage);
     }
 
+    
 }

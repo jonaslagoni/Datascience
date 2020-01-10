@@ -19,7 +19,7 @@ services:
     depends_on:
       - kafka
       - zookeeper
-    command: node bin/www --zookeeper="zookeeper:2181"
+    command: node retreiverWarehouse.js --zookeeper="zookeeper:2181"
   visualizer:
     build: ./Visualizer
     depends_on:

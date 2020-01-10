@@ -29,7 +29,7 @@ public class EmissionProcessor {
                 .master("local[2]")
                 .getOrCreate();
 
-        if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("55")) {
+        if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("55:00+00:00")) {
             Dataset<Row> tempDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
             AllProcessedEmissionsSchema procScheme = new AllProcessedEmissionsSchema();
             List<AllProcessedEmissionsSchema.ProcessedEmissionsSchema> list = new ArrayList();
@@ -40,9 +40,9 @@ public class EmissionProcessor {
                 
                 Dataset<Row> addToFullProcessedDataset = spark.emptyDataFrame();
                 
-                addToFullProcessedDataset.withColumn("HOUR_DK", functions.lit(timeStamp));
-                addToFullProcessedDataset.withColumn("PRICE_AREA", functions.lit(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA()));
-                addToFullProcessedDataset.withColumn("ACTUAL_EMISSIONS", functions.lit(hourAverageAreaDK1));
+                addToFullProcessedDataset = addToFullProcessedDataset.withColumn("HOUR_DK", functions.lit(timeStamp));
+                addToFullProcessedDataset = addToFullProcessedDataset.withColumn("PRICE_AREA", functions.lit(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA()));
+                addToFullProcessedDataset = addToFullProcessedDataset.withColumn("ACTUAL_EMISSIONS", functions.lit(hourAverageAreaDK1));
                 
                 addToFullProcessedDataset.write().mode(SaveMode.Append).json("spark-submitter/src/main/resources/datasets/processedEmissionDataset.json");
                 
@@ -65,12 +65,12 @@ public class EmissionProcessor {
                 double hourAverageAreaDK2 = tempDS.select(sum("CO2_EMISSION").cast("double")).where("PRICE_AREA = 'DK2'").first().getDouble(0);
             }*/
              return procScheme;
-        } else if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("00")) {
+        } else if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("00:00+00:00")) {
             Dataset<Row> tempDS = spark.emptyDataFrame();
 
-            tempDS.withColumn("MINUTES5_DK", functions.lit(newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK()));
-            tempDS.withColumn("PRICE_AREA", functions.lit(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA()));
-            tempDS.withColumn("CO2_EMISSION", functions.lit(newData.getEnerginetCO2EmissionSchema().getCO2_EMISSION()));
+            tempDS = tempDS.withColumn("MINUTES5_DK", functions.lit(newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK()));
+            tempDS = tempDS.withColumn("PRICE_AREA", functions.lit(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA()));
+            tempDS = tempDS.withColumn("CO2_EMISSION", functions.lit(newData.getEnerginetCO2EmissionSchema().getCO2_EMISSION()));
 
             tempDS.write().mode(SaveMode.Overwrite).json("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
 
@@ -78,9 +78,9 @@ public class EmissionProcessor {
         } else {
             Dataset<Row> tempDS = spark.emptyDataFrame();
 
-            tempDS.withColumn("MINUTES5_DK", functions.lit(newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK()));
-            tempDS.withColumn("PRICE_AREA", functions.lit(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA()));
-            tempDS.withColumn("CO2_EMISSION", functions.lit(newData.getEnerginetCO2EmissionSchema().getCO2_EMISSION()));
+            tempDS = tempDS.withColumn("MINUTES5_DK", functions.lit(newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK()));
+            tempDS = tempDS.withColumn("PRICE_AREA", functions.lit(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA()));
+            tempDS = tempDS.withColumn("CO2_EMISSION", functions.lit(newData.getEnerginetCO2EmissionSchema().getCO2_EMISSION()));
 
             tempDS.write().mode(SaveMode.Append).json("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
             return null;

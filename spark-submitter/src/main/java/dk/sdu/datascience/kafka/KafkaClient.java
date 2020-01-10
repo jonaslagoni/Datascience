@@ -7,6 +7,7 @@ import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 import com.google.gson.Gson;
+import java.time.Duration;
 import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
@@ -103,33 +104,43 @@ public class KafkaClient{
     * @param callback which should be called when data is consumed
     */
     public static void consumerEnerginetCO2Emission(energidataCo2EmissionCallback callback) {
-        Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
-
-        consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
-        ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000);
-        // 1000 is the time in milliseconds consumer will wait if no record is found at broker.
-        if (consumerRecords.count() == 0) {
-            System.out.println("No records found");
-            return;
-        }
-        Gson gson = new Gson();
-        //print each record.
-        ConsumerRecord consumerRecord = null;
-        while (consumerRecords.iterator().hasNext()) {
-            consumerRecord = consumerRecords.iterator().next();
-            System.out.println("Record Key " + consumerRecord.key());
-            System.out.println("Record value " + consumerRecord.value());
-            System.out.println("Record partition " + consumerRecord.partition());
-            System.out.println("Record offset " + consumerRecord.offset());
-        }
-        if (consumerRecord != null) {
-            EnerginetCO2Emission data = gson.fromJson("" + consumerRecord.value(), EnerginetCO2Emission.class);
-            callback.messageConsumed(data);
-        }
-        // commits the offset of record to broker.
-        consumer.commitAsync();
-        consumer.close();
+        Thread thread = new Thread(() -> {
+            Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
+            consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
+            while(true){
+                consumerEnerginetCO2Emission(consumer, callback);
+            }
+        });
+        thread.start();
     }
+        private static void consumerEnerginetCO2Emission(Consumer<Long, String> consumer, energidataCo2EmissionCallback callback){
+            boolean newData = false;
+            ConsumerRecords<Long, String> consumerRecords = null;
+            while(!newData){
+                consumerRecords = consumer.poll(Duration.ofMillis(1000));
+                // 1000 is the time in milliseconds consumer will wait if no record is found at broker.
+                if (consumerRecords.count() == 0) {
+                    System.out.println("No records found");
+                    return;
+                }else{
+                    newData = true;
+                }
+            }
+            Gson gson = new Gson();
+            //print each record.
+            ConsumerRecord consumerRecord = null;
+            while (consumerRecords.iterator().hasNext()) {
+                consumerRecord = consumerRecords.iterator().next();
+                System.out.println("Record Key " + consumerRecord.key());
+                System.out.println("Record value " + consumerRecord.value());
+                System.out.println("Record partition " + consumerRecord.partition());
+                System.out.println("Record offset " + consumerRecord.offset());
+                EnerginetCO2Emission data = gson.fromJson("" + consumerRecord.value(), EnerginetCO2Emission.class);
+                callback.messageConsumed(data);
+            }
+            // commits the offset of record to broker.
+            consumer.commitAsync();
+        }
 	public interface energidataProductionAndExchangeCallback { 
 		// this can be any type of method 
 		void messageConsumed(EnerginetProductionAndExchange payload); 

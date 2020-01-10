@@ -1,7 +1,7 @@
 #!/bin/bash
 npm install -g asyncapi-generator
 docker-compose build --parallel
-
+docker-compose down
 echo "enter your local ip (192.168.0.11)"
 read ip
 if [ -z "${ip}" ]; then
