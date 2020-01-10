@@ -197,45 +197,61 @@ io.on('connection', function(socket){
 	]
 	socket.emit('Emissions', tempEmissions);
 });
-kafka
-	.consumeProcessedProduced(
-		message => {
-			console.log('Recieved consumeProcessedProduced: ' + JSON.stringify(message))
-			io.emit('ProducedElectricity', message);
-		},
-		e => {
-			console.log(e);
-		}
-	)
-	.catch(() => {
-		console.log('error');
+
+function listenForProcessedProduced() {
+	kafka
+		.consumeProcessedProduced(
+			message => {
+				console.log('Recieved consumeProcessedProduced: ' + JSON.stringify(message))
+				io.emit('ProducedElectricity', message);
+			},
+			e => {
+				console.log(e);
+				setTimeout(listenForProcessedProduced, 5000);
+			}
+		)
+		.catch(() => {
+			console.log('error');
+			setTimeout(listenForProcessedProduced, 5000);
+		});
+}
+function listenForProcessedSpotPrices() {
+	kafka
+		.consumeProcessedSpotPrices(
+			message => {
+				console.log('Recieved consumeProcessedSpotPrices: ' + JSON.stringify(message))
+				io.emit('SpotPrices', message);
+			},
+			e => {
+				console.log(e);
+				setTimeout(listenForProcessedSpotPrices, 5000);
+			}
+		)
+		.catch(() => {
+			console.log('error');
+			setTimeout(listenForProcessedSpotPrices, 5000);
+		});
+}
+function listenForProcessedEmissions(){
+	kafka
+		.consumeProcessedEmissions(
+			message => {
+				console.log('Recieved consumeProcessedEmissions: ' + JSON.stringify(message))
+				io.emit('Emissions', message.allProcessedEmissionsSchema);
+			},
+			e => {
+				console.log(e);
+				setTimeout(listenForProcessedEmissions, 5000);
+			}
+		)
+	.catch((e) => {
+		console.log('error', e);
+		setTimeout(listenForProcessedEmissions, 5000);
 	});
-kafka
-	.consumeProcessedSpotPrices(
-		message => {
-			console.log('Recieved consumeProcessedSpotPrices: ' + JSON.stringify(message))
-			io.emit('SpotPrices', message);
-		},
-		e => {
-			console.log(e);
-		}
-	)
-	.catch(() => {
-		console.log('error');
-	});
-kafka
-	.consumeProcessedEmissions(
-		message => {
-			console.log('Recieved consumeProcessedEmissions: ' + JSON.stringify(message))
-			io.emit('Emissions', message.allProcessedEmissionsSchema);
-		},
-		e => {
-			console.log(e);
-		}
-	)
-	.catch(() => {
-		console.log('error');
-	});
+}
+listenForProcessedProduced();
+listenForProcessedEmissions();
+listenForProcessedSpotPrices();
 /**
  * Listen on provided port, on all network interfaces.
  */
