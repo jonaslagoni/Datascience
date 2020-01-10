@@ -4,7 +4,7 @@ const optionDefinitions = [
 	{
 		name: 'zookeeper',
 		type: String,
-		defaultValue: '127.0.0.1:2181',
+		defaultValue: '192.168.99.101:2181',
 		description: 'Zookeeper host to use'
 	},
 	{
