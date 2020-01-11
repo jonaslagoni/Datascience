@@ -37,7 +37,7 @@ public class SpotPriceProcessor {
                 .builder()
                 .appName("datascience")
                 .getOrCreate();
-        if (spotPriceList.size() == 12) {
+        if (spotPriceList.size() == 720) {
             AllProcessedSpotPricesSchema procScheme = new AllProcessedSpotPricesSchema();
             
             AllProcessedSpotPricesSchema.ProcessedSpotPricesSchema result = new ProcessedSpotPricesSchema();
