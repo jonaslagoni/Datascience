@@ -22,8 +22,14 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 var kafka = require('../kafka/index');
+let currentAllProcessedEmissionsSchema = [];
+let currentAllProcessedSpotPricesSchema = [];
+let currentAllProcessedProducedSchema = [];
 io.on('connection', function(socket) {
 	console.log('a user connected');
+	socket.emit('ProducedElectricity', currentAllProcessedProducedSchema);
+	socket.emit('SpotPrices', currentAllProcessedSpotPricesSchema);
+	socket.emit('Emissions', currentAllProcessedEmissionsSchema);
 	// let tempProducedElectricity = [
 	// 	{
 	// 		DAY_DATE_DK: "2020-01-17",
@@ -77,7 +83,6 @@ io.on('connection', function(socket) {
 	// 		TOTAL_MWH_PRODUCED: "1209"
 	// 	}
 	// ]
-	// socket.emit('ProducedElectricity', tempProducedElectricity);
 
 	// let tempSpotPrices = [
 	// 	{
@@ -204,7 +209,10 @@ function listenForProcessedProduced() {
 				console.log(
 					'Recieved consumeProcessedProduced: ' + JSON.stringify(message)
 				);
-				io.emit('ProducedElectricity', message);
+				let value = JSON.parse(message.value);
+				console.log(value);
+				currentAllProcessedProducedSchema = value.allProcessedProducedSchema.allProcessedProducedSchema;
+				io.emit('ProducedElectricity', value.allProcessedProducedSchema.allProcessedProducedSchema);
 			},
 			e => {
 				console.log(e);
@@ -223,7 +231,10 @@ function listenForProcessedSpotPrices() {
 				console.log(
 					'Recieved consumeProcessedSpotPrices: ' + JSON.stringify(message)
 				);
-				io.emit('SpotPrices', message);
+				let value = JSON.parse(message.value);
+				console.log(value);
+				currentAllProcessedSpotPricesSchema = value.allProcessedSpotPricesSchema.allProcessedSpotPricesSchema;
+				io.emit('SpotPrices', value.allProcessedSpotPricesSchema.allProcessedSpotPricesSchema);
 			},
 			e => {
 				console.log(e);
@@ -242,11 +253,10 @@ function listenForProcessedEmissions() {
 				console.log(
 					'Recieved consumeProcessedEmissions: ' + JSON.stringify(message)
 				);
-				console.log(JSON.stringify(message.value).allProcessedEmissionsSchema);
-				io.emit(
-					'Emissions',
-					JSON.stringify(message.value).allProcessedEmissionsSchema
-				);
+				let value = JSON.parse(message.value);
+				console.log(value);
+				currentAllProcessedEmissionsSchema = value.allProcessedEmissionsSchema.allProcessedEmissionsSchema;
+				io.emit('Emissions', value.allProcessedEmissionsSchema.allProcessedEmissionsSchema);
 			},
 			e => {
 				console.log(e);

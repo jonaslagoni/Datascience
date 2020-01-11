@@ -4,6 +4,7 @@ socket.on('Emissions', ArrayOfEmissions => {
 	redrawEmissions(ArrayOfEmissions);
 });
 
+
 function redrawEmissions(array) {
 	var DK1 = [];
 	var DK2 = [];
@@ -17,7 +18,6 @@ function redrawEmissions(array) {
 
 	setMinutesOnTimeStamps(DK1);
 	setMinutesOnTimeStamps(DK2);
-
 	var margin = { top: 20, right: 20, bottom: 40, left: 50 },
 		width = 960 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
@@ -25,15 +25,23 @@ function redrawEmissions(array) {
 	var x = d3.scaleTime().range([0, width]);
 	var y = d3.scaleLinear().range([height, 0]);
 
-	var svg = d3
-		.select('body')
-		.append('svg')
-		.attr('width', width + margin.left + margin.right)
-		.attr('height', height + margin.top + margin.bottom)
-		.append('g')
-		.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+    d3.select("#emissionsTest").selectAll("svg").remove();
+    var svg = d3
+    .select('#emissionsTest')
+    .append('svg')
+    .attr('id', "#emission-svg")
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+	var margin = { top: 20, right: 20, bottom: 40, left: 50 },
+		width = 960 - margin.left - margin.right,
+		height = 500 - margin.top - margin.bottom;
 
-	var formattedDate = d3.timeParse('%Y-%m-%d %H:00');
+	var x = d3.scaleTime().range([0, width]);
+	var y = d3.scaleLinear().range([height, 0]);
+
+	var formattedDate = d3.utcParse("%Y-%m-%dT%H:%M:%S");
 
 	DK1.forEach(function(d) {
 		d.HOUR_DK = formattedDate(d.HOUR_DK);
@@ -172,6 +180,6 @@ function splitArray(array) {
 
 function setMinutesOnTimeStamps(array) {
 	array.forEach(function(entry) {
-		entry.HOUR_DK = entry.HOUR_DK + ':00';
+		entry.HOUR_DK = entry.HOUR_DK;
 	});
 }

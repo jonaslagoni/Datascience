@@ -29,7 +29,10 @@ function redrawSpotPrices(ArrayOfSpotPrices){
     var y = d3.scaleLinear().range([height, 0]);
     
     
-    var svg = d3.select("body").append("svg")
+    d3.select("#SpotPrices").selectAll("svg").remove();
+    var svg = d3
+    .select('#SpotPrices')
+    .append('svg')
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")

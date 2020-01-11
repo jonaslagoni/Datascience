@@ -69,7 +69,7 @@ public class KafkaClient {
                 consumerEnerginetElspot(consumer, callback);
                 logger.log(Level.INFO, "Consumed data, waiting 5 sec to continue.");
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                 }
             }
@@ -173,7 +173,7 @@ public class KafkaClient {
                 consumerEnerginetProductionAndExchange(consumer, callback);
                 logger.log(Level.INFO, "Consumed data, waiting 5 sec to continue.");
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                 }
             }

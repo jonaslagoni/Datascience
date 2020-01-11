@@ -14,9 +14,12 @@
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
-  <p>
-  Lets make something out of C02 Emissions
-  </p>
+  <div id="emissionsTest">
+  </div>
+  <div id="SpotPrices">
+  </div>
+  <div id="ProducedElectricity">
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
 
   <script>
@@ -26,15 +29,9 @@
         console.log("Connected");
       });
   </script>
-  <d>
-    <script src="./js/Emissions.js"></script>
-  <d>
-    <script src="./js/ProducedElectricity.js"></script>
-  <d>
-    <script src="./js/SpotPrices.js"></script>  
-  </d>
-  </d>
-  </d>
+  <script src="./js/Emissions.js"></script>
+  <script src="./js/SpotPrices.js"></script>  
+  <script src="./js/ProducedElectricity.js"></script>
   
 
 </body>

@@ -28,7 +28,10 @@ function redrawProducedElectricity(ArrayOfProducedElectricity){
     var x = d3.scaleTime().range([0, width]);
     var y = d3.scaleTime().range([height, 0]);
 
-    var svg = d3.select("body").append("svg")
+    d3.select("#ProducedElectricity").selectAll("svg").remove();
+    var svg = d3
+    .select('#ProducedElectricity')
+    .append('svg')
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
