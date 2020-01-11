@@ -8,6 +8,7 @@ package dk.sdu.datascience;
 //import dk.sdu.datascience.kafka.structure.messages.EnerginetCO2Emission;
 import dk.sdu.datascience.kafka.structure.messages.EnerginetProductionAndExchange;
 import dk.sdu.datascience.kafka.structure.schemas.AllProcessedProducedSchema;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.spark.sql.Dataset;
@@ -15,6 +16,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.functions;
+import static org.apache.spark.sql.functions.col;
 import static org.apache.spark.sql.functions.sum;
 
 //import dk.sdu.datascience.kafka.structure.schemas.AllProcessedEmissionsSchema;
@@ -42,20 +44,20 @@ public class ProducerProcessor {
         if (newData.getEnerginetProductionAndExchangeSchema().getMINUTES5_DK().endsWith("55:00")) {
             Dataset<Row> tempDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/temporaryProductionAndExchange.json");
 
-            String timeStamp = tempDS.select("MINUTES5_DK").first().getString(0);
+            String timeStamp = tempDS.select(col("MINUTES5_DK")).first().getString(0);
 
             String hourAverageProuctionLT;
             String hourAverageProuctionGE;
             double totalAverage;
             if (newData.getEnerginetProductionAndExchangeSchema().getPRICE_AREA().equals("DK1")) {
-                hourAverageProuctionLT = tempDS.select(sum("PRODUCTION_LT_100").cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
-                hourAverageProuctionGE = tempDS.select(sum("PRODUCTION_GE_100").cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
+                hourAverageProuctionLT = tempDS.select(sum(col("PRODUCTION_LT_100")).cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
+                hourAverageProuctionGE = tempDS.select(sum(col("PRODUCTION_GE_100")).cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
             } else {
-                hourAverageProuctionLT = tempDS.select(sum("PRODUCTION_LT_100").cast("double")).where("PRICE_AREA = 'DK2'").first().getString(0);
-                hourAverageProuctionGE = tempDS.select(sum("PRODUCTION_GE_100").cast("double")).where("PRICE_AREA = 'DK2'").first().getString(0);
+                hourAverageProuctionLT = tempDS.select(sum(col("PRODUCTION_LT_100")).cast("double")).where("PRICE_AREA = 'DK2'").first().getString(0);
+                hourAverageProuctionGE = tempDS.select(sum(col("PRODUCTION_GE_100")).cast("double")).where("PRICE_AREA = 'DK2'").first().getString(0);
             }
             totalAverage = Double.parseDouble(hourAverageProuctionLT) + Double.parseDouble(hourAverageProuctionGE);
-            
+
             Dataset<Row> fullProcessedDataset = spark.emptyDataFrame();
             fullProcessedDataset = fullProcessedDataset.withColumn("DAY_DATE_DK", functions.lit(timeStamp));
             fullProcessedDataset = fullProcessedDataset.withColumn("PRICE_AREA", functions.lit(newData.getEnerginetProductionAndExchangeSchema().getPRICE_AREA()));
@@ -82,28 +84,33 @@ public class ProducerProcessor {
             tempDS = tempDS.withColumn("PRODUCTION_GE_100", functions.lit(newData.getEnerginetProductionAndExchangeSchema().getPRODUCTION_GE_100()));
 
             tempDS.write().mode(SaveMode.Append).json("spark-submitter/src/main/resources/datasets/temporaryProductionAndExchange.json");
-            return getProcessedList(spark);
+            return null;
         }
     }
 
     public AllProcessedProducedSchema getProcessedList(SparkSession spark) {
-        Dataset<Row> fullDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/processedProductionAndExchange.json");
-        AllProcessedProducedSchema procScheme = new AllProcessedProducedSchema();
-        List<AllProcessedProducedSchema.ProcessedProducedSchema> list = new ArrayList();
+        File tmpDir = new File("spark-submitter/src/main/resources/datasets/processedEmissionDataset.json");
+        boolean exists = tmpDir.exists();
+        if (exists) {
+            Dataset<Row> fullDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/processedProductionAndExchange.json");
+            AllProcessedProducedSchema procScheme = new AllProcessedProducedSchema();
+            List<AllProcessedProducedSchema.ProcessedProducedSchema> list = new ArrayList();
 
-        List<Row> rowList = fullDS.collectAsList();
+            List<Row> rowList = fullDS.collectAsList();
 
-        AllProcessedProducedSchema.ProcessedProducedSchema result = new AllProcessedProducedSchema.ProcessedProducedSchema();
+            AllProcessedProducedSchema.ProcessedProducedSchema result = new AllProcessedProducedSchema.ProcessedProducedSchema();
 
-        for (int i = 0; i < rowList.size(); i++) {
-            result.setDAY_DATE_DK((String) rowList.get(0).getAs("HOUR_DK"));
-            result.setPRICE_AREA((String) rowList.get(0).getAs("PRICE_AREA"));
-            result.setTOTAL_MWH_PRODUCED((String) rowList.get(0).getAs("ACTUAL_EMISSIONS"));
+            for (int i = 0; i < rowList.size(); i++) {
+                result.setDAY_DATE_DK((String) rowList.get(0).getAs("HOUR_DK"));
+                result.setPRICE_AREA((String) rowList.get(0).getAs("PRICE_AREA"));
+                result.setTOTAL_MWH_PRODUCED((String) rowList.get(0).getAs("ACTUAL_EMISSIONS"));
 
-            list.add(result);
+                list.add(result);
+            }
+            procScheme.setAllProcessedProducedSchema(list);
+            return procScheme;
         }
-        procScheme.setAllProcessedProducedSchema(list);
-        return procScheme;
+        return null;
     }
 
 }

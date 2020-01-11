@@ -37,14 +37,14 @@ public class EmissionProcessor {
 
         if (newData.getEnerginetCO2EmissionSchema().getMINUTES5_DK().endsWith("55:00")) {
             logger.log(Level.INFO, "Procces emission data");
-
-            Dataset<Row> tempDS = spark.read().format("json").load("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
+            
+            Dataset<Row> tempDS = spark.read().json("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
             String timeStamp = tempDS.select(col("MINUTES5_DK")).first().getString(0);
             String hourAverageAreaDK;
             if(newData.getEnerginetCO2EmissionSchema().getPRICE_AREA().equals("DK1")){
-                hourAverageAreaDK = tempDS.select(sum("CO2_EMISSION").cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
+                hourAverageAreaDK = tempDS.select(sum(col("CO2_EMISSION")).cast("double")).where("PRICE_AREA = 'DK1'").first().getString(0);
             } else {
-                hourAverageAreaDK = tempDS.select(sum("CO2_EMISSION").cast("double")).where("PRICE_AREA = 'DK2'").first().getString(0);
+                hourAverageAreaDK = tempDS.select(sum(col("CO2_EMISSION")).cast("double")).where("PRICE_AREA = 'DK2'").first().getString(0);
             }
 
             Dataset<Row> fullProcessedDataset = spark.emptyDataFrame();
@@ -65,7 +65,7 @@ public class EmissionProcessor {
 
             tempDS.write().mode(SaveMode.Overwrite).json("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
 
-            return getProcessedList(spark);
+            return null;
         } else {
             logger.log(Level.INFO, "Append to temp dataframe");
             Dataset<Row> tempDS = spark.emptyDataFrame();
@@ -75,7 +75,7 @@ public class EmissionProcessor {
             tempDS = tempDS.withColumn("CO2_EMISSION", functions.lit(newData.getEnerginetCO2EmissionSchema().getCO2_EMISSION()));
 
             tempDS.write().mode(SaveMode.Append).json("spark-submitter/src/main/resources/datasets/temporaryEmissionDataset.json");
-            return getProcessedList(spark);
+            return null;
         }
     }
 
