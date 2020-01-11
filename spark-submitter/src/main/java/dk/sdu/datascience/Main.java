@@ -9,6 +9,13 @@ import dk.sdu.datascience.kafka.KafkaClient;
 import dk.sdu.datascience.kafka.structure.messages.EnerginetCO2Emission;
 import dk.sdu.datascience.kafka.structure.messages.ProcessedEmissions;
 import dk.sdu.datascience.kafka.structure.schemas.AllProcessedEmissionsSchema;
+import dk.sdu.datascience.kafka.structure.messages.EnerginetProductionAndExchange;
+import dk.sdu.datascience.kafka.structure.messages.ProcessedProduced;
+import dk.sdu.datascience.kafka.structure.schemas.AllProcessedProducedSchema;
+import dk.sdu.datascience.kafka.structure.messages.EnerginetElspot;
+import dk.sdu.datascience.kafka.structure.messages.ProcessedSpotPrices;
+import dk.sdu.datascience.kafka.structure.schemas.AllProcessedSpotPricesSchema;
+
 import java.net.URL;
 import java.net.URLClassLoader;
 
@@ -32,12 +39,12 @@ public class Main {
             System.out.println(url.getFile());
         }
         EmissionProcessor emisProc = new EmissionProcessor();
-        System.out.println("start");
+        System.out.println("start Emission");
 
         KafkaClient.consumerEnerginetCO2Emission(new KafkaClient.energidataCo2EmissionCallback() {
             @Override
             public void messageConsumed(EnerginetCO2Emission payload) {
-                System.out.println("messageConsumed");
+                System.out.println("messageConsumed Emission");
                 AllProcessedEmissionsSchema newData = emisProc.process(payload);
                 if (newData != null) {
                     ProcessedEmissions message = new ProcessedEmissions();
@@ -46,7 +53,39 @@ public class Main {
                 }
             }
         });
+        
+        ProducerProcessor prodProc = new ProducerProcessor();
+        System.out.println("start Production");
+        
+        KafkaClient.consumerEnerginetProductionAndExchange(new KafkaClient.energidataProductionAndExchangeCallback() {
+            @Override
+            public void messageConsumed(EnerginetProductionAndExchange payload) {
+                System.out.println("messageConsumed Production");
+                AllProcessedProducedSchema newData = prodProc.process(payload);
+                if(newData != null){
+                    ProcessedProduced message = new ProcessedProduced();
+                    message.setAllProcessedProducedSchema(newData);
+                    KafkaClient.produceprocessedProduced(message);
+                }
+            }
+        });
+        
+        SpotPriceProcessor spotProc = new SpotPriceProcessor();
+        System.out.println("start SpotPrice");
+        
+        KafkaClient.consumerEnerginetElspot(new KafkaClient.energidataElspotCallback() {
 
+            @Override
+            public void messageConsumed(EnerginetElspot payload) {
+                System.out.println("messageConsumed SpotPrice");
+                AllProcessedSpotPricesSchema newData = spotProc.process(payload);
+                if(newData != null){
+                    ProcessedSpotPrices message = new ProcessedSpotPrices();
+                    message.setAllProcessedSpotPricesSchema(newData);
+                    KafkaClient.produceprocessedSpotPrices(message);
+                }
+            }
+        });
 //        EnerginetCO2Emission test = new EnerginetCO2Emission();
 //        EnerginetCO2EmissionSchema testScheme = new EnerginetCO2EmissionSchema();
 //        testScheme.setCO2_EMISSION(25.1515);
