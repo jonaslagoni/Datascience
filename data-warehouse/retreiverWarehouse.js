@@ -1,5 +1,5 @@
 const axios = require('axios');
-const kafka = require('./kafka/index');
+const kafka = require('./kafka/Index');
 
 const energiProductionSchema = require('./kafka/schemas/EnerginetProductionAndExchangeSchema');
 const energiSpotPricesSchema = require('./kafka/schemas/EnerginetElspotSchema');

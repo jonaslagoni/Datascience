@@ -21,7 +21,7 @@ app.set('port', port);
 
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-var kafka = require('../kafka/index');
+var kafka = require('../kafka/Index');
 let currentAllProcessedEmissionsSchema = [];
 let currentAllProcessedSpotPricesSchema = [];
 let currentAllProcessedProducedSchema = [];

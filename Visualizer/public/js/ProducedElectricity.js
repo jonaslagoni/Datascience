@@ -40,7 +40,7 @@ function redrawProducedElectricity(ArrayOfProducedElectricity){
 
 
 
-    var formattedDate = d3.timeParse("%Y-%m-%d");
+	var formattedDate = d3.utcParse("%Y-%m-%dT%H:%M:%S");
 
 
     DK1.forEach(function(d) {
