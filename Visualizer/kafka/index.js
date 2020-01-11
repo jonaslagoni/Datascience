@@ -49,7 +49,7 @@ class Kafka {
 				topics.push('processedSpotPrices');
 				topics.push('processedEmissions');
 				client.loadMetadataForTopics(topics, (err, resp) => {
-					console.log(`${resp}`);
+					console.log(`${JSON.stringify(resp)}`);
 					this.isConnected = true;
 				});
 			}

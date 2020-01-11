@@ -64,13 +64,13 @@ public class KafkaClient{
             Logger logger = Logger.getLogger("consumer{{channel.subscribe().message().name() | upperFirst}} | Thread"); 
             logger.log(Level.INFO, "Start consuming on subject");
             Consumer<Long, String> consumer = ConsumerCreator.createConsumer();
-            consumer.subscribe(Collections.singletonList("energidataCo2Emission"));
+            consumer.subscribe(Collections.singletonList("{{channelName | camelCase}}"));
             while(true){
                 logger.log(Level.INFO, "Consuming data");
                 consumer{{channel.subscribe().message().name() | upperFirst}}(consumer, callback);
                 logger.log(Level.INFO, "Consumed data, waiting 5 sec to continue.");
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {}
             }
         });

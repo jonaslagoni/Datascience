@@ -48,7 +48,7 @@ class Kafka {
 				topics.push('energidataCo2Emission');
 				topics.push('energidataProductionAndExchange');
 				client.loadMetadataForTopics(topics, (err, resp) => {
-					console.log(`${resp}`);
+					console.log(`${JSON.stringify(resp)}`);
 					this.isConnected = true;
 				});
 			}
