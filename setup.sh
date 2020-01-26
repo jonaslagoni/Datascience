@@ -1,7 +1,7 @@
 #!/bin/bash
-npm install -g asyncapi-generator
-docker-compose build --parallel
-docker-compose down
+docker_compose="docker-compose -f ./docker-compose-spark.yml -f ./docker-compose-kafka.yml -f ./docker-compose-services.yml"
+eval "$docker_compose build --parallel"
+eval "$docker_compose down"
 
 if [ ! -f "./.env" ]; then
 echo "enter your local ip (192.168.0.11)"
@@ -13,4 +13,4 @@ cat >.env <<EOL
 DOCKER_MACHINE_IP=${ip}
 EOL
 fi
-docker-compose up -d
+eval "$docker_compose up -d"

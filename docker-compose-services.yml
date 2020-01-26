@@ -1,0 +1,26 @@
+version: '3.2'
+services:
+  data-warehouse:
+    build: ./data-warehouse
+    depends_on:
+      - kafka
+      - zookeeper
+    command: node retreiverWarehouse.js --zookeeper="zookeeper:2181"
+  visualizer:
+    build: ./Visualizer
+    depends_on:
+      - kafka
+      - zookeeper
+    command: node bin/www --zookeeper="zookeeper:2181"
+    ports:
+      - '9090'
+  spark-submitter:
+    depends_on:
+      - spark-master
+      - spark-worker
+      - kafka
+    ports:
+      - '5005:5005'
+    environment:
+      - 'ENABLE_INIT_DAEMON=false'
+    build: ./spark-submitter

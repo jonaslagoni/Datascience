@@ -1,0 +1,12 @@
+{
+	"Servers": {
+		"1": {
+			"Name": "Spark postgres",
+			"Group": "Spark",
+			"Port": 5432,
+			"Username": "postgres",
+			"Host": "postgres",
+			"MaintenanceDB": "sparkdatabase"
+		}
+	}
+}
