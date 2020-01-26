@@ -7,10 +7,10 @@ module.exports = class EnerginetElspot {
 
 	
     setData(
-        energinetElspotSchema
+        allEnerginetElspotSchema
     ){
         
-    this.energinetElspotSchema = energinetElspotSchema;
+    this.allEnerginetElspotSchema = allEnerginetElspotSchema;
 
     }
 
@@ -22,7 +22,7 @@ module.exports = class EnerginetElspot {
     */
     copyInto(jsonObject){
         
-    this.energinetElspotSchema = energinetElspotSchema;
+    this.allEnerginetElspotSchema = allEnerginetElspotSchema;
 
     }
 }

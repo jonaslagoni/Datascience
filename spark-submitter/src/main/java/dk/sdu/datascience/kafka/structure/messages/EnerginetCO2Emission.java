@@ -17,20 +17,20 @@ public class EnerginetCO2Emission {
 	
 	
 
-    private EnerginetCO2EmissionSchema energinetCO2EmissionSchema;
+    private AllEnerginetCO2EmissionSchema allEnerginetCO2EmissionSchema;
 
     /**
-     * @return EnerginetCO2EmissionSchema
+     * @return AllEnerginetCO2EmissionSchema
      */
-    public EnerginetCO2EmissionSchema getEnerginetCO2EmissionSchema() {
-        return energinetCO2EmissionSchema;
+    public AllEnerginetCO2EmissionSchema getAllEnerginetCO2EmissionSchema() {
+        return allEnerginetCO2EmissionSchema;
     }
 
     /**
-     * @param EnerginetCO2EmissionSchema to set
+     * @param AllEnerginetCO2EmissionSchema to set
      */
-    public void setEnerginetCO2EmissionSchema(EnerginetCO2EmissionSchema energinetCO2EmissionSchema) {
-        this.energinetCO2EmissionSchema = energinetCO2EmissionSchema;
+    public void setAllEnerginetCO2EmissionSchema(AllEnerginetCO2EmissionSchema allEnerginetCO2EmissionSchema) {
+        this.allEnerginetCO2EmissionSchema = allEnerginetCO2EmissionSchema;
     }
 
 

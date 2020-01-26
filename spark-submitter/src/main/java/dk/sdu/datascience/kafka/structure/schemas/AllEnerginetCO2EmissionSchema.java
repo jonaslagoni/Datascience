@@ -12,8 +12,26 @@ import java.util.List;
  *
  * @author Async api generated
  */
-public class EnerginetCO2EmissionSchema {
+public class AllEnerginetCO2EmissionSchema {
     
+    private List<EnerginetCO2EmissionSchema> allEnerginetCO2EmissionSchema;
+
+    /**
+    * @return allEnerginetCO2EmissionSchema
+    */
+    public List<EnerginetCO2EmissionSchema> getAllEnerginetCO2EmissionSchema() {
+        return allEnerginetCO2EmissionSchema;
+    }
+
+    /**
+    * @param allEnerginetCO2EmissionSchema to set
+    */
+    public void setAllEnerginetCO2EmissionSchema(List<EnerginetCO2EmissionSchema> allEnerginetCO2EmissionSchema) {
+        this.allEnerginetCO2EmissionSchema = allEnerginetCO2EmissionSchema;
+    }
+
+    public static class EnerginetCO2EmissionSchema{
+        
         
     private String MINUTES5_DK;
 
@@ -65,5 +83,7 @@ public class EnerginetCO2EmissionSchema {
         this.CO2_EMISSION = CO2_EMISSION;
     }
 
+
+    }
 
 }

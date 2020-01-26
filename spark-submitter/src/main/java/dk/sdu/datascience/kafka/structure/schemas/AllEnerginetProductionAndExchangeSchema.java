@@ -12,8 +12,26 @@ import java.util.List;
  *
  * @author Async api generated
  */
-public class EnerginetProductionAndExchangeSchema {
+public class AllEnerginetProductionAndExchangeSchema {
     
+    private List<EnerginetProductionAndExchangeSchema> allEnerginetProductionAndExchangeSchema;
+
+    /**
+    * @return allEnerginetProductionAndExchangeSchema
+    */
+    public List<EnerginetProductionAndExchangeSchema> getAllEnerginetProductionAndExchangeSchema() {
+        return allEnerginetProductionAndExchangeSchema;
+    }
+
+    /**
+    * @param allEnerginetProductionAndExchangeSchema to set
+    */
+    public void setAllEnerginetProductionAndExchangeSchema(List<EnerginetProductionAndExchangeSchema> allEnerginetProductionAndExchangeSchema) {
+        this.allEnerginetProductionAndExchangeSchema = allEnerginetProductionAndExchangeSchema;
+    }
+
+    public static class EnerginetProductionAndExchangeSchema{
+        
         
     private String MINUTES5_DK;
 
@@ -82,5 +100,7 @@ public class EnerginetProductionAndExchangeSchema {
         this.PRODUCTION_GE_100 = PRODUCTION_GE_100;
     }
 
+
+    }
 
 }

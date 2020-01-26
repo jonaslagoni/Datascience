@@ -12,8 +12,26 @@ import java.util.List;
  *
  * @author Async api generated
  */
-public class EnerginetElspotSchema {
+public class AllEnerginetElspotSchema {
     
+    private List<EnerginetElspotSchema> allEnerginetElspotSchema;
+
+    /**
+    * @return allEnerginetElspotSchema
+    */
+    public List<EnerginetElspotSchema> getAllEnerginetElspotSchema() {
+        return allEnerginetElspotSchema;
+    }
+
+    /**
+    * @param allEnerginetElspotSchema to set
+    */
+    public void setAllEnerginetElspotSchema(List<EnerginetElspotSchema> allEnerginetElspotSchema) {
+        this.allEnerginetElspotSchema = allEnerginetElspotSchema;
+    }
+
+    public static class EnerginetElspotSchema{
+        
         
     private String HOUR_DK;
 
@@ -65,5 +83,7 @@ public class EnerginetElspotSchema {
         this.SPOT_PRICE_EUR = SPOT_PRICE_EUR;
     }
 
+
+    }
 
 }

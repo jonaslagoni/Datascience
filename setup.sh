@@ -13,4 +13,4 @@ cat >.env <<EOL
 DOCKER_MACHINE_IP=${ip}
 EOL
 fi
-eval "$docker_compose up -d"
+eval "$docker_compose up -d --scale spark-worker=3"

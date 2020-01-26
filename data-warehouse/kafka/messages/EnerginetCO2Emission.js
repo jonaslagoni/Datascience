@@ -7,10 +7,10 @@ module.exports = class EnerginetCO2Emission {
 
 	
     setData(
-        energinetCO2EmissionSchema
+        allEnerginetCO2EmissionSchema
     ){
         
-    this.energinetCO2EmissionSchema = energinetCO2EmissionSchema;
+    this.allEnerginetCO2EmissionSchema = allEnerginetCO2EmissionSchema;
 
     }
 
@@ -22,7 +22,7 @@ module.exports = class EnerginetCO2Emission {
     */
     copyInto(jsonObject){
         
-    this.energinetCO2EmissionSchema = energinetCO2EmissionSchema;
+    this.allEnerginetCO2EmissionSchema = allEnerginetCO2EmissionSchema;
 
     }
 }

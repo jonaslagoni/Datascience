@@ -17,20 +17,20 @@ public class EnerginetElspot {
 	
 	
 
-    private EnerginetElspotSchema energinetElspotSchema;
+    private AllEnerginetElspotSchema allEnerginetElspotSchema;
 
     /**
-     * @return EnerginetElspotSchema
+     * @return AllEnerginetElspotSchema
      */
-    public EnerginetElspotSchema getEnerginetElspotSchema() {
-        return energinetElspotSchema;
+    public AllEnerginetElspotSchema getAllEnerginetElspotSchema() {
+        return allEnerginetElspotSchema;
     }
 
     /**
-     * @param EnerginetElspotSchema to set
+     * @param AllEnerginetElspotSchema to set
      */
-    public void setEnerginetElspotSchema(EnerginetElspotSchema energinetElspotSchema) {
-        this.energinetElspotSchema = energinetElspotSchema;
+    public void setAllEnerginetElspotSchema(AllEnerginetElspotSchema allEnerginetElspotSchema) {
+        this.allEnerginetElspotSchema = allEnerginetElspotSchema;
     }
 
 

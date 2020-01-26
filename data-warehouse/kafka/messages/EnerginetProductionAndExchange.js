@@ -7,10 +7,10 @@ module.exports = class EnerginetProductionAndExchange {
 
 	
     setData(
-        energinetProductionAndExchangeSchema
+        allEnerginetProductionAndExchangeSchema
     ){
         
-    this.energinetProductionAndExchangeSchema = energinetProductionAndExchangeSchema;
+    this.allEnerginetProductionAndExchangeSchema = allEnerginetProductionAndExchangeSchema;
 
     }
 
@@ -22,7 +22,7 @@ module.exports = class EnerginetProductionAndExchange {
     */
     copyInto(jsonObject){
         
-    this.energinetProductionAndExchangeSchema = energinetProductionAndExchangeSchema;
+    this.allEnerginetProductionAndExchangeSchema = allEnerginetProductionAndExchangeSchema;
 
     }
 }

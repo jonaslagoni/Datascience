@@ -17,20 +17,20 @@ public class EnerginetProductionAndExchange {
 	
 	
 
-    private EnerginetProductionAndExchangeSchema energinetProductionAndExchangeSchema;
+    private AllEnerginetProductionAndExchangeSchema allEnerginetProductionAndExchangeSchema;
 
     /**
-     * @return EnerginetProductionAndExchangeSchema
+     * @return AllEnerginetProductionAndExchangeSchema
      */
-    public EnerginetProductionAndExchangeSchema getEnerginetProductionAndExchangeSchema() {
-        return energinetProductionAndExchangeSchema;
+    public AllEnerginetProductionAndExchangeSchema getAllEnerginetProductionAndExchangeSchema() {
+        return allEnerginetProductionAndExchangeSchema;
     }
 
     /**
-     * @param EnerginetProductionAndExchangeSchema to set
+     * @param AllEnerginetProductionAndExchangeSchema to set
      */
-    public void setEnerginetProductionAndExchangeSchema(EnerginetProductionAndExchangeSchema energinetProductionAndExchangeSchema) {
-        this.energinetProductionAndExchangeSchema = energinetProductionAndExchangeSchema;
+    public void setAllEnerginetProductionAndExchangeSchema(AllEnerginetProductionAndExchangeSchema allEnerginetProductionAndExchangeSchema) {
+        this.allEnerginetProductionAndExchangeSchema = allEnerginetProductionAndExchangeSchema;
     }
 
 

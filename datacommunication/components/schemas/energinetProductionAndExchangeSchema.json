@@ -1,22 +1,26 @@
 {
-	"type": "object",
-	"$id": "energinetProductionAndExchangeSchema",
-	"properties": {
-		"MINUTES5_DK": {
-			"type": "string",
-			"description": "Timestamp for the year and month of the recording - \"yyyy-mm\""
-		},
-		"PRICE_AREA": {
-			"type": "string",
-			"description": "DK1 or DK2."
-		},
-		"PRODUCTION_LT_100": {
-			"type": "number",
-			"description": "production less then 100 MW"
-		},
-		"PRODUCTION_GE_100": {
-			"type": "number",
-			"description": "production greater then 100 MW"
+	"type": "array",
+	"$id": "allEnerginetProductionAndExchangeSchema",
+	"items": {
+		"type": "object",
+		"$id": "energinetProductionAndExchangeSchema",
+		"properties": {
+			"MINUTES5_DK": {
+				"type": "string",
+				"description": "Timestamp for the year and month of the recording - \"yyyy-mm\""
+			},
+			"PRICE_AREA": {
+				"type": "string",
+				"description": "DK1 or DK2."
+			},
+			"PRODUCTION_LT_100": {
+				"type": "number",
+				"description": "production less then 100 MW"
+			},
+			"PRODUCTION_GE_100": {
+				"type": "number",
+				"description": "production greater then 100 MW"
+			}
 		}
 	}
 }
