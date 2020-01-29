@@ -15,7 +15,7 @@ import org.apache.spark.sql.SparkSession;
  */
 public class Controller {
 
-    private final SparkSession spark;
+    private final SparkSession sparkSession;
     private final Properties connectionProperties;
     private static Controller instance = null;
 
@@ -23,7 +23,7 @@ public class Controller {
         SparkConf config = new SparkConf();
         config.setAppName(ISparkConstants.SPARK_APPNAME);
         //config.setMaster("local[4]");
-        spark = SparkSession
+        sparkSession = SparkSession
                 .builder()
                 .config(config)
                 .getOrCreate();
@@ -42,10 +42,10 @@ public class Controller {
     }
 
     /**
-     * @return the spark
+     * @return the sparkSession
      */
-    public SparkSession getSpark() {
-        return spark;
+    public SparkSession getSparkSession() {
+        return sparkSession;
     }
 
     /**

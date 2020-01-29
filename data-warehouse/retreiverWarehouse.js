@@ -39,9 +39,12 @@ function waitForKafka() {
 							element.ProductionLt100MW,
 							element.ProductionGe100MW
 						);
-						allschemas.energinetProductionAndExchangeSchema.push(energiSchema);
+						allschemas.allEnerginetProductionAndExchangeSchema.push(
+							energiSchema
+						);
 					});
 					payload.setData(allschemas);
+					console.log(JSON.stringify(payload));
 					kafka
 						.publishEnergidataProductionAndExchange(JSON.stringify(payload))
 						.then(() => {
@@ -117,11 +120,7 @@ function waitForKafka() {
 					payload.setData(allSchemas);
 
 					kafka
-						.publishEnergidataCo2Emission(
-							JSON.stringify({
-								allEnerginetCO2EmissionSchema: payload
-							})
-						)
+						.publishEnergidataCo2Emission(JSON.stringify(payload))
 						.then(() => {
 							console.log('Done: ');
 						})

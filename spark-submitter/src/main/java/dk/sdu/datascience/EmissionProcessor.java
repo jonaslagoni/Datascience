@@ -25,7 +25,7 @@ public class EmissionProcessor {
     private Logger logger = Logger.getLogger("EmissionProcessor");
 
     public AllProcessedEmissionsSchema process(EnerginetCO2Emission newData) {
-        SparkSession spark = Controller.getInstance().getSpark();
+        SparkSession spark = Controller.getInstance().getSparkSession();
         Dataset<Row> squaresDF = spark.createDataFrame(newData.getAllEnerginetCO2EmissionSchema().getAllEnerginetCO2EmissionSchema(), AllEnerginetCO2EmissionSchema.EnerginetCO2EmissionSchema.class);
 
         squaresDF.write().mode(SaveMode.Append).jdbc(ISparkConstants.SPARK_POSTGRES_URL, "Emissions", Controller.getInstance().getConnectionProperties());

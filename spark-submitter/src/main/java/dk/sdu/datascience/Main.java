@@ -10,10 +10,8 @@ import dk.sdu.datascience.kafka.structure.messages.EnerginetCO2Emission;
 import dk.sdu.datascience.kafka.structure.messages.EnerginetElspot;
 import dk.sdu.datascience.kafka.structure.messages.EnerginetProductionAndExchange;
 import dk.sdu.datascience.kafka.structure.messages.ProcessedEmissions;
-import dk.sdu.datascience.kafka.structure.messages.ProcessedProduced;
 import dk.sdu.datascience.kafka.structure.messages.ProcessedSpotPrices;
 import dk.sdu.datascience.kafka.structure.schemas.AllProcessedEmissionsSchema;
-import dk.sdu.datascience.kafka.structure.schemas.AllProcessedProducedSchema;
 import dk.sdu.datascience.kafka.structure.schemas.AllProcessedSpotPricesSchema;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -59,12 +57,9 @@ public class Main {
             @Override
             public void messageConsumed(EnerginetProductionAndExchange payload) {
                 System.out.println("messageConsumed Production");
-                AllProcessedProducedSchema newData = prodProc.process(payload);
-                if (newData != null) {
-                    ProcessedProduced message = new ProcessedProduced();
-                    message.setAllProcessedProducedSchema(newData);
-                    KafkaClient.produceprocessedProduced(message);
-                }
+                prodProc.save(payload);
+                prodProc.process();
+
             }
         });
 

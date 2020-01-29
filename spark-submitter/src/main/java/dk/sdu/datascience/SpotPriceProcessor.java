@@ -26,7 +26,7 @@ public class SpotPriceProcessor {
 
     public AllProcessedSpotPricesSchema process(EnerginetElspot newData) {
 
-        SparkSession spark = Controller.getInstance().getSpark();
+        SparkSession spark = Controller.getInstance().getSparkSession();
         Dataset<Row> squaresDF = spark.createDataFrame(newData.getAllEnerginetElspotSchema().getAllEnerginetElspotSchema(), AllEnerginetElspotSchema.EnerginetElspotSchema.class);
 
         squaresDF.write().mode(SaveMode.Append).jdbc(ISparkConstants.SPARK_POSTGRES_URL, "SpotPrice", Controller.getInstance().getConnectionProperties());

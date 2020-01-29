@@ -1,26 +1,23 @@
-
 module.exports = class AllEnerginetProductionAndExchangeSchema {
-    constructor(){
+	constructor() {}
+	/**
+	 *
+	 * @param { EnerginetProductionAndExchangeSchema[] } allEnerginetProductionAndExchangeSchema
+	 * @param { string } allEnerginetProductionAndExchangeSchema[].MINUTES5_DK
+	 * @param { string } allEnerginetProductionAndExchangeSchema[].PRICE_AREA
+	 * @param { number } allEnerginetProductionAndExchangeSchema[].PRODUCTION_LT_100
+	 * @param { number } allEnerginetProductionAndExchangeSchema[].PRODUCTION_GE_100
+	 */
+	setData(allEnerginetProductionAndExchangeSchema) {
+		this.allEnerginetProductionAndExchangeSchema = allEnerginetProductionAndExchangeSchema;
+	}
 
-    }
-    /**
-    * 
-    * @param { EnerginetProductionAndExchangeSchema[] } energinetProductionAndExchangeSchema
-    * @param { string } EnerginetProductionAndExchangeSchema[].MINUTES5_DK
-    * @param { string } EnerginetProductionAndExchangeSchema[].PRICE_AREA
-    * @param { number } EnerginetProductionAndExchangeSchema[].PRODUCTION_LT_100
-    * @param { number } EnerginetProductionAndExchangeSchema[].PRODUCTION_GE_100
-    */
-    setData(energinetProductionAndExchangeSchema){ 
-        this.energinetProductionAndExchangeSchema = energinetProductionAndExchangeSchema
-    }
-
-    
-    /**
-    * Copy a js object into this.
-    * @param {*} jsonObject the js object 
-    */
-    copyInto(jsonObject){
-        this.energinetProductionAndExchangeSchema=jsonObject.energinetProductionAndExchangeSchema;
-    }
-}
+	/**
+	 * Copy a js object into this.
+	 * @param {*} jsonObject the js object
+	 */
+	copyInto(jsonObject) {
+		this.allEnerginetProductionAndExchangeSchema =
+			jsonObject.allEnerginetProductionAndExchangeSchema;
+	}
+};
